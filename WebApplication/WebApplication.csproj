@@ -10,9 +10,17 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Dashboard\**" />
+    <Compile Remove="Areas\security\**" />
+    <Compile Remove="Data\Migrations\**" />
     <Content Remove="Areas\Dashboard\**" />
+    <Content Remove="Areas\security\**" />
+    <Content Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="Areas\Dashboard\**" />
+    <EmbeddedResource Remove="Areas\security\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
     <None Remove="Areas\Dashboard\**" />
+    <None Remove="Areas\security\**" />
+    <None Remove="Data\Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,18 +34,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
     <PackageReference Include="SAPRESSC.Core.Common" Version="0.5.3-beta" />
-    <PackageReference Include="SAPRESSC.Core.Persistence" Version="0.5.3-beta" />
-    <PackageReference Include="SAPRESSC.Core.Web.Common" Version="0.5.3-beta" />
-    <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.5.5-beta" />
+    <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.8.0-beta" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="Areas\security\Controllers\" />
-    <Folder Include="Areas\security\Data\" />
-    <Folder Include="Areas\security\Models\" />
-    <Folder Include="Areas\security\Views\" />
-    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>
