@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SmartSolucionesCuba.SAPRESSC.Core.Web.Common;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Identity.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 {
@@ -31,10 +34,28 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             services.AddDbContext<Data.ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<Data.ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
+              .AddEntityFrameworkStores<Data.ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // register my services              
+
+            var appContext = new BaseApplicationContext(
+                "CubansConexionTuneupCookies",
+                new IApplicationModule[]
+                {
+                    new  Data.Modules.CubansConexionBusinessCommonApplicationModule()
+                }
+            );
+
+            appContext.RegisterServices(services);
+            // Email Services
+            services.AddSingleton<IEmailSender, MessageServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +81,19 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+           
         }
     }
 }
