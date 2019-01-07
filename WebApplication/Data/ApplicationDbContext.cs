@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Configurations;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using System.Linq;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Trace> Traces { get; set; }
 
@@ -21,6 +22,13 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);            
+            builder.Entity<Account>().ToTable("Accounts");            
+
         }
 
         public override int SaveChanges()
