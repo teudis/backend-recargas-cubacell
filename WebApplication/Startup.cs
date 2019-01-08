@@ -9,6 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Common;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Identity.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Logging;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Repositories;
+using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 {
@@ -40,31 +45,61 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             })
               .AddEntityFrameworkStores<Data.ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var defaultCulture = new System.Globalization.CultureInfo("es");
 
-            // register my services              
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            var appContext = new BaseApplicationContext(
-                "CubansConexionTuneupCookies",
-                new IApplicationModule[]
-                {
-                    new  Data.Modules.CubansConexionBusinessCommonApplicationModule()
-                }
-            );
+            services.AddMvc(mvc =>
+                mvc.ModelBinderProviders.Insert(0, new SmartSolucionesCuba.SAPRESSC.Core.Web.Common.ModelBinding.AbstractsModelBinderProvider())
+            )
+            .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            appContext.RegisterServices(services);
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(defaultCulture);
+                options.SupportedCultures = new[] { defaultCulture };
+                options.SupportedUICultures = new[] { defaultCulture };
+
+                options.RequestCultureProviders.Insert(0, new SmartSolucionesCuba.SAPRESSC.Core.Web.Common.Localization.UrlRequestCultureProvider());
+            });
+
+            services.AddSingleton<Helpers.Localization.GlobalViewLocalizationHelper>();
+
+            //var appContext = new BaseApplicationContext(
+            //    "CubansConexionTuneupCookies",
+            //    new IApplicationModule[]
+            //    {
+            //        new  Data.Modules.CubansConexionBusinessCommonApplicationModule()
+            //    }
+            //);
+
+            services.AddScoped<IEntityRepository<Account, System.Guid>, AccountRepository>();
+
             // Email Services
             services.AddSingleton<IEmailSender, MessageServices>();
 
+            services.AddDataProtection()
+                .SetApplicationName("CubansConexionTuneupCookies")
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar + "dpkeys"));
+
+            services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions)
         {
+            loggerFactory.AddFile("logs/default-{Date}.log", LogLevel.Warning);
+            loggerFactory.AddDebug(LogLevel.Debug);
+
+            app.UseRequestLocalization(localizaionOptions.Value);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                dbContext.Database.Migrate();
             }
             else
             {
@@ -91,9 +126,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-           
+            });           
         }
     }
 }

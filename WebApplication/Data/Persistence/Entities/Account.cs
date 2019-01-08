@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities
 {
@@ -7,7 +6,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Per
     {
         public Account()
         {
-            Members = new System.Collections.Generic.List<IdentityUser>();
+            Members = new System.Collections.Generic.List<User>();
         }
 
         [Key]
@@ -20,8 +19,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Per
 
         public float Balance { get; set; }
 
-        public IdentityUser Representative { get; set; }
+        public User Representative { get; set; }
 
-        public System.Collections.Generic.ICollection<IdentityUser> Members { get; set; }
+        public System.Collections.Generic.ICollection<User> Members { get; set; }
     }
 }
