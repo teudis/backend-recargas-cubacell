@@ -281,3 +281,6 @@ _Pvt_Extensions
 # Project-level settings
 /.tgitconfig
 
+## Manual rules
+Migrations/
+
