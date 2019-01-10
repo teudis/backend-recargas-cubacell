@@ -10,35 +10,69 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Dashboard\**" />
+    <Compile Remove="Areas\dashboard\Controllers\**" />
+    <Compile Remove="Areas\dashboard\Data\**" />
+    <Compile Remove="Areas\dashboard\Models\**" />
     <Compile Remove="Areas\security\**" />
     <Compile Remove="Data\Migrations\**" />
     <Content Remove="Areas\Dashboard\**" />
+    <Content Remove="Areas\dashboard\Controllers\**" />
+    <Content Remove="Areas\dashboard\Data\**" />
+    <Content Remove="Areas\dashboard\Models\**" />
     <Content Remove="Areas\security\**" />
     <Content Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="Areas\Dashboard\**" />
+    <EmbeddedResource Remove="Areas\dashboard\Controllers\**" />
+    <EmbeddedResource Remove="Areas\dashboard\Data\**" />
+    <EmbeddedResource Remove="Areas\dashboard\Models\**" />
     <EmbeddedResource Remove="Areas\security\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
     <None Remove="Areas\Dashboard\**" />
+    <None Remove="Areas\dashboard\Controllers\**" />
+    <None Remove="Areas\dashboard\Data\**" />
+    <None Remove="Areas\dashboard\Models\**" />
     <None Remove="Areas\security\**" />
     <None Remove="Data\Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20181224153857_Initial.cs" />
-    <Compile Remove="Migrations\20181224153857_Initial.Designer.cs" />
+    <Compile Include="Areas\dashboard\Views\Account\Create.cshtml.cs" />
+    <Compile Include="Areas\dashboard\Views\Account\Delete.cshtml.cs" />
+    <Compile Include="Areas\dashboard\Views\Account\Edit.cshtml.cs" />
+    <Compile Include="Areas\dashboard\Views\User\Create.cshtml.cs" />
+    <Compile Include="Areas\dashboard\Views\User\Delete.cshtml.cs" />
+    <Compile Include="Areas\dashboard\Views\User\Edit.cshtml.cs" />
+    <Compile Include="Areas\dashboard\Views\User\Index.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Mailkit" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
     <PackageReference Include="SAPRESSC.Core.Common" Version="0.5.3-beta" />
-    <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.8.0-beta" />
+    <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.8.1-beta" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Helpers\Localization\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\dashboard\Views\Account\Create.cshtml" />
+    <None Include="Areas\dashboard\Views\Account\Delete.cshtml" />
+    <None Include="Areas\dashboard\Views\Account\Edit.cshtml" />
+    <None Include="Areas\dashboard\Views\Account\Index.cshtml" />
+    <None Include="Areas\dashboard\Views\User\Create.cshtml" />
+    <None Include="Areas\dashboard\Views\User\Delete.cshtml" />
+    <None Include="Areas\dashboard\Views\User\Edit.cshtml" />
+    <None Include="Areas\dashboard\Views\User\Index.cshtml" />
   </ItemGroup>
 
 </Project>
