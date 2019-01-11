@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
@@ -16,6 +17,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
         public DbSet<NautaBalanceTuneUpRecord> NautaBalanceTuneUpRecords { get; set; }
         public DbSet<NautaBalanceTuneUpRequest> NautaBalanceTuneUpRequests { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<User> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

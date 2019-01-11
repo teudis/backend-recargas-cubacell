@@ -16,9 +16,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/css/_all-skins.min.css">        
     <!-- Date Picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">   
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -314,33 +312,12 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Resumen</a></li>
+                            <li><a asp-area="dashboard" asp-controller="user" asp-action="Index"><i class="fa fa-users"></i> Usuarios</a></li>
+                            <li><a asp-area="dashboard" asp-controller="account" asp-action="Index"><i class="fa fa-shopping-cart"></i>Cuentas</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-users"></i> <span>Usuarios</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Crear Usuario</a></li>
-                            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> Listado de Usuarios</a></li>                            
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-user"></i> <span>Cuentas</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Crear Cuenta</a></li>
-                            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Listado de Cuentas</a></li>
-                        </ul>
-                    </li>      
+                    
+                      
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -361,17 +338,17 @@
             <!-- Main content -->
             <section class="content">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">
-                   
-                                                  
+                <div class="row">                  
+                                              
                    
                 </div>
                 <!-- /.row -->
                 <!-- Main row -->
                 <div class="row">
                     <!--  col -->
-                    <section class="col-lg-12 connectedSortable">
-                        @RenderBody()
+                    <section class="col-lg-12 connectedSortable">                       
+                            @RenderBody()
+                    
                     </section>
                     <!-- /. col -->
                   

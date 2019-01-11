@@ -19,6 +19,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Per
 
         public float Balance { get; set; }
 
+        public string RepresentativeId { get; set; }
         public User Representative { get; set; }
 
         public System.Collections.Generic.ICollection<User> Members { get; set; }

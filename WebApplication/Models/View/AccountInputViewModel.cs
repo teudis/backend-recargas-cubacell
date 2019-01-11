@@ -1,6 +1,8 @@
-﻿using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Models.View;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Models.View;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View
@@ -21,6 +23,11 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
         [Display(Name = "Monto")]
         public float Balance { get; set; }
 
+        [Display(Name = "Usuarios")]
+        public string RepresentativeId { get; set; }
+
+        public IEnumerable<SelectListItem> Users { get; set; }
+
         public Account Export()
         {
             var entity = new Account();
@@ -34,6 +41,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
             Name = entity.Name;
             Balance = entity.Balance;
             Enabled = entity.Enabled;
+            RepresentativeId = entity.RepresentativeId;
         }
 
         public void Mergue(Account entity)

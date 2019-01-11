@@ -425,6 +425,9 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnName("emailconfirmed");
 
+                    b.Property<string>("FullName")
+                        .HasColumnName("fullname");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnName("lockoutenabled");
 
