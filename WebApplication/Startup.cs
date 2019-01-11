@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
+using System.Threading.Tasks;
+using System;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 {
@@ -35,15 +38,16 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<Data.ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(config =>
-            {
-                config.SignIn.RequireConfirmedEmail = true;
-            })
-              .AddEntityFrameworkStores<Data.ApplicationDbContext>();
 
+            services.AddIdentity<User, IdentityRole>(config => {
+                //config.SignIn.RequireConfirmedEmail = true;
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
+          
             var defaultCulture = new System.Globalization.CultureInfo("es");
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -69,17 +73,28 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             services.AddScoped<IEntityRepository<User, string>, UserRepository>();
 
             // Email Services
-            services.AddSingleton<IEmailSender, MessageServices>();
+            services.AddSingleton<IEmailSender, MessageServices>();                
 
             services.AddDataProtection()
                 .SetApplicationName("CubansConexionTuneupCookies")
                 .PersistKeysToFileSystem(new System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar + "dpkeys"));
 
             services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions, IServiceProvider serviceProvider)
         {
             loggerFactory.AddFile("logs/default-{Date}.log", LogLevel.Warning);
             loggerFactory.AddDebug(LogLevel.Debug);
@@ -118,7 +133,73 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });           
+            });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+
+            //adding custom roles
+
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            string[] roleNames = { "Administrator", "Manager", "Member" };
+
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+
+            {
+
+                //creating the roles and seeding them to the database
+
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+
+                if (!roleExist)
+
+                {
+
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+
+                }
+
+            }
+
+            //creating a super user who could maintain the web app
+
+            var poweruser = new User
+
+            {
+
+                UserName = Configuration.GetSection("UserSettings")["UserEmail"],
+
+                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+
+            };
+
+            string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
+
+            var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("UserSettings")["UserEmail"]);
+
+            if (_user == null)
+
+            {
+
+                var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);
+
+                if (createPowerUser.Succeeded)
+
+                {
+
+                    //here we tie the new user to the "Admin" role 
+                    await UserManager.AddToRoleAsync(poweruser, "Administrator");
+                }
+            }
         }
     }
 }
