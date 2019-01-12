@@ -38,7 +38,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(config => {
                 // TODO Remove if not required!!
@@ -144,7 +144,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
             //adding custom roles
-
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
             var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();

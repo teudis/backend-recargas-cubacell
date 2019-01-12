@@ -62,6 +62,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
     <PackageReference Include="SAPRESSC.Core.Common" Version="0.5.3-beta" />
     <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.8.1-beta" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
