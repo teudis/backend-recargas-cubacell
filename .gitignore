@@ -283,4 +283,5 @@ _Pvt_Extensions
 
 ## Manual rules
 Migrations/
-
+logs/
+dpkeys/

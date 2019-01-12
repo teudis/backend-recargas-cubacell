@@ -15,24 +15,32 @@
     <Compile Remove="Areas\dashboard\Models\**" />
     <Compile Remove="Areas\security\**" />
     <Compile Remove="Data\Migrations\**" />
+    <Compile Remove="dpkeys\**" />
+    <Compile Remove="logs\**" />
     <Content Remove="Areas\Dashboard\**" />
     <Content Remove="Areas\dashboard\Controllers\**" />
     <Content Remove="Areas\dashboard\Data\**" />
     <Content Remove="Areas\dashboard\Models\**" />
     <Content Remove="Areas\security\**" />
     <Content Remove="Data\Migrations\**" />
+    <Content Remove="dpkeys\**" />
+    <Content Remove="logs\**" />
     <EmbeddedResource Remove="Areas\Dashboard\**" />
     <EmbeddedResource Remove="Areas\dashboard\Controllers\**" />
     <EmbeddedResource Remove="Areas\dashboard\Data\**" />
     <EmbeddedResource Remove="Areas\dashboard\Models\**" />
     <EmbeddedResource Remove="Areas\security\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
+    <EmbeddedResource Remove="dpkeys\**" />
+    <EmbeddedResource Remove="logs\**" />
     <None Remove="Areas\Dashboard\**" />
     <None Remove="Areas\dashboard\Controllers\**" />
     <None Remove="Areas\dashboard\Data\**" />
     <None Remove="Areas\dashboard\Models\**" />
     <None Remove="Areas\security\**" />
     <None Remove="Data\Migrations\**" />
+    <None Remove="dpkeys\**" />
+    <None Remove="logs\**" />
   </ItemGroup>
 
   <ItemGroup>
