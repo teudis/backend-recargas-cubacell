@@ -23,6 +23,15 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
         [Display(Name = "Nombre Completo")]
         public string FullName { get; set; }
 
+        public string UserName { get; set; }
+
+        public string NormalizedEmail { get; set; }
+
+        public string NormalizedUserName { get; set; }
+        public bool LockoutEnabled { get; set; }
+
+        public string SecurityStamp { get; set; }
+
         public virtual User Export()
         {
             var entity = new User();
@@ -36,6 +45,12 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
             Email = entity.Email;            
             PhoneNumber = entity.PhoneNumber;
             FullName = entity.FullName;
+            Email = entity.UserName;            
+            NormalizedEmail = entity.NormalizedEmail;
+            NormalizedUserName = entity.NormalizedUserName;
+            LockoutEnabled = entity.LockoutEnabled;
+            SecurityStamp = entity.SecurityStamp;
+
         }
 
         public void Mergue(User entity)
@@ -43,6 +58,12 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
             entity.Email = Email;           
             entity.PhoneNumber = PhoneNumber;
             entity.FullName = FullName;
+            entity.UserName = Email;
+            NormalizedEmail = Email.ToUpper();
+            entity.NormalizedEmail = NormalizedEmail;
+            entity.NormalizedUserName = NormalizedEmail;
+            entity.LockoutEnabled = true;
+            entity.SecurityStamp = Guid.NewGuid().ToString("D");
         }
     }
 }
