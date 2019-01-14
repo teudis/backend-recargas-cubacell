@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Primitives;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
 namespace WebApplication.Controllers
@@ -19,6 +21,7 @@ namespace WebApplication.Controllers
     public class UserController : AbstractEntityManagementController<User, string, UserInputViewModel, UserDisplayViewModel>
     {
 
+        private readonly IUserManager profilemanager;
         internal static string HashPassword(string plainPassword)
         {
             var hasher = SHA256.Create();
@@ -29,8 +32,9 @@ namespace WebApplication.Controllers
             return System.BitConverter.ToString(encodedBytes).Replace("-", "").ToLower();
         }
 
-        public UserController(IEntityRepository<User, string> repository, IStringLocalizer<UserController> localizer, ILogger<UserController> logger) : base(repository, localizer, logger)
+        public UserController(IUserManager profilemanager, IEntityRepository<User, string> repository, IStringLocalizer<UserController> localizer, ILogger<UserController> logger) : base(repository, localizer, logger)
         {
+            this.profilemanager = profilemanager;
         }
 
         public override IActionResult Index(int sheet = 1, int limit = 25)
@@ -85,8 +89,21 @@ namespace WebApplication.Controllers
 
             return View(modelInput);
 
-        }     
+        }
 
+
+        protected override void PostCreate(User entity, UserInputViewModel modelInput)
+        {
+            
+            base.PostCreate(entity, modelInput);
+            // Update securityStamp
+            profilemanager.GenerateSecurtyStampAsync(entity);
+            //Update DEFAULT ROLE
+            profilemanager.AddRoleDefault(entity);
+           
+        }
+
+       
 
         protected override void PreCreate(User entity, UserInputViewModel modelInput)
         {
@@ -113,7 +130,6 @@ namespace WebApplication.Controllers
 
         protected override void PreEdit(User entity, UserInputViewModel modelInput)
         {
-            //entity.PasswordHash = HashPassword(modelInput.Password);
             base.PreEdit(entity, modelInput);
         }
 
