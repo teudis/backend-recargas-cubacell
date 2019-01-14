@@ -16,6 +16,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persist
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using System.Threading.Tasks;
 using System;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 {
@@ -71,6 +72,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddScoped<IEntityRepository<Account, System.Guid>, AccountRepository>();
             services.AddScoped<IEntityRepository<User, string>, UserRepository>();
+            services.AddScoped<IUserManager,UserProfileManager>();           
 
             // Email Services
             services.AddSingleton<IEmailSender, MessageServices>();                
@@ -178,7 +180,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
                 UserName = Configuration.GetSection("UserSettings")["UserEmail"],
 
-                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+                Email = Configuration.GetSection("UserSettings")["UserEmail"],
+                FullName = "Administrador de Cuentas"
 
             };
 
@@ -195,7 +198,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 if (createPowerUser.Succeeded)
 
                 {
-
                     //here we tie the new user to the "Admin" role 
                     await UserManager.AddToRoleAsync(poweruser, "Administrator");
                 }
