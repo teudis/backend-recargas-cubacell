@@ -26,8 +26,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
         public override User Export()
         {
             var model = base.Export();
-            model.PasswordHash = Password;
-            //model.PasswordHash = HashPassword(Password);
+            model.PasswordHash = Password;            
             return model;
         }
 
