@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Repositories
 {
-    public class UserRepository : AbstractEntityRepository<ApplicationDbContext, Entities.User, string>
+    public class UserRepository : AbstractEntityRepository<Entities.User, string>
     {
         public UserRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
