@@ -10,6 +10,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers
     public class UserProfileManager : IUserManager
     {
         private UserManager<User> _userManager;
+        private IPasswordHasher<User> _identityPasswordHasher = new PasswordHasher<User>();
 
         public UserProfileManager(UserManager<User> _userManager)
         {
@@ -30,7 +31,11 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers
              _userManager.UpdateSecurityStampAsync(User).GetAwaiter().GetResult();  
         }
 
-       
+        public string HashPassword(User user, string password)
+        {
+            return _identityPasswordHasher.HashPassword(user, password);
+        }
+      
     }
 
 
@@ -39,7 +44,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers
     {
         void GenerateSecurtyStampAsync(User User);
         void AddRoleDefault(User User);
-        
+        string HashPassword(User user, string password);
 
     }
 
