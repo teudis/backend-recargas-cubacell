@@ -63,7 +63,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
             entity.NormalizedEmail = NormalizedEmail;
             entity.NormalizedUserName = NormalizedEmail;
             entity.LockoutEnabled = true;
-            entity.SecurityStamp = Guid.NewGuid().ToString("D");
+            entity.SecurityStamp = Guid.NewGuid().ToString();
         }
     }
 }
