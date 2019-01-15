@@ -57,7 +57,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 mvc.ModelBinderProviders.Insert(0, new SmartSolucionesCuba.SAPRESSC.Core.Web.Common.ModelBinding.AbstractsModelBinderProvider())
             )
             .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
