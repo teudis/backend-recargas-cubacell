@@ -39,7 +39,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers
     }
 
 
-
   public  interface IUserManager
     {
         void GenerateSecurtyStampAsync(User User);
