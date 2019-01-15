@@ -15,6 +15,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persist
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
+
 namespace WebApplication.Controllers
 {
     [Area("dashboard")]
@@ -22,15 +23,7 @@ namespace WebApplication.Controllers
     {
 
         private readonly IUserManager profilemanager;
-        internal static string HashPassword(string plainPassword)
-        {
-            var hasher = SHA256.Create();
-
-            var originalBytes = Encoding.ASCII.GetBytes(plainPassword);
-            var encodedBytes = hasher.ComputeHash(originalBytes);
-
-            return System.BitConverter.ToString(encodedBytes).Replace("-", "").ToLower();
-        }
+        
 
         public UserController(IUserManager profilemanager, IEntityRepository<User, string> repository, IStringLocalizer<UserController> localizer, ILogger<UserController> logger) : base(repository, localizer, logger)
         {
@@ -95,9 +88,7 @@ namespace WebApplication.Controllers
         protected override void PostCreate(User entity, UserInputViewModel modelInput)
         {
             
-            base.PostCreate(entity, modelInput);
-            // Update securityStamp
-            profilemanager.GenerateSecurtyStampAsync(entity);
+            base.PostCreate(entity, modelInput);           
             //Update DEFAULT ROLE
             profilemanager.AddRoleDefault(entity);
            
@@ -107,7 +98,8 @@ namespace WebApplication.Controllers
 
         protected override void PreCreate(User entity, UserInputViewModel modelInput)
         {
-            entity.PasswordHash = HashPassword(entity.PasswordHash);
+            
+            entity.PasswordHash = profilemanager.HashPassword(entity, entity.PasswordHash);
             base.PreCreate(entity, modelInput);
         }
 
