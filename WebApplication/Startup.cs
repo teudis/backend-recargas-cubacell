@@ -35,7 +35,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(config => {
                 //config.SignIn.RequireConfirmedEmail = true;
@@ -66,28 +66,27 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddScoped<IEntityRepository<Account, System.Guid>, AccountRepository>();
             services.AddScoped<IEntityRepository<User, string>, UserRepository>();
-            services.AddScoped<IUserManager,UserProfileManager>();           
+            services.AddScoped<IUserManager, UserProfileManager>();           
 
             // Email Services
-            services.AddSingleton<IEmailSender, MessageServices>();                
-
-            services.AddDataProtection()
-                .SetApplicationName("CubansConexionTuneupCookies")
-                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory() + System.IO.Path.DirectorySeparatorChar + "dpkeys"));
+            services.AddSingleton<IEmailSender, MessageServices>();
 
             services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
 
             services.ConfigureApplicationCookie(options =>
-            {                
+            {
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(5);
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
-            });
+            })
+            .AddDataProtection()
+                .SetApplicationName("CubansConnectionTuneupResellCookies")
+                .PersistKeysToDbContext<ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions, System.IServiceProvider serviceProvider)
         {
             loggerFactory.AddFile("logs/default-{Date}.log", LogLevel.Warning);            
 
@@ -129,12 +128,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             if (!env.IsDevelopment()) return;
 
-            System.Threading.Tasks.Task.Run(async () =>
-            {
-                await CreateDefaultUserAndRolesAsync(serviceProvider);
-            });
+            CreateDefaultUserAndRolesAsync(serviceProvider).Wait();
         }
-
 
         private async System.Threading.Tasks.Task CreateDefaultUserAndRolesAsync(System.IServiceProvider serviceProvider)
         {
@@ -154,27 +149,26 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 {
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
-
             }
 
-            var powerUser = new User
+            var settingsUserEmail = Configuration.GetSection("UserSettings")["UserEmail"];
+
+            var defaultUser = await UserManager.FindByEmailAsync(settingsUserEmail);
+
+            if (defaultUser == null)
             {
-                UserName = Configuration.GetSection("UserSettings")["UserEmail"],
-                Email = Configuration.GetSection("UserSettings")["UserEmail"],
-                FullName = "Administrador de Cuentas"
-            };
-
-            var userPassword = Configuration.GetSection("UserSettings")["UserPassword"];
-
-            var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("UserSettings")["UserEmail"]);
-
-            if (_user == null)
-            {
-                var createPowerUser = await UserManager.CreateAsync(powerUser, userPassword);
-
-                if (createPowerUser.Succeeded)
+                defaultUser = new User
                 {
-                    await UserManager.AddToRoleAsync(powerUser, "Administrator");
+                    UserName = settingsUserEmail,
+                    Email = settingsUserEmail,
+                    FullName = "Administrador de Cuentas"
+                };
+
+                var createPowerUserTask = await UserManager.CreateAsync(defaultUser, Configuration.GetSection("UserSettings")["UserPassword"]);
+
+                if (createPowerUserTask.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(defaultUser, "Administrator");
                 }
             }
         }

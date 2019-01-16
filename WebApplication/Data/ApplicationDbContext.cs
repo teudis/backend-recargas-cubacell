@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
 {
-    public class ApplicationDbContext : SmartSolucionesCuba.SAPRESSC.Core.Persistence.Context.AbstractTraceableIdentityDbContext<User>
+    public class ApplicationDbContext : SmartSolucionesCuba.SAPRESSC.Core.Persistence.Context.AbstractTraceableIdentityDbContext<User>, Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.IDataProtectionKeyContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -18,6 +19,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
         public DbSet<NautaBalanceTuneUpRequest> NautaBalanceTuneUpRequests { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Usuarios { get; set; }
+
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

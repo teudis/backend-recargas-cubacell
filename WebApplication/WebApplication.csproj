@@ -53,6 +53,7 @@
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
     <PackageReference Include="SAPRESSC.Core.Common" Version="0.5.3-beta" />
@@ -65,7 +66,6 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Helpers\Localization\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
