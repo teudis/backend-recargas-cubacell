@@ -99,7 +99,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions, IServiceProvider serviceProvider)
         {
             loggerFactory.AddFile("logs/default-{Date}.log", LogLevel.Warning);
-            loggerFactory.AddDebug(LogLevel.Debug);
+            
 
             app.UseRequestLocalization(localizaionOptions.Value);
 
