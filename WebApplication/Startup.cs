@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Identity.Services;
-using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
-using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Logging;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Repositories;
-using System;
+using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using System.Threading.Tasks;
+using System;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 {
@@ -38,14 +39,15 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(config => {
-                // TODO Remove if not required!!
                 //config.SignIn.RequireConfirmedEmail = true;
-            })
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
           
             var defaultCulture = new System.Globalization.CultureInfo("es");
 
@@ -55,7 +57,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 mvc.ModelBinderProviders.Insert(0, new SmartSolucionesCuba.SAPRESSC.Core.Web.Common.ModelBinding.AbstractsModelBinderProvider())
             )
             .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -70,6 +72,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddScoped<IEntityRepository<Account, System.Guid>, AccountRepository>();
             services.AddScoped<IEntityRepository<User, string>, UserRepository>();
+            services.AddScoped<IUserManager,UserProfileManager>();           
 
             // Email Services
             services.AddSingleton<IEmailSender, MessageServices>();                
@@ -80,20 +83,23 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
 
+
             services.ConfigureApplicationCookie(options =>
-            {                
+            {
+                
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions, IServiceProvider serviceProvider)
         {
             loggerFactory.AddFile("logs/default-{Date}.log", LogLevel.Warning);
-            loggerFactory.AddDebug(LogLevel.Debug);
+            
 
             app.UseRequestLocalization(localizaionOptions.Value);
 
@@ -119,8 +125,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
 
@@ -131,19 +137,15 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            if (env.IsDevelopment())
-            {
-                Task.Run(async () =>
-                {
-                    await CreateRoles(serviceProvider);
-                });
-            }
+            CreateRoles(serviceProvider).Wait();
         }
 
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
+
             //adding custom roles
+
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
             var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
@@ -152,33 +154,49 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             IdentityResult roleResult;
 
-            //creating the roles and seeding them to the database
             foreach (var roleName in roleNames)
+
             {
+
+                //creating the roles and seeding them to the database
+
                 var roleExist = await RoleManager.RoleExistsAsync(roleName);
 
                 if (!roleExist)
+
                 {
+
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+
                 }
+
             }
 
             //creating a super user who could maintain the web app
+
             var poweruser = new User
+
             {
+
                 UserName = Configuration.GetSection("UserSettings")["UserEmail"],
-                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+
+                Email = Configuration.GetSection("UserSettings")["UserEmail"],
+                FullName = "Administrador de Cuentas"
+
             };
 
-            var userPassword = Configuration.GetSection("UserSettings")["UserPassword"];
+            string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
 
             var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("UserSettings")["UserEmail"]);
 
             if (_user == null)
+
             {
-                var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
+
+                var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);
 
                 if (createPowerUser.Succeeded)
+
                 {
                     //here we tie the new user to the "Admin" role 
                     await UserManager.AddToRoleAsync(poweruser, "Administrator");
