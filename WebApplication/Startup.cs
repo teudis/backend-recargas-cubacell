@@ -16,6 +16,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persist
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using System.Threading.Tasks;
 using System;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 {
@@ -56,7 +57,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 mvc.ModelBinderProviders.Insert(0, new SmartSolucionesCuba.SAPRESSC.Core.Web.Common.ModelBinding.AbstractsModelBinderProvider())
             )
             .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -71,6 +72,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddScoped<IEntityRepository<Account, System.Guid>, AccountRepository>();
             services.AddScoped<IEntityRepository<User, string>, UserRepository>();
+            services.AddScoped<IUserManager,UserProfileManager>();           
 
             // Email Services
             services.AddSingleton<IEmailSender, MessageServices>();                
@@ -97,7 +99,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Data.ApplicationDbContext dbContext, Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizaionOptions, IServiceProvider serviceProvider)
         {
             loggerFactory.AddFile("logs/default-{Date}.log", LogLevel.Warning);
-            loggerFactory.AddDebug(LogLevel.Debug);
+            
 
             app.UseRequestLocalization(localizaionOptions.Value);
 
@@ -178,7 +180,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
                 UserName = Configuration.GetSection("UserSettings")["UserEmail"],
 
-                Email = Configuration.GetSection("UserSettings")["UserEmail"]
+                Email = Configuration.GetSection("UserSettings")["UserEmail"],
+                FullName = "Administrador de Cuentas"
 
             };
 
@@ -195,7 +198,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 if (createPowerUser.Succeeded)
 
                 {
-
                     //here we tie the new user to the "Admin" role 
                     await UserManager.AddToRoleAsync(poweruser, "Administrator");
                 }
