@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
@@ -9,11 +10,13 @@ using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
 namespace WebApplication.Controllers
 {
     [Area("dashboard")]
+    [Authorize(Roles = ManagementRoleCodes.ADMINISTRADOR)]
     public class AccountController : AbstractEntityManagementController<Account, System.Guid, AccountInputViewModel,AccountDisplayViewModel>
     {
         private readonly IEntityRepository<User, string> usersRepository;
