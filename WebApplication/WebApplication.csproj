@@ -16,24 +16,28 @@
     <Compile Remove="Areas\dashboard\Models\**" />
     <Compile Remove="Areas\security\**" />
     <Compile Remove="Data\Migrations\**" />
+    <Compile Remove="logs\**" />
     <Content Remove="Areas\Dashboard\**" />
     <Content Remove="Areas\dashboard\Controllers\**" />
     <Content Remove="Areas\dashboard\Data\**" />
     <Content Remove="Areas\dashboard\Models\**" />
     <Content Remove="Areas\security\**" />
     <Content Remove="Data\Migrations\**" />
+    <Content Remove="logs\**" />
     <EmbeddedResource Remove="Areas\Dashboard\**" />
     <EmbeddedResource Remove="Areas\dashboard\Controllers\**" />
     <EmbeddedResource Remove="Areas\dashboard\Data\**" />
     <EmbeddedResource Remove="Areas\dashboard\Models\**" />
     <EmbeddedResource Remove="Areas\security\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
+    <EmbeddedResource Remove="logs\**" />
     <None Remove="Areas\Dashboard\**" />
     <None Remove="Areas\dashboard\Controllers\**" />
     <None Remove="Areas\dashboard\Data\**" />
     <None Remove="Areas\dashboard\Models\**" />
     <None Remove="Areas\security\**" />
     <None Remove="Data\Migrations\**" />
+    <None Remove="logs\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +53,9 @@
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
     <PackageReference Include="SAPRESSC.Core.Common" Version="0.5.3-beta" />
     <PackageReference Include="SAPRESSC.Core.Persistence" Version="0.8.5-beta" />
     <PackageReference Include="SAPRESSC.Core.Web.Common" Version="0.8.6-beta" />
