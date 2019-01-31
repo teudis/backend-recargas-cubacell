@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 
@@ -15,9 +14,26 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("FriendlyName")
+                        .HasColumnName("friendlyname");
+
+                    b.Property<string>("Xml")
+                        .HasColumnName("xml");
+
+                    b.HasKey("Id")
+                        .HasName("pk_dataprotectionkeys");
+
+                    b.ToTable("dataprotectionkeys");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -42,8 +58,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("rolenameindex")
-                        .HasFilter("[normalizedname] IS NOT NULL");
+                        .HasName("rolenameindex");
 
                     b.ToTable("aspnetroles");
                 });
@@ -52,8 +67,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("ClaimType")
                         .HasColumnName("claimtype");
@@ -78,8 +92,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("ClaimType")
                         .HasColumnName("claimtype");
@@ -103,12 +116,10 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnName("loginprovider")
-                        .HasMaxLength(128);
+                        .HasColumnName("loginprovider");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnName("providerkey")
-                        .HasMaxLength(128);
+                        .HasColumnName("providerkey");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnName("providerdisplayname");
@@ -149,12 +160,10 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                         .HasColumnName("userid");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnName("loginprovider")
-                        .HasMaxLength(128);
+                        .HasColumnName("loginprovider");
 
                     b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasMaxLength(128);
+                        .HasColumnName("name");
 
                     b.Property<string>("Value")
                         .HasColumnName("value");
@@ -163,45 +172,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                         .HasName("pk_aspnetusertokens");
 
                     b.ToTable("aspnetusertokens");
-                });
-
-            modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Core.Persistence.Entities.Trace", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AfterData")
-                        .HasColumnName("afterdata");
-
-                    b.Property<string>("Author")
-                        .HasColumnName("author");
-
-                    b.Property<string>("BeforeData")
-                        .IsRequired()
-                        .HasColumnName("beforedata");
-
-                    b.Property<string>("EntityName")
-                        .IsRequired()
-                        .HasColumnName("entityname");
-
-                    b.Property<long>("NextId")
-                        .HasColumnName("nextid");
-
-                    b.Property<DateTime>("Registered")
-                        .HasColumnName("registered");
-
-                    b.Property<string>("Signature")
-                        .HasColumnName("signature");
-
-                    b.Property<int>("Type")
-                        .HasColumnName("type");
-
-                    b.HasKey("Id")
-                        .HasName("pk_traces");
-
-                    b.ToTable("traces");
                 });
 
             modelBuilder.Entity("SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.Account", b =>
@@ -236,8 +206,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<float>("Amount")
                         .HasColumnName("amount");
@@ -261,8 +230,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("AgentId")
                         .HasColumnName("agentid");
@@ -321,8 +289,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<float>("Amount")
                         .HasColumnName("amount");
@@ -346,8 +313,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("AgentId")
                         .HasColumnName("agentid");
@@ -426,7 +392,11 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                         .HasColumnName("emailconfirmed");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnName("fullname");
+
+                    b.Property<string>("IdRole")
+                        .HasColumnName("idrole");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnName("lockoutenabled");
@@ -472,10 +442,47 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("usernameindex")
-                        .HasFilter("[normalizedusername] IS NOT NULL");
+                        .HasName("usernameindex");
 
                     b.ToTable("aspnetusers");
+                });
+
+            modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Core.Persistence.Entities.Trace", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("AfterData")
+                        .HasColumnName("afterdata");
+
+                    b.Property<string>("Author")
+                        .HasColumnName("author");
+
+                    b.Property<string>("BeforeData")
+                        .IsRequired()
+                        .HasColumnName("beforedata");
+
+                    b.Property<string>("EntityName")
+                        .IsRequired()
+                        .HasColumnName("entityname");
+
+                    b.Property<long>("NextId")
+                        .HasColumnName("nextid");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnName("registered");
+
+                    b.Property<string>("Signature")
+                        .HasColumnName("signature");
+
+                    b.Property<int>("Type")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_traces");
+
+                    b.ToTable("traces");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -555,7 +562,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                     b.HasOne("SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.CellularBalanceTuneUpProfile", "TuneUpProfile")
                         .WithMany()
                         .HasForeignKey("TuneUpProfileId")
-                        .HasConstraintName("fk_cellularbalancetuneuprequests_cellularbalancetuneupprofiles_tuneupprofileid");
+                        .HasConstraintName("fk_cellularbalancetuneuprequests_cellularbalancetuneupprofiles_~");
                 });
 
             modelBuilder.Entity("SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRecord", b =>
@@ -576,7 +583,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Migratio
                     b.HasOne("SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpProfile", "TuneUpProfile")
                         .WithMany()
                         .HasForeignKey("TuneUpProfileId")
-                        .HasConstraintName("fk_nautabalancetuneuprequests_nautabalancetuneupprofiles_tuneupprofileid");
+                        .HasConstraintName("fk_nautabalancetuneuprequests_nautabalancetuneupprofiles_tuneup~");
                 });
 
             modelBuilder.Entity("SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.User", b =>
