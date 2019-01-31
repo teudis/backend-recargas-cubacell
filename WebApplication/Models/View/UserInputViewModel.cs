@@ -1,4 +1,5 @@
-﻿using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Models.View;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Models.View;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,11 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
 
         public string SecurityStamp { get; set; }
 
+        [Display(Name = "Roles")]
+        public string IdRole { get; set; }
+
+        public IEnumerable<SelectListItem> Roles { get; set; }
+
         public virtual User Export()
         {
             var entity = new User();
@@ -50,6 +56,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
             NormalizedUserName = entity.NormalizedUserName;
             LockoutEnabled = entity.LockoutEnabled;
             SecurityStamp = entity.SecurityStamp;
+            IdRole = entity.IdRole;
 
         }
 
@@ -64,6 +71,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
             entity.NormalizedUserName = NormalizedEmail;
             entity.LockoutEnabled = true;
             entity.SecurityStamp = Guid.NewGuid().ToString();
+            entity.IdRole = IdRole;
         }
     }
 }
