@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
@@ -14,20 +9,21 @@ using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
-
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
     [Area("dashboard")]
+    [Authorize(Roles = ManagementRoleCodes.ADMINISTRADOR)]
     public class UserController : AbstractEntityManagementController<User, string, UserInputViewModel, UserDisplayViewModel>
     {
 
-        private readonly IUserManager profilemanager;
-        
+        private readonly IUserManager profilemanager;        
 
         public UserController(IUserManager profilemanager, IEntityRepository<User, string> repository, IStringLocalizer<UserController> localizer, ILogger<UserController> logger) : base(repository, localizer, logger)
         {
             this.profilemanager = profilemanager;
+            
         }
 
         public override IActionResult Index(int sheet = 1, int limit = 25)
@@ -55,7 +51,8 @@ namespace WebApplication.Controllers
                 Email = modelInput.Email,
                 FullName = modelInput.FullName,
                 PhoneNumber = modelInput.PhoneNumber,
-                Id = modelInput.Id
+                Id = modelInput.Id ,
+                IdRole = modelInput.IdRole
             };           
 
             if (TryValidateModel(modelInput))
@@ -93,8 +90,7 @@ namespace WebApplication.Controllers
             profilemanager.AddRoleDefault(entity);
            
         }
-
-       
+        
 
         protected override void PreCreate(User entity, UserInputViewModel modelInput)
         {
@@ -105,8 +101,20 @@ namespace WebApplication.Controllers
 
         protected override UserInputViewModel ConfigureCreate(UserInputViewModel modelInput)
         {
-            var result = modelInput is UserWithPasswordInputViewModel ? base.ConfigureCreate(modelInput) : new UserWithPasswordInputViewModel();
-            return result;
+            var result = new UserWithPasswordInputViewModel();
+            PopulateModelInputForAvailableRoles(modelInput);
+            if (modelInput is UserWithPasswordInputViewModel)
+            {
+                return base.ConfigureCreate(modelInput);
+            }
+            else
+            {
+                result.Roles = modelInput.Roles;
+
+            }
+
+            return base.ConfigureCreate(result);
+
         }
 
         public override IActionResult Edit(string key)
@@ -116,19 +124,35 @@ namespace WebApplication.Controllers
 
         public override IActionResult Edit(UserInputViewModel modelInput)
         {
-           return base.Edit(modelInput);
+            
+            
+            return base.Edit(modelInput);
         }
 
 
         protected override void PreEdit(User entity, UserInputViewModel modelInput)
         {
+
             base.PreEdit(entity, modelInput);
         }
 
         protected override void PostEdit(User entity, UserInputViewModel modelInput)
         {
+            profilemanager.UpdateRole(entity);
             base.PostEdit(entity, modelInput);
 
+        }
+
+        protected override UserInputViewModel ConfigureEdit(User entity, UserInputViewModel modelInput)
+        {
+            PopulateModelInputForAvailableRoles(modelInput);
+            return base.ConfigureEdit(entity, modelInput);
+        }
+
+        protected override UserInputViewModel ConfigurePostFailEditValidation(UserInputViewModel modelInput)
+        {
+            PopulateModelInputForAvailableRoles(modelInput);
+            return base.ConfigurePostFailEditValidation(modelInput);
         }
 
         public override IActionResult Delete(string key)
@@ -145,6 +169,26 @@ namespace WebApplication.Controllers
         protected override void PostDelete(User entity)
         {
             base.PostDelete(entity);
+        }
+
+        private void PopulateModelInputForAvailableRoles(UserInputViewModel inputModel)
+        {
+            var entities = profilemanager.GetRoles();
+
+            var selectListItems = new List<SelectListItem>();
+
+            foreach (var entity in entities)
+            {
+                selectListItems.Add(new SelectListItem { Value = entity.Id.ToString(), Text = entity.Name });
+            }
+
+            inputModel.Roles = selectListItems;
+        }
+
+        protected override UserInputViewModel ConfigurePostFailCreateValidation(UserInputViewModel modelInput)
+        {
+            PopulateModelInputForAvailableRoles(modelInput);
+            return base.ConfigurePostFailCreateValidation(modelInput);
         }
     }
 }
