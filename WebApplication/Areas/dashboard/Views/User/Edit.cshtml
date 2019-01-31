@@ -60,6 +60,15 @@ Caption = "Modificar"
                 @Html.ValidationMessageFor(model => model.PhoneNumber, null, new { @class = "text-danger" })
             </div>
 
+
+            <div class="row">
+                <div class="col-md-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.IdRole, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.IdRole, Model.Roles, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdRole, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
             <div>
                 <button type="submit" class="btn btn-primary">Modificar</button>
                 <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
