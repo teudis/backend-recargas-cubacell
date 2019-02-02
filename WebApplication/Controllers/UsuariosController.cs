@@ -14,7 +14,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 namespace WebApplication.Controllers
 {
     
-    [Authorize(Roles = ManagementRoleCodes.MEMBER)]
+    [Authorize(Roles = ManagementRoleCodes.MANAGER)]
     public class UsuariosController : Controller
     {
         private readonly ApplicationDbContext _context;
