@@ -23,8 +23,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data
 
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
-        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

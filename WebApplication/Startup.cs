@@ -83,7 +83,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             .AddDataProtection()
                 .SetApplicationName("CubansConnectionTuneupResellCookies")
                 .PersistKeysToDbContext<ApplicationDbContext>();
-<<<<<<< HEAD
 
             services.AddAuthorization(options =>
             {
@@ -91,8 +90,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
-=======
->>>>>>> 6459286202d9dcd36aa377f92078a88d6352ba94
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -178,11 +175,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
                 if (createPowerUserTask.Succeeded)
                 {
-<<<<<<< HEAD
                     await UserManager.AddToRoleAsync(defaultUser, ManagementRoleCodes.ADMINISTRADOR);
-=======
-                    await UserManager.AddToRoleAsync(defaultUser, "Administrator");
->>>>>>> 6459286202d9dcd36aa377f92078a88d6352ba94
                 }
             }
         }
