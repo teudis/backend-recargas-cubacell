@@ -35,7 +35,10 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), mySqlOptions =>
+            {
+                mySqlOptions.ServerVersion(new System.Version(Configuration.GetSection("MySQLSeverVersion").Value), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);
+            }));
 
             services.AddIdentity<User, IdentityRole>(config => {
                 //config.SignIn.RequireConfirmedEmail = true;

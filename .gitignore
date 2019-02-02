@@ -285,3 +285,4 @@ _Pvt_Extensions
 Migrations/
 logs/
 dpkeys/
+appsettings.Development.json
