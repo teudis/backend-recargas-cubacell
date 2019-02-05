@@ -1,0 +1,92 @@
+﻿@using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View;
+@using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
+
+
+@model UserWithPasswordInputViewModel;
+@{
+    ViewData["Title"] = "Crear Usuario";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+{
+new BreadcrumbViewModel
+{
+Caption = "<span class=\"glyphicon glyphicon-home\"></span> Inicio",
+Url = "/"
+},
+new BreadcrumbViewModel
+{
+Caption = "Administración",
+Url = Url.Action("index", "management", new { Area = string.Empty })
+},
+new BreadcrumbViewModel
+{
+Caption = "Contacto",
+Url = Url.Action("index")
+},
+new BreadcrumbViewModel
+{
+Caption = "Crear"
+}
+};
+
+    Layout = "_BackendLayout";
+}
+
+
+@using (Html.BeginForm("create", "user", new { Area = "dashboard" }, FormMethod.Post, true, null))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.FullName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "text-danger" })
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.IdRole, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.IdRole, Model.Roles, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdRole, null, new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+
+            <div>
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
+            </div>
+        </div>
+    </div>
+}
