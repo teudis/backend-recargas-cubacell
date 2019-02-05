@@ -11,10 +11,10 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 using System.Collections.Generic;
 
-namespace WebApplication.Controllers
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers.Mananagement
 {
-    [Area("main")]
-    [Authorize(Roles = ManagementRoleCodes.ADMINISTRADOR)]
+    [Area("Main")]
+    [Authorize(Roles = Security.Authorization.Roles.SYSTEM_ADMIN_ROLE)]
     public class UsersController : AbstractEntityManagementController<User, string, UserInputViewModel, UserDisplayViewModel>
     {
 

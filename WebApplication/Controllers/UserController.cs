@@ -11,10 +11,9 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persist
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
-namespace WebApplication.Controllers
-{
-    
-    [Authorize(Roles = ManagementRoleCodes.MANAGER)]
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
+{    
+    [Authorize(Roles = Security.Authorization.Roles.ACCOUNT_ADMIN_ROLE, Policy = Security.Authorization.Policies.ACCOUNT_ASSOCIATED)]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -91,7 +90,8 @@ namespace WebApplication.Controllers
                  _context.Add(user);               
 
                 await _context.SaveChangesAsync();
-                await _userManager.AddToRoleAsync(user, ManagementRoleCodes.MEMBER);
+                await _userManager.AddToRoleAsync(user, Security.Authorization.Roles.ACCOUNT_SELLER_ROLE);
+
                 return RedirectToAction(nameof(Index));
 
                  }

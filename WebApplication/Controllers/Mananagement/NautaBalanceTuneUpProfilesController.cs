@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
-using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
-namespace WebApplication.Controllers.Mananagement
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers.Mananagement
 {
-    [Area("main")]
-    [Authorize(Roles = ManagementRoleCodes.ADMINISTRADOR)]
+    [Area("Main")]
+    [Authorize(Roles = Security.Authorization.Roles.SYSTEM_ADMIN_ROLE)]
     public class NautaBalanceTuneUpProfilesController : SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers.AbstractEntityManagementController<NautaBalanceTuneUpProfile, int, NautaBalanceTuneUpProfileInputViewModel, NautaBalanceTuneUpProfileDisplayViewModel>
     {
 

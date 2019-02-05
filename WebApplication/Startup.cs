@@ -78,6 +78,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
 
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, Security.Authentication.ExtendedUserClaimsPrincipalFactory>();
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(5);
@@ -91,7 +93,10 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(ManagementRoleCodes.MANAGER_MEMBER, policy => policy.RequireRole(ManagementRoleCodes.MANAGER, ManagementRoleCodes.MEMBER));
+                options.AddPolicy(Security.Authorization.Policies.ACCOUNT_ASSOCIATED, 
+                    policy => policy.RequireAssertion(
+                        context => context.User.HasClaim(
+                            match => match.Type == Security.Authorization.Claims.ACCOUNT_CLAIM)));
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -149,7 +154,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            string[] roleNames = { ManagementRoleCodes.ADMINISTRADOR, ManagementRoleCodes.MANAGER, ManagementRoleCodes.MEMBER};
+            string[] roleNames = { Security.Authorization.Roles.SYSTEM_ADMIN_ROLE, Security.Authorization.Roles.ACCOUNT_ADMIN_ROLE, Security.Authorization.Roles.ACCOUNT_SELLER_ROLE };
 
             IdentityResult roleResult;
 
@@ -173,14 +178,14 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                 {
                     UserName = settingsUserEmail,
                     Email = settingsUserEmail,
-                    FullName = "Administrador de Cuentas"
+                    FullName = "Administrador Principal"
                 };
 
                 var createPowerUserTask = await UserManager.CreateAsync(defaultUser, Configuration.GetSection("UserSettings")["UserPassword"]);
 
                 if (createPowerUserTask.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(defaultUser, ManagementRoleCodes.ADMINISTRADOR);
+                    await UserManager.AddToRoleAsync(defaultUser, Security.Authorization.Roles.SYSTEM_ADMIN_ROLE);
                 }
             }
         }
