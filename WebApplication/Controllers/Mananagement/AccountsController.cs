@@ -39,8 +39,17 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
         protected override void PreCreate(Account entity, AccountInputViewModel modelInput)
         {
             base.PreCreate(entity, modelInput);
-            entity.Representative = usersRepository.Get(modelInput.RepresentativeId);
 
+            entity.Representative = usersRepository.Get(modelInput.RepresentativeId);
+        }
+
+        protected override void PostCreate(Account entity, AccountInputViewModel modelInput)
+        {
+            base.PostCreate(entity, modelInput);
+
+            entity.Representative.Account = entity;
+
+            usersRepository.Update(entity.Representative, User.Identity.Name);
         }
 
         public override IActionResult Edit(System.Guid key)
@@ -53,24 +62,26 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
            return base.Edit(modelInput);
         }
 
-
         protected override void PreEdit(Account entity, AccountInputViewModel modelInput)
         {
             base.PreEdit(entity, modelInput);
+
             entity.Representative = usersRepository.Get(modelInput.RepresentativeId);
         }
 
         protected override void PostEdit(Account entity, AccountInputViewModel modelInput)
         {
-            base.PostEdit(entity, modelInput);           
+            base.PostEdit(entity, modelInput);
 
+            entity.Representative.Account = entity;
+
+            usersRepository.Update(entity.Representative, User.Identity.Name);
         }
 
         public override IActionResult Delete(System.Guid key)
         {
             return base.Delete(key);
         }
-
         
         public override IActionResult Delete(AccountDisplayViewModel displayModel)
         {
@@ -99,25 +110,28 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
         protected override AccountInputViewModel ConfigureCreate(AccountInputViewModel modelInput)
         {
             PopulateModelInputForAvailableUser(modelInput);
+
             return base.ConfigureCreate(modelInput);
         }
-
 
         protected override AccountInputViewModel ConfigurePostFailCreateValidation(AccountInputViewModel modelInput)
         {
             PopulateModelInputForAvailableUser(modelInput);
+
             return base.ConfigurePostFailCreateValidation(modelInput);
         }
 
         protected override AccountInputViewModel ConfigureEdit(Account entity, AccountInputViewModel modelInput)
         {
             PopulateModelInputForAvailableUser(modelInput);
+
             return base.ConfigureEdit(entity, modelInput);
         }
 
         protected override AccountInputViewModel ConfigurePostFailEditValidation(AccountInputViewModel modelInput)
         {
             PopulateModelInputForAvailableUser(modelInput);
+
             return base.ConfigurePostFailEditValidation(modelInput);
         }
 
