@@ -15,12 +15,12 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
 namespace WebApplication.Controllers
 {
-    [Area("dashboard")]
+    [Area("main")]
     [Authorize(Roles = ManagementRoleCodes.ADMINISTRADOR)]
-    public class AccountController : AbstractEntityManagementController<Account, System.Guid, AccountInputViewModel,AccountDisplayViewModel>
+    public class AccountsController : AbstractEntityManagementController<Account, System.Guid, AccountInputViewModel,AccountDisplayViewModel>
     {
         private readonly IEntityRepository<User, string> usersRepository;
-        public AccountController(IEntityRepository<User, string> usersRepository,IEntityRepository<Account, System.Guid> repository, IStringLocalizer<AccountController> localizer, ILogger<AccountController> logger) : base(repository, localizer, logger)
+        public AccountsController(IEntityRepository<User, string> usersRepository,IEntityRepository<Account, System.Guid> repository, IStringLocalizer<AccountsController> localizer, ILogger<AccountsController> logger) : base(repository, localizer, logger)
         {
             this.usersRepository = usersRepository;
         }

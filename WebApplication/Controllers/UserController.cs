@@ -1,194 +1,199 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
-using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
-using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers;
+using Microsoft.EntityFrameworkCore;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
-using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
-    [Area("dashboard")]
-    [Authorize(Roles = ManagementRoleCodes.ADMINISTRADOR)]
-    public class UserController : AbstractEntityManagementController<User, string, UserInputViewModel, UserDisplayViewModel>
+    
+    [Authorize(Roles = ManagementRoleCodes.MANAGER)]
+    public class UserController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserManager profilemanager;
 
-        private readonly IUserManager profilemanager;        
-
-        public UserController(IUserManager profilemanager, IEntityRepository<User, string> repository, IStringLocalizer<UserController> localizer, ILogger<UserController> logger) : base(repository, localizer, logger)
+        public UserController(ApplicationDbContext context, UserManager<User> _userManager, IUserManager profilemanager)
         {
+            _context = context;
+            this._userManager = _userManager;
             this.profilemanager = profilemanager;
-            
         }
 
-        public override IActionResult Index(int sheet = 1, int limit = 25)
+        // GET: Usuarios
+        public async Task<ActionResult> Index()
         {
-            return base.Index(sheet, limit);
+           var user = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
+           var idUser = _context.Usuarios.Where(id => id.Id == user.Id).ToList()[0].Id;
+           var account_user = _context.Accounts.Where(idRepresentative => idRepresentative.RepresentativeId == idUser).ToList()[0].Id;
+           var data = _context.Usuarios.Where(users => users.Account.Id == account_user);
+
+           return View(await data.ToListAsync());
         }
 
-        public override IActionResult Create()
+        // GET: Usuarios/Details/5
+        public async Task<ActionResult> Details(string id)
         {
-            return base.Create();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
         }
 
-        public override IActionResult Create(UserInputViewModel modelInput)
+        // GET: Usuarios/Create
+        public ActionResult Create()
         {
-            var passwords = new StringValues();
-            var confirmations = new StringValues();
+            return View();
+        }
 
-            Request.Form.TryGetValue("Password", out passwords);
-            Request.Form.TryGetValue("ConfirmPassword", out confirmations);
+        // POST: Usuarios/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(UserWithPasswordInputViewModel modelinput)
+        {           
+
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+
+                var user = new User {
+
+                FullName = modelinput.FullName,
+                UserName = modelinput.Email,
+                Email = modelinput.Email,
+                NormalizedEmail = modelinput.Email.ToUpper(),
+                NormalizedUserName = modelinput.Email.ToUpper(),                
+                SecurityStamp = Guid.NewGuid().ToString(),
+                LockoutEnabled = true,
+                PhoneNumber = modelinput.PhoneNumber
+                };
+
+                 user.PasswordHash = profilemanager.HashPassword(user, modelinput.Password);                
+                 var user_current_id = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+                 var account_user = _context.Accounts.Where(idRepresentative => idRepresentative.RepresentativeId == user_current_id).ToList()[0];                 
+                 user.Account = (Account)account_user;
+                 _context.Add(user);               
+
+                await _context.SaveChangesAsync();
+                await _userManager.AddToRoleAsync(user, ManagementRoleCodes.MEMBER);
+                return RedirectToAction(nameof(Index));
+
+                 }
+
+                return View(User);        
            
-            modelInput = new UserWithPasswordInputViewModel
-            {
-                Password = passwords.Count > 0 ? passwords.ToArray()[0] : string.Empty,
-                ConfirmPassword = confirmations.Count > 0 ? confirmations.ToArray()[0] : string.Empty,
-                Email = modelInput.Email,
-                FullName = modelInput.FullName,
-                PhoneNumber = modelInput.PhoneNumber,
-                Id = modelInput.Id ,
-                IdRole = modelInput.IdRole
-            };           
+        }
 
-            if (TryValidateModel(modelInput))
+        // GET: Usuarios/Edit/5
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id))
             {
-                var entity = modelInput.Export();
-               
-                PreCreate(entity, modelInput);
+                return NotFound();
+            }
 
+            var user = await _context.Usuarios.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(new UserInputViewModel {
+
+                Email = user.Email,
+                FullName = user.FullName,
+                PhoneNumber = user.PhoneNumber,
+                Id =  user.Id
+            });
+        }
+
+        // POST: Usuarios/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(string id, [Bind("Id,FullName,Email,PhoneNumber")] UserInputViewModel modelinput)
+        {
+            if (id != modelinput.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
                 try
                 {
-                    Repository.Add(entity, User.Identity.Name);                    
-                    PostCreate(entity, modelInput);                   
 
-                    return RedirectToAction(GetDefaultActionName());
+                    var user = await _userManager.FindByIdAsync(id);
+                    user.FullName = modelinput.FullName;
+                    user.Email = modelinput.Email;
+                    user.PhoneNumber = modelinput.PhoneNumber;
+                    await _userManager.UpdateAsync(user);
+
                 }
-                catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+                catch (DbUpdateConcurrencyException)
                 {
-                    logger.LogError(e.Message, e.InnerException);
-
-                    ModelState.AddModelError("Id", "UserNameTakedMessage");
+                    if (!UserExists(modelinput.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-           
 
-            return View(modelInput);
-
+            return View(modelinput);
         }
 
-
-        protected override void PostCreate(User entity, UserInputViewModel modelInput)
+        private bool UserExists(string id)
         {
-            
-            base.PostCreate(entity, modelInput);           
-            //Update DEFAULT ROLE
-            profilemanager.AddRoleDefault(entity);
-           
-        }
-        
+            return _context.Usuarios.Any(e => e.Id == id);
+        }               
+       
 
-        protected override void PreCreate(User entity, UserInputViewModel modelInput)
+        // GET: Usuarios/Delete/5
+        public async Task<ActionResult> Delete(string id)
         {
-            
-            entity.PasswordHash = profilemanager.HashPassword(entity, entity.PasswordHash);
-            base.PreCreate(entity, modelInput);
-        }
-
-        protected override UserInputViewModel ConfigureCreate(UserInputViewModel modelInput)
-        {
-            var result = new UserWithPasswordInputViewModel();
-            PopulateModelInputForAvailableRoles(modelInput);
-            if (modelInput is UserWithPasswordInputViewModel)
+            if (id == null)
             {
-                return base.ConfigureCreate(modelInput);
+                return NotFound();
             }
-            else
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
-                result.Roles = modelInput.Roles;
-
+                return NotFound();
             }
 
-            return base.ConfigureCreate(result);
-
+            return View(user);
         }
 
-        public override IActionResult Edit(string key)
+        // POST: Usuarios/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            return base.Edit(key);
-        }
-
-        public override IActionResult Edit(UserInputViewModel modelInput)
-        {
-            
-            
-            return base.Edit(modelInput);
-        }
-
-
-        protected override void PreEdit(User entity, UserInputViewModel modelInput)
-        {
-
-            base.PreEdit(entity, modelInput);
-        }
-
-        protected override void PostEdit(User entity, UserInputViewModel modelInput)
-        {
-            profilemanager.UpdateRole(entity);
-            base.PostEdit(entity, modelInput);
-
-        }
-
-        protected override UserInputViewModel ConfigureEdit(User entity, UserInputViewModel modelInput)
-        {
-            PopulateModelInputForAvailableRoles(modelInput);
-            return base.ConfigureEdit(entity, modelInput);
-        }
-
-        protected override UserInputViewModel ConfigurePostFailEditValidation(UserInputViewModel modelInput)
-        {
-            PopulateModelInputForAvailableRoles(modelInput);
-            return base.ConfigurePostFailEditValidation(modelInput);
-        }
-
-        public override IActionResult Delete(string key)
-        {
-            return base.Delete(key);
-        }
-
-
-        public override IActionResult Delete(UserDisplayViewModel displayModel)
-        {
-            return base.Delete(displayModel);
-        }
-
-        protected override void PostDelete(User entity)
-        {
-            base.PostDelete(entity);
-        }
-
-        private void PopulateModelInputForAvailableRoles(UserInputViewModel inputModel)
-        {
-            var entities = profilemanager.GetRoles();
-
-            var selectListItems = new List<SelectListItem>();
-
-            foreach (var entity in entities)
-            {
-                selectListItems.Add(new SelectListItem { Value = entity.Id.ToString(), Text = entity.Name });
-            }
-
-            inputModel.Roles = selectListItems;
-        }
-
-        protected override UserInputViewModel ConfigurePostFailCreateValidation(UserInputViewModel modelInput)
-        {
-            PopulateModelInputForAvailableRoles(modelInput);
-            return base.ConfigurePostFailCreateValidation(modelInput);
+            var user = await _context.Usuarios.FindAsync(id);
+            _context.Usuarios.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
