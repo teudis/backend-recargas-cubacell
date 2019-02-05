@@ -10,44 +10,48 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Dashboard\**" />
-    <Compile Remove="Areas\dashboard\Controllers\**" />
-    <Compile Remove="Areas\dashboard\Data\**" />
-    <Compile Remove="Areas\dashboard\Models\**" />
+    <Compile Remove="Areas\main\**" />
+    <Compile Remove="Areas\main\Controllers\**" />
+    <Compile Remove="Areas\main\Data\**" />
+    <Compile Remove="Areas\main\Models\**" />
     <Compile Remove="Areas\security\**" />
     <Compile Remove="Data\Migrations\**" />
     <Compile Remove="logs\**" />
-    <Content Remove="Areas\Dashboard\**" />
-    <Content Remove="Areas\dashboard\Controllers\**" />
-    <Content Remove="Areas\dashboard\Data\**" />
-    <Content Remove="Areas\dashboard\Models\**" />
+    <Content Remove="Areas\main\**" />
+    <Content Remove="Areas\main\Controllers\**" />
+    <Content Remove="Areas\main\Data\**" />
+    <Content Remove="Areas\main\Models\**" />
     <Content Remove="Areas\security\**" />
     <Content Remove="Data\Migrations\**" />
     <Content Remove="logs\**" />
-    <EmbeddedResource Remove="Areas\Dashboard\**" />
-    <EmbeddedResource Remove="Areas\dashboard\Controllers\**" />
-    <EmbeddedResource Remove="Areas\dashboard\Data\**" />
-    <EmbeddedResource Remove="Areas\dashboard\Models\**" />
+    <EmbeddedResource Remove="Areas\main\**" />
+    <EmbeddedResource Remove="Areas\main\Controllers\**" />
+    <EmbeddedResource Remove="Areas\main\Data\**" />
+    <EmbeddedResource Remove="Areas\main\Models\**" />
     <EmbeddedResource Remove="Areas\security\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="logs\**" />
-    <None Remove="Areas\Dashboard\**" />
-    <None Remove="Areas\dashboard\Controllers\**" />
-    <None Remove="Areas\dashboard\Data\**" />
-    <None Remove="Areas\dashboard\Models\**" />
+    <None Remove="Areas\main\**" />
+    <None Remove="Areas\main\Controllers\**" />
+    <None Remove="Areas\main\Data\**" />
+    <None Remove="Areas\main\Models\**" />
     <None Remove="Areas\security\**" />
     <None Remove="Data\Migrations\**" />
     <None Remove="logs\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Areas\dashboard\Views\Account\Create.cshtml.cs" />
-    <Compile Include="Areas\dashboard\Views\Account\Delete.cshtml.cs" />
-    <Compile Include="Areas\dashboard\Views\Account\Edit.cshtml.cs" />
-    <Compile Include="Areas\dashboard\Views\User\Create.cshtml.cs" />
-    <Compile Include="Areas\dashboard\Views\User\Delete.cshtml.cs" />
-    <Compile Include="Areas\dashboard\Views\User\Edit.cshtml.cs" />
-    <Compile Include="Areas\dashboard\Views\User\Index.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Accounts\Create.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Accounts\Delete.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Accounts\Edit.cshtml.cs" />
+    <Compile Include="Areas\main\Views\CellularBalanceTuneupProfiles\Create.cshtml.cs" />
+    <Compile Include="Areas\main\Views\CellularBalanceTuneupProfiles\Delete.cshtml.cs" />
+    <Compile Include="Areas\main\Views\CellularBalanceTuneupProfiles\Edit.cshtml.cs" />
+    <Compile Include="Areas\main\Views\CellularBalanceTuneupProfiles\Index.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Users\Create.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Users\Delete.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Users\Edit.cshtml.cs" />
+    <Compile Include="Areas\main\Views\Users\Index.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,14 +73,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Areas\dashboard\Views\Account\Create.cshtml" />
-    <None Include="Areas\dashboard\Views\Account\Delete.cshtml" />
-    <None Include="Areas\dashboard\Views\Account\Edit.cshtml" />
-    <None Include="Areas\dashboard\Views\Account\Index.cshtml" />
-    <None Include="Areas\dashboard\Views\User\Create.cshtml" />
-    <None Include="Areas\dashboard\Views\User\Delete.cshtml" />
-    <None Include="Areas\dashboard\Views\User\Edit.cshtml" />
-    <None Include="Areas\dashboard\Views\User\Index.cshtml" />
+    <None Include="Areas\main\Views\Accounts\Create.cshtml" />
+    <None Include="Areas\main\Views\Accounts\Delete.cshtml" />
+    <None Include="Areas\main\Views\Accounts\Edit.cshtml" />
+    <None Include="Areas\main\Views\Accounts\Index.cshtml" />
+    <None Include="Areas\main\Views\NautaBalanceTuneupProfiles\Create.cshtml" />
+    <None Include="Areas\main\Views\NautaBalanceTuneupProfiles\Delete.cshtml" />
+    <None Include="Areas\main\Views\NautaBalanceTuneupProfiles\Edit.cshtml" />
+    <None Include="Areas\main\Views\NautaBalanceTuneupProfiles\Index.cshtml" />
+    <None Include="Areas\main\Views\CellularBalanceTuneupProfiles\Create.cshtml" />
+    <None Include="Areas\main\Views\CellularBalanceTuneupProfiles\Delete.cshtml" />
+    <None Include="Areas\main\Views\CellularBalanceTuneupProfiles\Edit.cshtml" />
+    <None Include="Areas\main\Views\CellularBalanceTuneupProfiles\Index.cshtml" />
+    <None Include="Areas\main\Views\Users\Create.cshtml" />
+    <None Include="Areas\main\Views\Users\Delete.cshtml" />
+    <None Include="Areas\main\Views\Users\Edit.cshtml" />
+    <None Include="Areas\main\Views\Users\Index.cshtml" />
   </ItemGroup>
 
 </Project>
