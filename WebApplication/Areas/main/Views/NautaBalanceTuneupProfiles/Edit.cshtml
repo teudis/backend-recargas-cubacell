@@ -1,0 +1,85 @@
+﻿@using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View;
+@using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View'
+
+@model NautaBalanceTuneUpProfileInputViewModel;
+
+
+@{
+    ViewData["Title"] = "Modificar NautaBalanceTuneUpProfile";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+{
+new BreadcrumbViewModel
+{
+Caption = "<span class=\"glyphicon glyphicon-home\"></span> Inicio",
+Url = "/"
+},
+new BreadcrumbViewModel
+{
+Caption = "Administración",
+Url = Url.Action("index", "management", new { Area = string.Empty })
+},
+new BreadcrumbViewModel
+{
+Caption = "NautaBalanceTuneUpProfile",
+Url = Url.Action("index")
+},
+new BreadcrumbViewModel
+{
+Caption = "Modificar"
+}
+};
+
+    Layout = "_BackendLayout";
+}
+
+@using (Html.BeginForm("edit", "nautabalancetuneupprofiles", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.Label, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Label, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Label, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "text-danger" })
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <div class="checkbox">
+                    <label>
+                        @Html.EditorFor(model => model.Enabled) Habilitado
+                        @Html.ValidationMessageFor(model => model.Enabled)
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <div class="checkbox">
+                    <label>
+                        @Html.EditorFor(model => model.Primary) Primario
+                        @Html.ValidationMessageFor(model => model.Primary)
+                    </label>
+                </div>
+            </div>
+
+
+            <div>
+                <button type="submit" class="btn btn-primary">Modificar</button>
+                <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
+            </div>
+        </div>
+    </div>
+}
