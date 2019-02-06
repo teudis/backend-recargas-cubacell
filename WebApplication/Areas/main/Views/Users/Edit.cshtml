@@ -20,7 +20,7 @@ Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
 {
-Caption = "GruposT",
+Caption = "Modificar Usuario",
 Url = Url.Action("index")
 },
 new BreadcrumbViewModel
@@ -32,7 +32,7 @@ Caption = "Modificar"
     Layout = "_BackendLayout";
 }
 
-@using (Html.BeginForm("edit", "user", new { Area = "dashboard", key = string.Empty }, FormMethod.Post, true, null))
+@using (Html.BeginForm("edit", "users", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
 {
     @Html.ValidationSummary(true)
 

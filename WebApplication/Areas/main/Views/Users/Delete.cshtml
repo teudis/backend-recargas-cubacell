@@ -20,7 +20,7 @@ Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
 {
-Caption = "GruposT",
+Caption = "Eliminar Cuenta",
 Url = Url.Action("index")
 },
 new BreadcrumbViewModel
@@ -43,7 +43,7 @@ Caption = "Eliminar"
     <dt>@Html.DisplayNameFor(model => model.FullName)</dt>
     <dd>@Html.DisplayFor(model => model.FullName)</dd>
 </dl>
-@using (Html.BeginForm("delete", "user", new { Area = "dashboard", key = string.Empty }, FormMethod.Post, true, null))
+@using (Html.BeginForm("delete", "users", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
 {
     @Html.HiddenFor(model => model.Id)
     <div>
