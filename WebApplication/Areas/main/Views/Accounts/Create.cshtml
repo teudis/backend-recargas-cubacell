@@ -20,7 +20,7 @@ Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
 {
-Caption = "Contacto",
+Caption = "Crear Cuenta",
 Url = Url.Action("index")
 },
 new BreadcrumbViewModel
@@ -33,7 +33,7 @@ Caption = "Agregar"
 }
 
 
-@using (Html.BeginForm("create", "account", new { Area = "dashboard" }, FormMethod.Post, true, null))
+@using (Html.BeginForm("create", "accounts", new { Area = "main" }, FormMethod.Post, true, null))
 {
     @Html.ValidationSummary(true)
 

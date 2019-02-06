@@ -4,7 +4,7 @@
 
 
 @{
-    ViewData["Title"] = "Eliminar Cuenta ";
+    ViewData["Title"] = "Eliminar Cuenta";
 
     ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
 {
@@ -15,7 +15,7 @@ Url = "/"
 },
 new BreadcrumbViewModel
 {
-Caption = "Administración",
+Caption = "Eliminar Cuenta",
 Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
@@ -43,7 +43,7 @@ Caption = "Eliminar"
     <dt>@Html.DisplayNameFor(model => model.Balance)</dt>
     <dd>@Html.DisplayFor(model => model.Balance)</dd>
 </dl>
-@using (Html.BeginForm("delete", "account", new { Area = "dashboard", key = string.Empty }, FormMethod.Post, true, null))
+@using (Html.BeginForm("delete", "accounts", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
 {
     @Html.HiddenFor(model => model.Id)
     <div>

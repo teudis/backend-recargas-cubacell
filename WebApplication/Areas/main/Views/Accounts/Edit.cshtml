@@ -15,7 +15,7 @@ Url = "/"
 },
 new BreadcrumbViewModel
 {
-Caption = "Administración",
+Caption = "Modificar Cuenta",
 Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
@@ -34,7 +34,7 @@ Caption = "Modificar"
 
 
 
-@using (Html.BeginForm("edit", "account", new { Area = "dashboard", key = string.Empty }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("edit", "accounts", new { Area = "main", key = string.Empty }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
 
