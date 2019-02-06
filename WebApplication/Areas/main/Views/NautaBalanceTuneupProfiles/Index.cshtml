@@ -4,7 +4,7 @@
 @model PaginationViewModel<NautaBalanceTuneUpProfileDisplayViewModel>
 
 @{
-    ViewData["Title"] = "Administración de CellularBalanceTuneUpProfile";
+    ViewData["Title"] = "Administración de Perfil de Recarga Nauta";
 
     ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
 {
@@ -20,14 +20,14 @@ Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
 {
-Caption = "NautaBalanceTuneUpProfile"
+Caption = "Perfil de Recarga Nauta"
 }
 };
 
     Layout = "_BackendLayout";
 }
 
-<a class="btn btn-primary pull-right" href="@Url.Action("create")">Nuevo NautaBalanceTuneUpProfile </a>
+<a class="btn btn-primary pull-right" href="@Url.Action("create")">Nuevo Perfil de Recarga Nauta </a>
 
 <div class="clearfix" style="margin-bottom: 20px;"></div>
 
