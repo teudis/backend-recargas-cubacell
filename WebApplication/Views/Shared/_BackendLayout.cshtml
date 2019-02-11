@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+
+@inject UserManager<User> UserManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -9,14 +13,14 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">   
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="~/css/_all-skins.min.css">        
+    <link rel="stylesheet" href="~/css/_all-skins.min.css">
     <!-- Date Picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">     
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -248,29 +252,31 @@
                         </li>
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Alexander Pierce</span>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">                                
+                                <span class="hidden-xs">Hola @UserManager.GetUserName(User)</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="~/images/user2-160x160.jpg" class="img-circle" alt="User Image">                                   
+                                    <img src="~/images/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 </li>
-                                <!-- Menu Body -->                             
+                                <!-- Menu Body -->
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm">
+                                            <button type="submit" class="btn btn-primary">Logout</button>
+                                        </form>
                                     </div>
+
                                 </li>
                             </ul>
                         </li>
                         <!-- Control Sidebar Toggle Button -->
-                        
+
                     </ul>
                 </div>
             </nav>
@@ -279,28 +285,6 @@
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <img src="~/images/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
-                        <p>Alexander Pierce</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
@@ -314,13 +298,11 @@
                         <ul class="treeview-menu">
                             <li><a asp-area="main" asp-controller="users" asp-action="Index"><i class="fa fa-users"></i> Usuarios</a></li>
                             <li><a asp-area="main" asp-controller="accounts" asp-action="Index"><i class="fa fa-shopping-cart"></i>Cuentas</a></li>
-                        </ul>
-                        <ul class="treeview-menu">
                             <li><a asp-area="main" asp-controller="cellularbalancetuneupprofiles" asp-action="Index"><i class="fa fa-circle"></i> Perfil de Recarga Cubacel</a></li>
                             <li><a asp-area="main" asp-controller="nautabalancetuneupprofiles" asp-action="Index"><i class="fa fa-circle"></i>Perfil de Recarga Nauta</a></li>
-                        </ul>
-                    </li>                    
-                      
+                        </ul>                        
+                    </li>
+
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -341,46 +323,46 @@
             <!-- Main content -->
             <section class="content">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">                  
-                                              
-                   
+                <div class="row">
+
+
                 </div>
                 <!-- /.row -->
                 <!-- Main row -->
                 <div class="row">
                     <!--  col -->
-                    <section class="col-lg-12 connectedSortable">                       
-                            @RenderBody()
-                    
+                    <section class="col-lg-12 connectedSortable">
+                        @RenderBody()
+
                     </section>
                     <!-- /. col -->
-                  
-                    
+
+
                 </div>
                 <!-- /.row (main row) -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <footer class="main-footer">            
+        <footer class="main-footer">
             <strong>Copyright &copy;@DateTime.Now.Year <a href="https://adminlte.io"> SmartSolucionesCuba </a>.</strong> All rights
             reserved.
-        </footer>      
+        </footer>
         <!-- Add the sidebar's background. This div must be placed
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
     <!-- ./wrapper -->
     <!-- jQuery 3 -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>   
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Slimscroll -->
     <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="~/lib/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
-    <script src="~/js/adminlte.min.js"></script> 
-    
+    <script src="~/js/adminlte.min.js"></script>
+
 </body>
 </html>
