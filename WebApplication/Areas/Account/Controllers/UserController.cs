@@ -10,10 +10,12 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 
-namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
-{    
-    [Authorize(Roles = Security.Authorization.Roles.ACCOUNT_ADMIN_ROLE, Policy = Security.Authorization.Policies.ACCOUNT_ASSOCIATED)]
+namespace WebApplication.Areas.Account.Controllers
+{
+    [Area("Account")]
+    [Authorize(Roles = Roles.ACCOUNT_ADMIN_ROLE, Policy =Policies.ACCOUNT_ASSOCIATED)]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -86,11 +88,11 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
                  user.PasswordHash = profilemanager.HashPassword(user, modelinput.Password);                
                  var user_current_id = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
                  var account_user = _context.Accounts.Where(idRepresentative => idRepresentative.RepresentativeId == user_current_id).ToList()[0];                 
-                 user.Account = (Account)account_user;
+                 user.Account = (SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.Account)account_user;
                  _context.Add(user);               
 
                 await _context.SaveChangesAsync();
-                await _userManager.AddToRoleAsync(user, Security.Authorization.Roles.ACCOUNT_SELLER_ROLE);
+                await _userManager.AddToRoleAsync(user, Roles.ACCOUNT_SELLER_ROLE);
 
                 return RedirectToAction(nameof(Index));
 
