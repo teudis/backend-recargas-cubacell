@@ -1,5 +1,6 @@
 @using Microsoft.AspNetCore.Identity
 @using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+@using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -8,6 +9,12 @@
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
+            @if (User.IsInRole(Roles.SYSTEM_ADMIN_ROLE))
+            {
+                <li>
+                    <a asp-controller="management" asp-action="index" title="Manage">Dashboard</a>
+                </li>
+            }
             <li>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
@@ -20,7 +27,6 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
         <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
     </ul>
 }
