@@ -139,7 +139,6 @@ namespace WebApplication.Areas.Account.Controllers
             {
                 try
                 {
-
                     var user = await _userManager.FindByIdAsync(id);
                     user.FullName = modelinput.FullName;
                     user.Email = modelinput.Email;
