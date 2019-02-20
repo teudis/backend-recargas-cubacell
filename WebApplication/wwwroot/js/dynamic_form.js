@@ -46,7 +46,7 @@
 
          if (datos_validos == ( rowcubacel + rownauta)) {
 
-             console.log("Procesar a Formulario con datos correctos")
+             alert("Procesar a Formulario con datos correctos")
          }
      });
 
