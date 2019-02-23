@@ -36,7 +36,6 @@ namespace WebApplication.Areas.Account.Controllers
            var idUser = _context.Usuarios.Where(id => id.Id == user.Id).ToList()[0].Id;
            var account_user = _context.Accounts.Where(idRepresentative => idRepresentative.RepresentativeId == idUser).ToList()[0].Id;
            var data = _context.Usuarios.Where(users => users.Account.Id == account_user);
-
            return View(await data.ToListAsync());
         }
 
