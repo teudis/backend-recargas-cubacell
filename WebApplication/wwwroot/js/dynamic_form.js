@@ -5,9 +5,9 @@
             var datos_validos = 0;
             var select_perfil_nauta = $("<select class='form-control' id='perfil_nauta'></select>");
             var select_perfil_cubacel = $("<select class='form-control' id='perfil_cubacel'></select>");
-           $("#button_send").hide();
-
-
+            $("#button_send").hide();
+            var arr_cubacel = [];
+            var arr_nauta = [];
    
      //Enviar Datos
      $(document).on('click', '#button_send', function (e) {
@@ -15,7 +15,7 @@
 
          for (var i = 1; i <= rownauta; i++) {
 
-             var number = $("#nauta" + i).val();             
+             var number = $("#nauta" + i).val().trim();             
              if (!ValidarNauta(number)) {
 
                  $("#nauta" + i).attr('style', "border-radius: 5px; border:#FF0000 1px solid;");
@@ -31,7 +31,7 @@
 
          for (var i = 1; i <= rowcubacel; i++) {
 
-             var number = $("#cubacel" + i).val();
+             var number = $("#cubacel" + i).val().trim();
              if (!ValidarCubacel(number)) {
 
                  $("#cubacel" + i).attr('style', "border-radius: 5px; border:#FF0000 1px solid;");
@@ -44,24 +44,82 @@
              }
          }
 
-         if (datos_validos == ( rowcubacel + rownauta)) {
+         if (datos_validos == (rowcubacel + rownauta)) {
 
-             alert("Procesar a Formulario con datos correctos")
+              GetDatosCubacel();
+             // procesar celular recargas
+             $.ajax({
+                 type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 url: "/account/recarga/InsertCelullarBalanceTuneUpRequest",
+                 data: JSON.stringify(arr_cubacel),
+                 dataType: "json",
+                 success: function (response) {
+
+                     GetDatosNauta();
+                     
+                     $.ajax({
+                         type: "POST",
+                         contentType: "application/json; charset=utf-8",
+                         url: "/account/recarga/InsertNautaBalanceTuneUpRequest",
+                         data: JSON.stringify(arr_nauta),
+                         dataType: "json",
+                         success: function (response) {
+                             alert(response.someValue);
+                             var url = "/account/recarga/";
+                             window.location.href = url;
+                         },
+                         error: function (err) {
+                             console.log(err);
+                         }
+                     }); 
+
+                 },
+                 error: function (err) {
+
+                     console.log(err);
+                 }
+             });
          }
      });
 
 
         
-             function ValidarNauta( number ) {
+             function ValidarNauta( correo ) {
 
-                 var expReg = new RegExp(/^([1-9]{1})+[0-9]{7}$/)
-                 if (expReg.test(number)) {
+                 var expReg = new RegExp(/^([a-z0-9_\.-]+)@nauta\.com.cu$/)
+                 
+                 if (expReg.test(correo)) {
 
                      return true;
                  }
                  else
                      return false;
-            }
+             }
+
+             function GetDatosCubacel()
+             {
+                 cont_cubacel = 1;
+                 $('select#perfil_cubacel').each(function () {
+                     var perfil_cell = $(this).val().trim();
+                     var number_cell = $("#cubacel" + cont_cubacel).val().trim();
+                     arr_cubacel.push({ phonenumbertarget: number_cell, id: perfil_cell });
+                     cont_cubacel++
+                 });
+
+     }
+
+                 function GetDatosNauta() {
+                     cont_nauta = 1;
+                     $('select#perfil_nauta').each(function () {
+                         var perfil_nauta = $(this).val().trim();                         
+                         var number_nauta = $("#nauta" + cont_nauta).val().trim();
+                         
+                         arr_nauta.push({ emailaddresstarget: number_nauta, id: perfil_nauta });
+                         cont_nauta++
+                     });
+
+                 }
 
             function ValidarCubacel(number) {
 
@@ -101,7 +159,7 @@
             $(function () {
                 $.get('/account/recarga/getperfilnauta').done(function (perfil_nauta) {
                     $.each(perfil_nauta, function (i, nauta) {
-
+                        
                         var opt = $("<option></option");
                         opt.val(nauta.id); opt.html(nauta.label);                        
                         select_perfil_nauta.append(opt);
