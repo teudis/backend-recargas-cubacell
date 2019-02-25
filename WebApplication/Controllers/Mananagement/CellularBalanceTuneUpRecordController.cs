@@ -34,8 +34,7 @@ namespace WebApplication.Controllers.Mananagement
                 Message = "ActionNoFound"
             });
             return RedirectToAction(nameof(Index));
-        }
-       
+        }       
 
         public override IActionResult Edit(long key)
         {
@@ -46,8 +45,7 @@ namespace WebApplication.Controllers.Mananagement
                 Message = "ActionNoFound"               
             });
             return RedirectToAction(nameof(Index));
-        }
-        
+        }        
 
         public override IActionResult Delete(long key)
         {
