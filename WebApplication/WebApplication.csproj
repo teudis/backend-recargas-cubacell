@@ -48,6 +48,8 @@
     <Compile Include="Areas\Main\Views\CellularBalanceTuneupProfiles\Delete.cshtml.cs" />
     <Compile Include="Areas\Main\Views\CellularBalanceTuneupProfiles\Edit.cshtml.cs" />
     <Compile Include="Areas\Main\Views\CellularBalanceTuneupProfiles\Index.cshtml.cs" />
+    <Compile Include="Areas\Main\Views\CellularBalanceTuneUpRecord\Delete.cshtml.cs" />
+    <Compile Include="Areas\Main\Views\CellularBalanceTuneUpRecord\Index.cshtml.cs" />
     <Compile Include="Areas\Main\Views\Users\Create.cshtml.cs" />
     <Compile Include="Areas\Main\Views\Users\Delete.cshtml.cs" />
     <Compile Include="Areas\Main\Views\Users\Edit.cshtml.cs" />
@@ -77,6 +79,8 @@
     <None Include="Areas\Main\Views\Accounts\Delete.cshtml" />
     <None Include="Areas\Main\Views\Accounts\Edit.cshtml" />
     <None Include="Areas\Main\Views\Accounts\Index.cshtml" />
+    <None Include="Areas\Main\Views\CellularBalanceTuneUpRecord\Delete.cshtml" />
+    <None Include="Areas\Main\Views\CellularBalanceTuneUpRecord\Index.cshtml" />
     <None Include="Areas\Main\Views\NautaBalanceTuneupProfiles\Create.cshtml" />
     <None Include="Areas\Main\Views\NautaBalanceTuneupProfiles\Delete.cshtml" />
     <None Include="Areas\Main\Views\NautaBalanceTuneupProfiles\Edit.cshtml" />
