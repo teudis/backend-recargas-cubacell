@@ -1,9 +1,9 @@
 ﻿@using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View;
 @using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
-@model NautaBalanceTuneUpProfileDisplayViewModel
+@model NautaBalanceTuneUpRecordDisplayViewModel
 
 @{
-    ViewData["Title"] = "Eliminar Perfil Nauta";
+    ViewData["Title"] = "Eliminar Recarga Nauta";
 
     ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
 {
@@ -19,7 +19,7 @@ Url = Url.Action("index", "management", new { Area = string.Empty })
 },
 new BreadcrumbViewModel
 {
-Caption = "Perfil de Recarga Nauta",
+Caption = "Eliminar Recarga Nauta",
 Url = Url.Action("index")
 },
 new BreadcrumbViewModel
@@ -31,15 +31,17 @@ Caption = "Eliminar"
     Layout = "_BackendLayout";
 }
 
-<h3>Esta seguro que desea eliminar el Perfil de Recarga Nauta detallada a continuación?</h3>
+<h3>Esta seguro que desea eliminar la Recarga Nauta detallada a continuación?</h3>
 
 <dl>
-    <dt>@Html.DisplayNameFor(model => model.Label)</dt>
-    <dd>@Html.DisplayFor(model => model.Label)</dd>
+    <dt>@Html.DisplayNameFor(model => model.EmailAddressTarget)</dt>
+    <dd>@Html.DisplayFor(model => model.EmailAddressTarget)</dd>
     <dt>@Html.DisplayNameFor(model => model.Amount)</dt>
     <dd>@Html.DisplayFor(model => model.Amount)</dd>
+    <dt>@Html.DisplayNameFor(model => model.Created)</dt>
+    <dd>@Html.DisplayFor(model => model.Created)</dd>
 </dl>
-@using (Html.BeginForm("delete", "nautabalancetuneupprofiles", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
+@using (Html.BeginForm("delete", "nautabalancetuneuprecord", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
 {
     @Html.HiddenFor(model => model.Id)
     <div>

@@ -70,7 +70,9 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             services.AddScoped<IEntityRepository<Account, System.Guid>, AccountRepository>();
             services.AddScoped<IEntityRepository<User, string>, UserRepository>();
             services.AddScoped<IEntityRepository<CellularBalanceTuneUpProfile, int>, CellularBalanceTuneUpProfileRepository>();
-            services.AddScoped<IEntityRepository<NautaBalanceTuneUpProfile, int>, NautaBalanceTuneUpProfileRepository>();            
+            services.AddScoped<IEntityRepository<NautaBalanceTuneUpProfile, int>, NautaBalanceTuneUpProfileRepository>();
+            services.AddScoped<IEntityRepository<CellularBalanceTuneUpRecord, long>, CellularBalanceTuneUpRecordRepository>();
+            services.AddScoped<IEntityRepository<NautaBalanceTuneUpRecord, long>, NautaBalanceTuneUpRecordRepository>();
             services.AddScoped<IUserManager, UserProfileManager>();           
 
             // Email Services
