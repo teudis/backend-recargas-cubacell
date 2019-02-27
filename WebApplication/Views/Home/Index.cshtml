@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="row">
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
+        @if (SignInManager.IsSignedIn(User) &&  (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE) || User.IsInRole(Roles.ACCOUNT_SELLER_ROLE)))
         {
 
         <ul class="nav">
@@ -19,6 +19,11 @@
             <li><a asp-area="account" asp-controller="recarga">Recargas</a></li>
             <li><a asp-area="account" asp-controller="cellulartuneuprequest">Listado de Recargas Cubacel Pendientes</a></li>
             <li><a asp-area="account" asp-controller="nautatuneuprequest">Listado de Recargas Nauta Pendientes</a></li>
+            @if (User.IsInRole(Roles.ACCOUNT_SELLER_ROLE))
+            {
+                <li><a asp-area="account" asp-controller="recarga" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
+                <li><a asp-area="account" asp-controller="recarga" asp-action="getnautabalancetunerecord">Listado de Recargas Nauta</a></li>
+            }
 
         </ul>
         }
