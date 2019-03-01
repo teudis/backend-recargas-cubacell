@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.CellularBalanceTuneUpRecord>
+
+@{
+    ViewData["Title"] = "Listado de Recargas Cubacel";
+}
+
+<h2>Listado de Recargas Cubacel</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Usuario Cubacel
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                Realizada
+            </th>
+            <th>
+                Usuario
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumberTarget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Agent.FullName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
