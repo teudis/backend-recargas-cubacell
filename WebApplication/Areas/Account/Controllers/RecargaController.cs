@@ -21,7 +21,7 @@ namespace WebApplication.Areas.Account.Controllers
     public class RecargaController : BaseWebController
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;        
 
         public RecargaController(ApplicationDbContext _context, UserManager<User> _userManager, IStringLocalizer<RecargaController> localizer, ILogger<BaseWebController> logger) : base(localizer, logger)
         {
@@ -105,11 +105,22 @@ namespace WebApplication.Areas.Account.Controllers
             return View(listado);
         }
 
+        [Authorize(Roles = Roles.ACCOUNT_ADMIN_ROLE, Policy = Policies.ACCOUNT_ASSOCIATED)]
         public async Task<IActionResult> GetNautaBalanceTuneRecordAccount()
         {
             var current_user = await _userManager.GetUserAsync(HttpContext.User);
-            var listado = _context.NautaBalanceTuneUpRecords.Include(usuario => usuario.Agent).ThenInclude(cuenta => cuenta.Account).Where(account => account.Agent.Account.Id == current_user.Account.Id).ToList();
-            return View(listado);
+            var account = _userManager.Users.Include(entity => entity.Account).First(entity => entity.Id == current_user.Id).Account;
+            var result = _context.NautaBalanceTuneUpRecords.Include(user => user.Agent).Where(r => r.Agent.Account.Id == account.Id).ToList();
+            return View(result);
+        }
+
+        [Authorize(Roles = Roles.ACCOUNT_ADMIN_ROLE, Policy = Policies.ACCOUNT_ASSOCIATED)]
+        public async Task<IActionResult> GetCellularBalanceTuneRecordAccount()
+        {
+            var current_user = await _userManager.GetUserAsync(HttpContext.User);
+            var account = _userManager.Users.Include(entity => entity.Account).First(entity => entity.Id == current_user.Id).Account;
+            var result = _context.CellularBalanceTuneUpRecords.Include(user => user.Agent).Where(r => r.Agent.Account.Id == account.Id).ToList();
+            return View(result);
         }
     }
 }
