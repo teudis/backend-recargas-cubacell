@@ -14,11 +14,16 @@
         {
 
         <ul class="nav">
-
-            <li><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></li>
             <li><a asp-area="account" asp-controller="recarga">Recargas</a></li>
             <li><a asp-area="account" asp-controller="cellulartuneuprequest">Listado de Recargas Cubacel Pendientes</a></li>
             <li><a asp-area="account" asp-controller="nautatuneuprequest">Listado de Recargas Nauta Pendientes</a></li>
+            @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
+            {
+                <li><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></li>
+                <li><a asp-area="account" asp-controller="recarga" asp-action="getcellularbalancetunerecordaccount">Listado de Recargas Cubacel</a></li>
+                <li><a asp-area="account" asp-controller="recarga" asp-action="getnautabalancetunerecordaccount">Listado de Recargas Nauta</a></li>
+            }
+
             @if (User.IsInRole(Roles.ACCOUNT_SELLER_ROLE))
             {
                 <li><a asp-area="account" asp-controller="recarga" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
