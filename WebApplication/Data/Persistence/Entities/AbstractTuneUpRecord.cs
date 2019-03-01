@@ -18,5 +18,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Per
         public User Agent { get; set; }
 
         public float Amount { get; set; }
+        
     }
 }
