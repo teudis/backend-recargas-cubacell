@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRecord>
+
+@{
+    ViewData["Title"] = "Listado de Recargas Nauta";
+}
+
+<h2>Listado de Recargas Nauta</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Usuario Nauta
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                Realizada
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddressTarget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
