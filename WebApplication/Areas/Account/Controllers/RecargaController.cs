@@ -109,8 +109,8 @@ namespace WebApplication.Areas.Account.Controllers
         public async Task<IActionResult> GetNautaBalanceTuneRecordAccount()
         {
             var current_user = await _userManager.GetUserAsync(HttpContext.User);
-            var account = _userManager.Users.Include(entity => entity.Account).First(entity => entity.Id == current_user.Id).Account;
-            var result = _context.NautaBalanceTuneUpRecords.Include(user => user.Agent).Where(r => r.Agent.Account.Id == account.Id).ToList();
+            var accountid = HttpContext.User.FindFirst(Claims.ACCOUNT_CLAIM).Value;
+            var result = _context.NautaBalanceTuneUpRecords.Include(user => user.Agent).Where(r => r.Agent.Account.Id == Guid.Parse(accountid)).ToList();
             return View(result);
         }
 
@@ -118,8 +118,8 @@ namespace WebApplication.Areas.Account.Controllers
         public async Task<IActionResult> GetCellularBalanceTuneRecordAccount()
         {
             var current_user = await _userManager.GetUserAsync(HttpContext.User);
-            var account = _userManager.Users.Include(entity => entity.Account).First(entity => entity.Id == current_user.Id).Account;
-            var result = _context.CellularBalanceTuneUpRecords.Include(user => user.Agent).Where(r => r.Agent.Account.Id == account.Id).ToList();
+            var accountid = HttpContext.User.FindFirst(Claims.ACCOUNT_CLAIM).Value;
+            var result = _context.CellularBalanceTuneUpRecords.Include(user => user.Agent).Where(r => r.Agent.Account.Id == Guid.Parse(accountid)).ToList();
             return View(result);
         }
     }
