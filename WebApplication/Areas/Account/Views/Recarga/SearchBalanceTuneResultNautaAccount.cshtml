@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRecord>
+@{
+    ViewData["Title"] = "Buscador de Recargas";
+}
+
+<partial name="_SearchPartialAccount" />
+
+<h2>Resultado de B&uacute;queda</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Usuario Nauta
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                Realizada
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddressTarget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+    {
+
+    <script src="~/lib/moment/moment.js"></script>
+    <script src="~/lib/moment/locale/es.js"></script>
+    <script src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/searchaccount.js">
+    </script>
+}
+
