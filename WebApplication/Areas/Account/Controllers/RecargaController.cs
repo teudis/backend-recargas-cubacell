@@ -125,11 +125,13 @@ namespace WebApplication.Areas.Account.Controllers
             return View(result);
         }
 
+        [Authorize(Roles = Roles.ACCOUNT_SELLER_ROLE, Policy = Policies.ACCOUNT_ASSOCIATED)]
         public IActionResult SearchBalanceTune()
         {
             return View();
         }
 
+        
         [HttpPost]
         public async Task<IActionResult> SearchBalanceTuneResult(SearchInputModelView modelinput)
         {
@@ -151,7 +153,7 @@ namespace WebApplication.Areas.Account.Controllers
             
         }
 
-
+         [Authorize(Roles = Roles.ACCOUNT_SELLER_ROLE, Policy = Policies.ACCOUNT_ASSOCIATED)]
         private List <NautaBalanceTuneUpRecord> GetNautaRecord(SearchInputModelView modelinput)
         {
             var fecha_ini = modelinput.FechaInicio;
@@ -228,7 +230,7 @@ namespace WebApplication.Areas.Account.Controllers
             return listado_cubacel;
         }
 
-
+        [Authorize(Roles = Roles.ACCOUNT_ADMIN_ROLE, Policy = Policies.ACCOUNT_ASSOCIATED)]
         public IActionResult SearchBalanceTuneAccount()
         {
             var accountid = HttpContext.User.FindFirst(Claims.ACCOUNT_CLAIM).Value;          
