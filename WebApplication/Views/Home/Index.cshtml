@@ -20,16 +20,16 @@
             @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
             {
                 <li><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></li>
-                <li><a asp-area="account" asp-controller="recarga" asp-action="getcellularbalancetunerecordaccount">Listado de Recargas Cubacel</a></li>
-                <li><a asp-area="account" asp-controller="recarga" asp-action="getnautabalancetunerecordaccount">Listado de Recargas Nauta</a></li>
-                <li><a asp-area="account" asp-controller="recarga" asp-action="searchbalancetuneaccount">Buscador de Recargas Realizadas</a></li>
+                <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount">Listado de Recargas Cubacel</a></li>
+                <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecordaccount">Listado de Recargas Nauta</a></li>
+                <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscador de Recargas Realizadas</a></li>
             }
 
             @if (User.IsInRole(Roles.ACCOUNT_SELLER_ROLE))
             {
-                <li><a asp-area="account" asp-controller="recarga" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
-                <li><a asp-area="account" asp-controller="recarga" asp-action="getnautabalancetunerecord">Listado de Recargas Nauta</a></li>
-                <li><a asp-area="account" asp-controller="recarga" asp-action="searchbalancetune">Buscardor de Recargas Realizadas</a></li>
+                <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
+                <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord">Listado de Recargas Nauta</a></li>
+                <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune">Buscardor de Recargas Realizadas</a></li>
             }
 
         </ul>
