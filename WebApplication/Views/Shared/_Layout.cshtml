@@ -2,72 +2,142 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>@ViewData["Title"] - TuneUpResellWebApplication</title>
+
+    <!-- Favicons -->
+    <link href="~/images/favicon.png" rel="icon">
+    <link href="~/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="~/css/font.css" rel="stylesheet">
+
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
+
+    <!-- Libraries CSS Files -->
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+    <!--==========================
+    Header
+    ============================-->
+    <header id="header" class="fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">TuneUpResellWebApplication</a>
+
+            <div class="logo float-left">
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
+                <a asp-controller="home" asp-action="index" class="scrollto"><img src="~/images/logo-01.png" alt="" class="img-fluid"></a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>                    
+
+            <nav class="main-nav float-right d-none d-lg-block">
+                <ul>
+                    
+                    <li><a asp-controller="home" asp-action="about" >Nosotros</a></li>
+                    <li><a asp-controller="home" asp-action="contact">Contacto</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
-            </div>
+            </nav><!-- .main-nav -->
+
         </div>
-    </nav>
+    </header><!-- #header -->
+
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <!--==========================
+      Intro Section
+    ============================-->
+
+
+    <div class="container">
+
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - TuneUpResellWebApplication</p>
-        </footer>
-    </div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+     </div>
+        <!--==========================
+          Footer
+        ============================-->
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row justify-content-md-center">
 
-    @RenderSection("Scripts", required: false)
+                        <div class="col-lg-3 col-md-6 footer-contact">
+                            <h4>Conexión Cubanos</h4>
+                            <p>
+                                108 SW Street <br>
+                                Miami, FL 535022<br>
+                                United States <br>
+                                <strong>Teléfono:</strong> +1 2345 67890 55<br>
+                                <strong>Email:</strong> info@soporte.com<br>
+                            </p>
+
+                            <div class="social-links">
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 footer-links">
+                            <h4>Sitio Web</h4>
+                            <ul>
+                                <li><a href="index.html">Inicio / Entrar</a></li>
+                                <li><a href="about.html">Nosotros</a></li>
+                                <li><a href="terms.html">Términos de Uso</a></li>
+                                <li><a href="privacy.html">Política de Privacidad</a></li>
+                                <li><a href="contact.html">Contacto</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="copyright">
+                    Copyrights &copy; <strong>Conexión Cubanos</strong> - 2019. </br>
+                    Todos los derechos reservados.
+                </div>              
+            </div>
+        </footer><!-- #footer -->
+
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("Scripts", required: false)
 </body>
 </html>
