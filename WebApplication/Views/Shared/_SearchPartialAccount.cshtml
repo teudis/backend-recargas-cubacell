@@ -1,0 +1,41 @@
+﻿<link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<row>
+    <div class="well col-md-12">
+        <form asp-action="searchbalancetuneaccountresult" asp-controller="buscador" asp-area="account">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <input type="datetime" name="FechaInicio" id="FechaInicio" value="" class="form-control" placeholder=" Fecha Inicio" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="datetime" name="FechaFin" id="FechaFin" value="" class="form-control" placeholder=" Fecha Fin" />
+                </div>
+                <label class="col-sm-1 control-label">Perfil de Recarga</label>
+                <div class="col-sm-3">
+                    <select name="perfilrecarga" id="perfilrecarga" class="form-control">
+                        <option value="0">Seleccionar Perfil</option>
+                        <option value="cubacel">Cubacel</option>
+                        <option value="nauta">Nauta</option>
+                    </select>
+                </div>
+                <label class="col-sm-1 control-label">Usuarios</label>
+                <div class="col-sm-3">
+                    <select class="form-control" name="UserId" asp-items="@((List<SelectListItem>)ViewData["usuarios"])"></select>
+                </div>
+                
+                <div id="emailtarget" class="form-group col-sm-12">
+                    <input type="text" name="emailtarget" value="" class="form-control" placeholder="correo nauta" />
+                </div>
+
+                <div id="phonetarget" class="form-group col-sm-12">
+                    <input type="text" name="phonetarget" value="" class="form-control" placeholder="celular cubacel" />
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <input type="submit" name="name" value="Buscar" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group">
+            </div>
+        </form>
+    </div>
+</row>

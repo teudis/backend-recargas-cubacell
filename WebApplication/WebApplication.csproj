@@ -7,6 +7,7 @@
     <Version>0.1.0</Version>
     <AssemblyName>SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication</AssemblyName>
     <RootNamespace>SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication</RootNamespace>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
