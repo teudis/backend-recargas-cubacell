@@ -233,6 +233,61 @@ h6 {
   color: #fff;
 }
 
+/* Inicio ----- Boton Iniciar Sesión - Menu Principal */
+
+#header .main-nav .btn-login {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: 0.5s;
+    margin: 0 20px 20px 15px;
+    color: #004289;
+}
+
+#header .main-nav .btn-login {
+    border: 2px solid #004289;
+}
+
+#header .main-nav .btn-login:hover {
+        background: #007bff;
+        border-color: #007bff;
+        color: #fff;
+}
+
+/* Fin ----- Boton Iniciar Sesión - Menu Principal */
+
+/* Inicio ----- Boton Entrar - Iniciar Sesión */
+
+#login .btn-loginform {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+#login .form-group-btn .btn-loginform {
+    background: #007bff;
+    color: #fff;
+}
+
+#login .form-group-btn .btn-loginform:hover {
+    background: rgba(0, 48, 100, 0.5);
+}
+#login .form-group-btn{
+    text-align: right;
+}
+#login .link-forgot {
+    text-align: right;
+}
+
+/* Fin ----- Boton Entrar - Iniciar Sesión */
+
 #intro .intro-info .btn-get-started {
   background: #007bff;
   border: 2px solid #007bff;
