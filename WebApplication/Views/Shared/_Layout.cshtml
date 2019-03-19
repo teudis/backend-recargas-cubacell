@@ -46,11 +46,11 @@
 
             <nav class="main-nav float-right d-none d-lg-block">
                 <ul>
-                    
-                    <li><a asp-controller="home" asp-action="about" >Nosotros</a></li>
+                    <li><a asp-controller="home" asp-action="about">Nosotros</a></li>
                     <li><a asp-controller="home" asp-action="contact">Contacto</a></li>
+                    <partial name="_LoginPartial" />
                 </ul>
-                <partial name="_LoginPartial" />
+                
             </nav><!-- .main-nav -->
 
         </div>
@@ -64,7 +64,7 @@
     ============================-->
 
 
-    <div class="container">
+    <div id="mainrender">
 
         @RenderBody()
 
@@ -99,10 +99,10 @@
                             <h4>Sitio Web</h4>
                             <ul>
                                 <li><a href="index.html">Inicio / Entrar</a></li>
-                                <li><a href="about.html">Nosotros</a></li>
-                                <li><a href="terms.html">Términos de Uso</a></li>
-                                <li><a href="privacy.html">Política de Privacidad</a></li>
-                                <li><a href="contact.html">Contacto</a></li>
+                                <li><a asp-controller="home" asp-action="about">Nosotros</a></li>
+                                <li><a asp-controller="home" asp-action="terms" >Términos de Uso</a></li>
+                                <li><a asp-controller="home" asp-action="privacy" >Política de Privacidad</a></li>
+                                <li><a asp-controller="home" asp-action="contact">Contacto</a></li>
                             </ul>
                         </div>
                     </div>
@@ -113,13 +113,28 @@
                 <div class="copyright">
                     Copyrights &copy; <strong>Conexión Cubanos</strong> - 2019. </br>
                     Todos los derechos reservados.
-                </div>              
+                </div>
+                <div class="credits">
+                    <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=NewBiz
+        -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
             </div>
         </footer><!-- #footer -->
 
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/lib/easing/easing.min.js"></script>
+            <script src="~/lib/mobile-nav/mobile-nav.js"></script>
+            <script src="~/lib/wow/wow.min.js"></script>
+            <script src="~/lib/waypoints/waypoints.min.js"></script>
+            <script src="~/lib/isotope/isotope.pkgd.min.js"></script>
+            <script src="~/lib/lightbox/js/lightbox.min.js"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
         </environment>
         <environment exclude="Development">
@@ -137,6 +152,14 @@
             </script>
             <script src="~/js/site.min.js" asp-append-version="true"></script>
         </environment>
+
+
+     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+  
+  <!-- Contact Form JavaScript File -->
+
 
         @RenderSection("Scripts", required: false)
 </body>
