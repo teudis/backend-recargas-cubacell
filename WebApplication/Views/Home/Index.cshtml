@@ -8,11 +8,10 @@
 
 <br>
 
-<div class="container">
-    <div class="row">
-        @if (SignInManager.IsSignedIn(User) && (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE) || User.IsInRole(Roles.ACCOUNT_SELLER_ROLE)))
-        {
-        <main id="main">
+@if (SignInManager.IsSignedIn(User) && (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE) || User.IsInRole(Roles.ACCOUNT_SELLER_ROLE)))
+{
+    <div class="container">
+        <div class="row">
             <br />
             <br />
             <br />
@@ -36,29 +35,28 @@
                 }
 
             </ul>
-
-        </main>
-                }
-                else
-                {
-                <section id="intro" class="clearfix">
-                    <div class="container">
-
-                        <div class="intro-img">
-                            <!--<img src="img/intro-img.svg" alt="" class="img-fluid">-->
-                            <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
-                        </div>
-
-                        <div class="intro-info">
-                            <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
-                            <div>
-                                <a  asp-area="Identity" asp-page="/Account/Login" class="btn-get-started scrollto">Iniciar sesión</a>
-                                <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </section><!-- #intro -->
-                }
         </div>
-</div>
+    </div>
+
+}
+else
+{
+    <section id="intro" class="clearfix">
+        <div class="container">
+
+            <div class="intro-img">
+                <!--<img src="img/intro-img.svg" alt="" class="img-fluid">-->
+                <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
+            </div>
+
+            <div class="intro-info">
+                <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
+                <div>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn-get-started scrollto">Iniciar sesión</a>
+                    <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- #intro -->
+}
