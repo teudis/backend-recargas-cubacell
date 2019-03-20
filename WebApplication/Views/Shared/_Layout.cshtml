@@ -37,13 +37,11 @@
     ============================-->
     <header id="header" class="fixed-top">
         <div class="container">
-
             <div class="logo float-left">
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
                 <a asp-controller="home" asp-action="index" class="scrollto"><img src="~/images/logo-01.png" alt="" class="img-fluid"></a>
             </div>
-
             <nav class="main-nav float-right d-none d-lg-block">
                 <ul>
                     <li><a asp-controller="home" asp-action="index">Inicio</a></li>
@@ -52,7 +50,6 @@
                     <partial name="_LoginPartial" />
                 </ul>
             </nav><!-- .main-nav -->
-
         </div>
     </header><!-- #header -->
 
@@ -64,7 +61,7 @@
     ============================-->
 
 
-    <div id="mainrender">
+     <div id="mainrender">
 
         @RenderBody()
 
@@ -76,7 +73,6 @@
             <div class="footer-top">
                 <div class="container">
                     <div class="row justify-content-md-center">
-
                         <div class="col-lg-3 col-md-6 footer-contact">
                             <h4>Conexión Cubanos</h4>
                             <p>
@@ -86,7 +82,6 @@
                                 <strong>Teléfono:</strong> +1 2345 67890 55<br>
                                 <strong>Email:</strong> info@soporte.com<br>
                             </p>
-
                             <div class="social-links">
                                 <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
                                 <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>

@@ -180,7 +180,7 @@ h6 {
     width: 100%;
     position: relative;   
     background-size: cover;
-    padding: 120px 0 50px 0;
+    padding: 50px 0 50px 0;
 }
 
 
@@ -193,7 +193,7 @@ h6 {
   position: relative;
   background: url("../images/intro-bg.png") center bottom no-repeat;
   background-size: cover;
-  padding: 120px 0 50px 0;
+  padding: 50px 0 50px 0;
 }
 
 #intro .intro-img {
@@ -229,7 +229,7 @@ h6 {
   padding: 10px 32px;
   border-radius: 50px;
   transition: 0.5s;
-  margin: 0 20px 20px 0;
+  margin: 0 20px 10px 0;
   color: #fff;
 }
 
@@ -445,12 +445,27 @@ h6 {
   font-weight: 500;
 }
 
+    .mobile-nav button {
+        display: block;
+        position: relative;
+        color: #fff;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+
 .mobile-nav a:hover,
 .mobile-nav .active > a,
 .mobile-nav li:hover > a {
   color: #74b5fc;
   text-decoration: none;
 }
+
+    .mobile-nav button:hover,
+    .mobile-nav .active > button,
+    .mobile-nav li:hover > button {
+        color: #74b5fc;
+        text-decoration: none;
+    }
 
 .mobile-nav .drop-down > a:after {
   content: "\f078";
@@ -460,6 +475,14 @@ h6 {
   right: 15px;
 }
 
+    .mobile-nav .drop-down > button:after {
+        content: "\f078";
+        font-family: FontAwesome;
+        padding-left: 10px;
+        position: absolute;
+        right: 15px;
+    }
+
 .mobile-nav .active.drop-down > a:after {
   content: "\f077";
 }
@@ -467,6 +490,14 @@ h6 {
 .mobile-nav .drop-down > a {
   padding-right: 35px;
 }
+
+    .mobile-nav .active.drop-down > button:after {
+        content: "\f077";
+    }
+
+    .mobile-nav .drop-down > button {
+        padding-right: 35px;
+    }
 
 .mobile-nav .drop-down ul {
   display: none;
@@ -540,7 +571,7 @@ h6 {
   text-align: center;
   margin: auto;
   font-size: 15px;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
   color: #556877;
   width: 50%;
 }
@@ -1258,7 +1289,7 @@ h6 {
 --------------------------------*/
 
 #login {
-  padding: 60px 0;
+  padding: 50px 15px;
   overflow: hidden;
 }
 
@@ -1563,13 +1594,13 @@ h6 {
   }
 
   #intro {
-    padding: 140px 0 60px 0;
+    padding: 50px 0 50px 0;
   }
 
   #intro .intro-img {
-    width: 80%;
+    width: 74%;
     float: none;
-    margin: 0 auto 25px auto;
+    margin: 0 auto 10px auto;
   }
 
   #intro .intro-info {
@@ -1596,8 +1627,8 @@ h6 {
   }
 
   #intro .intro-info h2 {
-    font-size: 34px;
-    margin-bottom: 30px;
+    font-size: 26px;
+    margin-bottom: 14px;
   }
 
   .section-header p {
@@ -1622,6 +1653,35 @@ h6 {
 
 @media (max-width: 574px) {
   #intro {
-    padding: 100px 0 20px 0;
+    padding: 30px 0 20px 0;
   }
+
+     
+  #about, #contact, #login{
+        padding: 30px 15px;
+    }
+
+    #contact p {
+        margin: 0 0 10px 0;
+    }
+
+  h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        margin: 0 0 20px 0;
+        padding: 0;
+    }
+
+    #mainrender {
+        padding: 50px 0 20px 0;
+    }
+
+    #about {
+        padding-bottom: 0;
+    }
 }

@@ -6,8 +6,6 @@
     ViewData["Title"] = "Home Page CubanConexions";
 }
 
-<br>
-
 @if (SignInManager.IsSignedIn(User) && (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE) || User.IsInRole(Roles.ACCOUNT_SELLER_ROLE)))
 {
     <div class="container">
@@ -43,7 +41,6 @@ else
 {
     <section id="intro" class="clearfix">
         <div class="container">
-
             <div class="intro-img">
                 <!--<img src="img/intro-img.svg" alt="" class="img-fluid">-->
                 <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
