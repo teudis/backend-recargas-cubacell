@@ -1,43 +1,43 @@
-﻿<br>
-<row>
-    <div class="col-md-12">
-        <div class="btn-group">
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Recargar <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#" id="id_cubalcel">Cubacel</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#" id="nauta">Nauta Hogar</a></li>
-            </ul>
-        </div>
-    </div>
-</row>
-<br>
-<row>
-    <br>
-    <div class="well col-md-12">
-        <form class="form-horizontal" id="formulario_recargas" >
-            <h4 class="text-center">Formulario de Recargas</h4>
-            <div id="formulario_recargas">
-                <div class=" form-group col-md-12" id="dynamic_inputs">
-                    <div id="zone_cell" class="form-group col-md-12" >
-
-                    </div>                    
-                    <div id="zone_nauta" class="form-group col-md-12">
-
-                    </div>
-                </div>
-                <div class="input-group-btn" id="button_send">
-                    <button class="btn btn-success add-more" type="button">Realizar Recargas</button>
+﻿<section id="mainrender">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Recargar <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="id_cubalcel">Cubacel</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" id="nauta">Nauta Hogar</a></li>
+                    </ul>
                 </div>
             </div>
-        </form>
-    </div> 
-</row>
-@section scripts
-    {
+            <br>
+            <div class="well col-md-12">
+                <form class="form-horizontal" id="formulario_recargas">
+                    <h4 class="text-center">Formulario de Recargas</h4>
+                    <div id="formulario_recargas">
+                        <div class=" form-group col-md-12" id="dynamic_inputs">
+                            <div id="zone_cell" class="form-group col-md-12">
 
-    <script src="~/js/dynamic_form.js">   
-    </script>
-}
+                            </div>
+                            <div id="zone_nauta" class="form-group col-md-12">
+
+                            </div>
+                        </div>
+                        <div class="input-group-btn" id="button_send">
+                            <button class="btn btn-success add-more" type="button">Realizar Recargas</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+            @section scripts
+                {
+
+                <script src="~/js/dynamic_form.js">
+                </script>
+            }
