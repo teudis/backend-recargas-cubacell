@@ -3,43 +3,48 @@
 @{
     ViewData["Title"] = "Listado de Recargas a Procesar";
 }
+<section id="mainrender">
+    <div class="container">
+        <div class="row">
+            <h2>Listado de Recargas a Procesar Nauta</h2>
 
-<h2>Listado de Recargas a Procesar Nauta</h2>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAddressTarget)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TuneUpProfile.Label)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Requested)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailAddressTarget)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TuneUpProfile.Label)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Requested)
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddressTarget)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TuneUpProfile.Label)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Requested)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmailAddressTarget)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TuneUpProfile.Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Requested)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+        </div>
+    </div>
+</section>
