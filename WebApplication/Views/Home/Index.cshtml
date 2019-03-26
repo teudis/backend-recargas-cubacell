@@ -8,91 +8,175 @@
 
 @if (SignInManager.IsSignedIn(User) && (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE) || User.IsInRole(Roles.ACCOUNT_SELLER_ROLE)))
 {
-        <section id="mainrender">
-            <div class="container">
-                <div class="row">
-                    <ul>
-                        <li><a asp-area="account" asp-controller="recarga">Recargas</a></li>
-                        <li><a asp-area="account" asp-controller="cellulartuneuprequest">Listado de Recargas Cubacel Pendientes</a></li>
-                        <li><a asp-area="account" asp-controller="nautatuneuprequest">Listado de Recargas Nauta Pendientes</a></li>
-                        @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
-                        {
-                            <li><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></li>
-                            <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount">Listado de Recargas Cubacel</a></li>
-                            <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecordaccount">Listado de Recargas Nauta</a></li>
-                            <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscador de Recargas Realizadas</a></li>
-                        }
+    <section id="home">
+        <div class="container">
+            <!--
+            <header class="section-header">
+                <h3>Conexión Cubanos</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </header>
+            -->
+            <div class="row home-container">
 
-                        @if (User.IsInRole(Roles.ACCOUNT_SELLER_ROLE))
-                        {
-                            <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
-                            <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord">Listado de Recargas Nauta</a></li>
-                            <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune">Buscardor de Recargas Realizadas</a></li>
-                        }
+                <div class="col-lg-4 content order-lg-1 order-1">
+                    <h3>Crear</h3>
+                    <div class="icon-box wow fadeInUp">
+                        <a asp-area="account" asp-controller="recarga"><div class="icon"><i class="fa fa-phone"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="recarga">Recargas Cubacel</a></h4>
+                        <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                    </div>
 
-                    </ul>
-                </div>
-            </div>
-        </section>
-        }
-        else
-        {
-        <section id="intro" class="clearfix">
-            <div class="container">
-                <div class="intro-img">
-                    <!--<img src="img/intro-img.svg" alt="" class="img-fluid">-->
-                    <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                        <a asp-area="account" asp-controller="recarga"><div class="icon"><i class="fa fa-at"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="recarga">Recargas Nauta</a></h4>
+                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
+                    {
+                        <h3>Administrador</h3>
+                        <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                            <a asp-area="account" asp-controller="user"><div class="icon"><i class="fa fa-user"></i></div></a>
+                            <h4 class="title"><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></h4>
+                            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                        </div>
+                    }
                 </div>
 
-                <div class="intro-info">
-                    <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
-                    <div>
-                        <a asp-area="Identity" asp-page="/Account/Login" class="btn-get-started scrollto">Iniciar sesión</a>
-                        <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
+                <div class="pendientes col-lg-4 content order-lg-3 order-3">
+                    <h3>Pendientes</h3>
+                    <div class="icon-box wow fadeInUp">
+                        <a asp-area="account" asp-controller="cellulartuneuprequest"><div class="icon"><i class="fa fa-phone"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="cellulartuneuprequest">Recargas Cubacel</a></h4>
+                        <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                    </div>
+
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                        <a asp-area="account" asp-controller="nautatuneuprequest"><div class="icon"><i class="fa fa-at"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="nautatuneuprequest">Recargas Nauta</a></h4>
+                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                        <a href=""><div class="icon"><i class="fa fa-search"></i></div></a>
+                        <h4 class="title"><a href="">Buscar Recargas</a></h4>
+                        <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
                     </div>
                 </div>
 
-            </div>
-        </section><!-- #intro -->
-        <section id="about">
-            <div class="container">
-                <header class="section-header">
-                    <h3>Conexión Cubanos</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </header>
-
-                <div class="row about-container">
-
-                    <div class="col-lg-6 content order-lg-1 order-2">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-
+                    <div class="realizadas col-lg-4 content order-lg-2 order-2">
+                        <h3>Realizadas</h3>
                         <div class="icon-box wow fadeInUp">
-                            <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-                            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+                            <a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount"><div class="icon"><i class="fa fa-phone"></i></div></a>
+                            <h4 class="title"><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount">Recargas Cubacel</a></h4>
                             <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
                         </div>
 
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="icon"><i class="fa fa-photo"></i></div>
-                            <h4 class="title"><a href="">Magni Dolores</a></h4>
+                            <a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord"><div class="icon"><i class="fa fa-at"></i></div></a>
+                            <h4 class="title"><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord">Recargas Nauta</a></h4>
                             <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                         </div>
 
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="icon"><i class="fa fa-bar-chart"></i></div>
-                            <h4 class="title"><a href="">Dolor Sitema</a></h4>
+                            <a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount"><div class="icon"><i class="fa fa-search"></i></div></a>
+                            <h4 class="title"><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscar Recargas</a></h4>
                             <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
                         </div>
 
                     </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
-                        <img src="~/images/about-img.svg" class="img-fluid" alt="">
+
+    <!--
+    <section id="mainrender">
+        <div class="container">
+            <div class="row">
+                <ul>
+                    <li><a asp-area="account" asp-controller="recarga">Recargas</a></li>
+                    <li><a asp-area="account" asp-controller="cellulartuneuprequest">Listado de Recargas Cubacel Pendientes</a></li>
+                    <li><a asp-area="account" asp-controller="nautatuneuprequest">Listado de Recargas Nauta Pendientes</a></li>
+                    @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
+                    {
+                        <li><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></li>
+                        <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount">Listado de Recargas Cubacel</a></li>
+                        <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecordaccount">Listado de Recargas Nauta</a></li>
+                        <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscador de Recargas Realizadas</a></li>
+                    }
+
+                    @if (User.IsInRole(Roles.ACCOUNT_SELLER_ROLE))
+                    {
+                        <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
+                        <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord">Listado de Recargas Nauta</a></li>
+                        <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune">Buscardor de Recargas Realizadas</a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </section>
+    -->
+}
+else
+{
+    <section id="intro" class="clearfix">
+        <div class="container">
+            <div class="intro-img">
+                <!--<img src="img/intro-img.svg" alt="" class="img-fluid">-->
+                <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
+            </div>
+
+            <div class="intro-info">
+                <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
+                <div>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn-get-started scrollto">Iniciar sesión</a>
+                    <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- #intro -->
+
+    <section id="about">
+        <div class="container">
+            <header class="section-header">
+                <h3>Conexión Cubanos</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </header>
+
+            <div class="row about-container">
+
+                <div class="col-lg-6 content order-lg-1 order-2">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+
+                    <div class="icon-box wow fadeInUp">
+                        <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+                        <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+                        <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
                     </div>
+
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="icon"><i class="fa fa-photo"></i></div>
+                        <h4 class="title"><a href="">Magni Dolores</a></h4>
+                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="icon"><i class="fa fa-bar-chart"></i></div>
+                        <h4 class="title"><a href="">Dolor Sitema</a></h4>
+                        <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                    </div>
+
                 </div>
 
+                <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="~/images/about-img.svg" class="img-fluid" alt="">
+                </div>
             </div>
-        </section><!-- #about -->
-        }
+
+        </div>
+    </section><!-- #about -->
+}
