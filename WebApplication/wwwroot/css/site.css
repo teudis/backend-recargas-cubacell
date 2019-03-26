@@ -879,6 +879,20 @@ h6 {
         }
 
         
+       
+#formulario_recargas-footer {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 40px;
+}
+
+.formulario_recargas-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
 
 /* Services Section
 --------------------------------*/

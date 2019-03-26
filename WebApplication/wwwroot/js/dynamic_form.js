@@ -132,23 +132,24 @@
                      return false;
              }
 
-            //Generar campos cubacel
+            //Generar campos Cubacel
             $(document).on('click', '#id_cubalcel', function (e) {
                 e.preventDefault();
                 $("#button_send").show();
                 rowcubacel++;
-                var cubacel = '<div id="rowNumCubacel' + rowcubacel + '"><h3>Recarga Cubacel</h3><label for="numero_cell" class="col-sm-2 control-label">N&uacute;mero Movil</label><div class="col-sm-4"><input type="text" class="form-control" id="cubacel' + rowcubacel + '"></div><label class="col-sm-3 control-label">Perfil Cubacel</label><div class="col-sm-3" id="select_cubacel' + rowcubacel + '"></div></div><br>';
+                var cubacel = '<div id="rowNumCubacel' + rowcubacel + '"><h3>Recarga Cubacel</h3><div class="formulario_recargas-row"><div class="col-sm-4"><label for="numero_cell" class="control-label">N&uacute;mero de tel&eacute;fono</label><input type="text" class="form-control" id="cubacel' + rowcubacel + '"></div><div class="col-sm-4" id="select_cubacel' + rowcubacel + '"><label class="control-label">Perfil Cubacel</label></div><div class="col-sm-4"><button type="button" class="btn btn-danger">Cancelar esta Recarga</button></div></div></div>';
                 $('#zone_cell').append(cubacel);
                 var copy = select_perfil_cubacel.clone();
-                $("#select_cubacel" + rowcubacel).append(copy);  
-            });
+                $("#select_cubacel" + rowcubacel).append(copy); 
+             });
+                      
 
-             //Generar campos nauta
+             //Generar campos Nauta
             $(document).on('click', '#nauta', function (e) {
                 e.preventDefault();
                 $("#button_send").show();
                 rownauta++;
-                var nauta = '<div id="rowNumNauta' + rownauta + '"><h3>Recarga Nauta</h3><label for="numero_cell" class="col-sm-2 control-label">N&uacute;mero Casa</label><div class="col-sm-4"><input type="text" class="form-control" id="nauta' + rownauta + '"></div><label class="col-sm-3 control-label">Perfil Nauta</label><div class="col-sm-3" id="select_nauta' + rownauta + '"></div></div><br>';
+                var nauta = '<div id="rowNumNauta' + rownauta + '"><h3>Recarga Nauta</h3><div class="formulario_recargas-row"><div class="col-sm-4"><label for="numero_cell" class="control-label">Usuario Nauta</label><input type="text" class="form-control" id="nauta' + rownauta + '"></div><div class="col-sm-4" id="select_nauta' + rownauta + '"><label class="control-label">Perfil Nauta</label></div><div class="col-sm-4"><button type="button" class="btn btn-danger">Cancelar esta Recarga</button></div></div></div>';
                 $('#zone_nauta').append(nauta);                 
                 var copy = select_perfil_nauta.clone();
                 $("#select_nauta" + rownauta).append(copy);               
