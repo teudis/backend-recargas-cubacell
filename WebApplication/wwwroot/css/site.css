@@ -886,6 +886,12 @@ h6 {
     margin-top: 40px;
 }
 
+#formulario_usuarios-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
 .formulario_recargas-row {
     display: flex;
     justify-content: flex-end;
@@ -1779,6 +1785,71 @@ h6 {
 #footer .credits a:hover {
   color: #f1f7ff;
 }
+
+
+
+/*--------------------------------------------------------------
+# Responsive - Tablas
+--------------------------------------------------------------*/
+
+.tabla-row {
+    margin: 1rem;
+    border-width: 0.1rem;
+    border-top-style: solid;
+    border-top-color: rgba(127, 137, 161, 0.25);
+}
+
+.tabla-row-header {
+    margin: 1rem;
+}
+
+.col-titulo {
+    font-size: 1rem;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+.col-texto {
+    margin-left: 1rem;
+}
+
+.tabla-col-btn {
+    display: flex;
+    align-items: flex-end;
+}
+
+.col-texto-header {
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+.tabla-btn {
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .tabla-container {
+        margin-top: -130px;
+    }
+
+    #formulario_usuarios-header {
+        /* justify-content: center; */
+    }
+
+    .col-titulo {
+        visibility: visible;
+    }
+
+    .col-texto-header {
+        visibility: hidden;
+    }
+
+    .tabla-col {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
 
 /*--------------------------------------------------------------
 # Responsive Media Queries

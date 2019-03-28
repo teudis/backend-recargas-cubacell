@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRequest>
 
 @{
-    ViewData["Title"] = "Listado de Recargas a Procesar";
+    ViewData["Title"] = "Recargas Nauta - Pendientes";
 }
 <section id="mainrender">
     <div class="container">
         <div class="row">
-            <h2>Listado de Recargas a Procesar Nauta</h2>
+            <h2>Recargas Nauta - Pendientes</h2>
 
 
             <table class="table">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.EmailAddressTarget)
+                            Usuario Nauta
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.TuneUpProfile.Label)
