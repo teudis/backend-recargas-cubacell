@@ -1,41 +1,48 @@
 ﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.CellularBalanceTuneUpRecord>
 
 @{
-    ViewData["Title"] = "Listado de Recargas Cubacel";
+    ViewData["Title"] = "Recargas Cubacel - Realizadas";
 }
 
-<h2>Listado de Recargas Cubacel</h2>
+<section id="mainrender">
+    <div class="container">
+        <div class="row">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Celular
-            </th>
-            <th>
-              Monto
-            </th>
-            <th>
-               Realizada
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumberTarget)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>               
-            </tr>
-        }
-    </tbody>
-</table>
+            <h2>Recargas Cubacel - Realizadas</h2>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Celular
+                        </th>
+                        <th>
+                            Monto
+                        </th>
+                        <th>
+                            Realizada
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNumberTarget)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Created)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
