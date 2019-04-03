@@ -1,47 +1,117 @@
 ﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.CellularBalanceTuneUpRequest>
 
 @{
-    ViewData["Title"] = "Recargas Cubacel - Pendientes";
+    ViewData["Title"] = "Recargas Cubacel Pendientes";
 }
+
 <section id="mainrender">
     <div class="container">
-        <div class="row">
-            <h2>Recargas Cubacel - Pendientes</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            N&uacute;mero de tel&eacute;fono
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.TuneUpProfile.Label)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Requested)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
+        <h3>Recargas Cubacel Pendientes</h3>
+
+        <div class="tabla-container">
+            <div class="row tabla-row-header">
+                <div class="col-md-4 tabla-col">
+                    <div class="col-texto-header">
+                        Tel&eacute;fono
+                    </div>
+                </div>
+                <div class="col-md-2 tabla-col">
+                    <div class="col-texto-header">
+                        Perfil
+                    </div>
+                </div>
+                <div class="col-md-2 tabla-col">
+                    <div class="col-texto-header">
+                        Fecha
+                    </div>
+                </div>
+                <div class="col-md-4 tabla-col">
+                    <div class="col-texto-header">
+                        Realizada por
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Count() == 0)
+            {
+                <div class="row tabla-row">
+                    <div class="col-md-4 tabla-col">
+                        <div class="col-titulo">
+                            Tel&eacute;fono
+                        </div>
+                        <div class="col-texto">
+                            Sin elementos que mostrar.
+                        </div>
+                    </div>
+                    <div class="col-md-2 tabla-col">
+                        <div class="col-titulo">
+                            Perfil
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                    <div class="col-md-2 tabla-col">
+                        <div class="col-titulo">
+                            Fecha
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                    <div class="col-md-4 tabla-col">
+                        <div class="col-titulo">
+                            Realizada por
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+
+                @foreach (var item in Model)
+                {
+                    <div class="row tabla-row">
+                        <div class="col-md-4 tabla-col">
+                            <div class="col-titulo">
+                                Tel&eacute;fono
+                            </div>
+                            <div class="col-texto">
                                 @Html.DisplayFor(modelItem => item.PhoneNumberTarget)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TuneUpProfile.Label)
-                            </td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="col-md-2 tabla-col">
+                            <div class="col-titulo">
+                                Perfil
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.TuneUpProfile.Label)     
+                            </div>
+                        </div>
+                        <div class="col-md-2 tabla-col">
+                            <div class="col-titulo">
+                                Fecha
+                            </div>
+                            <div class="col-texto">
                                 @Html.DisplayFor(modelItem => item.Requested)
-                            </td>
-                            <td>
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4 tabla-col">
+                            <div class="col-titulo">
+                                Realizada por
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.Agent.FullName)
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
+
     </div>
 </section>

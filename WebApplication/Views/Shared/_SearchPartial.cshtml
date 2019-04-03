@@ -1,37 +1,51 @@
 ﻿<link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-<row>
-    <div class="col-md-12">
-        <div class="section-header">
-            <h3>Buscador</h3>
+
+
+<section id="buscar-recargas">
+    <div class="container">
+        <h3>Buscar Recargas</h3>
+
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <form asp-action="searchbalancetuneresult" asp-controller="buscador" asp-area="account" method="post">
+                    <div class="form-group ">
+                        <input type="datetime" name="FechaInicio" id="FechaInicio" value="" class="form-control" placeholder="Fecha Inicio" />
+                    </div>
+                    <div class="form-group ">
+                        <input type="datetime" name="FechaFin" id="FechaFin" value="" class="form-control" placeholder="Fecha Fin" />
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label">Perfil de Recarga</label>
+                        <select name="perfilrecarga" id="perfilrecarga" class="form-control">
+                            <option value="0">Seleccionar Perfil</option>
+                            <option value="cubacel">Recarga Cubacel</option>
+                            <option value="nauta">Recarga Nauta</option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label">Realizadas por</label>
+                        <select class="form-control" name="UserId" asp-items="@((List<SelectListItem>)ViewData["usuarios"])"></select>
+                    </div>
+                    <div class="form-group ">
+                        <div id="emailtarget">
+                            <label class="control-label">Usuario Nauta</label>
+                            <input type="text" name="emailtarget" value="" class="form-control" placeholder="Opcional" />
+                        </div>
+
+                        <div id="phonetarget">
+                            <label class="control-label">Tel&eacute;fono</label>
+                            <input type="text" name="phonetarget" value="" class="form-control" placeholder="Opcional" />
+                        </div>
+                    </div>
+                    <div class="form-group-btn">
+                        <div class="main-btn">
+                            <button type="submit" value="Buscar" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </form>                
+            </div>
         </div>
-        <form asp-action="searchbalancetuneresult" asp-controller="buscador" asp-area="account" method="post">
 
-            <div class="form-group">
-                <input type="datetime" name="FechaInicio" id="FechaInicio" value="" class="form-control" placeholder=" Fecha Inicio" />
-            </div>
-            <div class="form-group">
-                <input type="datetime" name="FechaFin" id="FechaFin" value="" class="form-control" placeholder=" Fecha Fin" />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Perfil de Recarga</label>
-                <select name="perfilrecarga" class="form-control" id="perfilrecarga">
-                    <option value="0">Seleccionar Perfil</option>
-                    <option value="cubacel">Cubacel</option>
-                    <option value="nauta">Nauta</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <div id="emailtarget" class="form-group col-sm-4">
-                    <input type="text" name="EmailTarget" value="" class="form-control" placeholder="correo nauta" />
-                </div>
-                <div id="phonetarget" class="form-group col-sm-4">
-                    <input type="text" name="PhoneTarget" value="" class="form-control" placeholder="celular cubacel" />
-                </div>
-            </div>           
-                <div class="form-group">
-                    <input type="submit" name="name" value="Buscar" class="btn btn-primary" />
-                </div>
-        </form>
     </div>
-</row>
+</section>

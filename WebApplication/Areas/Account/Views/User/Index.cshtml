@@ -1,21 +1,15 @@
 ﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.User>
 
 @{
-    ViewData["Title"] = "Usuarios en mi Cuenta";
+    ViewData["Title"] = "Usuarios en mi Perfil";
 }
 
 <section id="mainrender">
     <div class="container">
-        <!--
-            
-            Titulo de la Pagina:
-
-            <h2>Usuarios en mi Perfil</h2>
-            
-        -->
+        <h3>Usuarios en mi Perfil</h3>
 
         <div id="formulario_usuarios-header">
-            <a asp-action="Create" class="btn btn-secondary">Crear nuevo Usuario</a>
+            <a asp-action="Create" class="btn btn-primary">Agregar nuevo Usuario</a>
         </div>
         <div class="tabla-container">
             <div class="row tabla-row-header">
