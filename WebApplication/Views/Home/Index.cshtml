@@ -23,13 +23,13 @@
                     <div class="icon-box wow fadeInUp">
                         <a asp-area="account" asp-controller="recarga"><div class="icon"><i class="fa fa-phone"></i></div></a>
                         <h4 class="title"><a asp-area="account" asp-controller="recarga">Recargas Cubacel</a></h4>
-                        <p class="description">Permiter realizar recargar para moviles.</p>
+                        <p class="description">Permite realizar recargas de saldo a m&oacute;viles de la red Cubacel.</p>
                     </div>
 
                     <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
                         <a asp-area="account" asp-controller="recarga"><div class="icon"><i class="fa fa-at"></i></div></a>
                         <h4 class="title"><a asp-area="account" asp-controller="recarga">Recargas Nauta</a></h4>
-                        <p class="description">Permiter realizar recargar para cuentas nauta.</p>
+                        <p class="description">Permite realizar recargas de saldo a cuentas de navegaci&oacute;n nacional e internacional del servicio Nauta.</p>
                     </div>
                     @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
                     {
@@ -37,7 +37,7 @@
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
                             <a asp-area="account" asp-controller="user"><div class="icon"><i class="fa fa-user"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></h4>
-                            <p class="description">Muestra el listado de usuarios asociados y permiter la creaci&oacute;n,modificaci&oacute;n de los mismos.</p>
+                            <p class="description">Muestra los usuarios asociados a la cuenta actual. Permite crear, modificar, eliminar usuarios de la cuenta.</p>
                         </div>
                     }
                     else
@@ -46,7 +46,7 @@
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
                             <a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune"><div class="icon"><i class="fa fa-search"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune">Buscar Recargas </a></h4>
-                            <p class="description">Permite realizar b&uacute;squeda para saber el estados de las recargas</p>
+                            <p class="description">Permite realizar b&uacute;squedas entre las recargas realizadas, y pendientes. Permite conocer el estado actual de cada recarga.</p>
                         </div>
                     }
                 </div>
@@ -56,13 +56,13 @@
                     <div class="icon-box wow fadeInUp">
                         <a asp-area="account" asp-controller="cellulartuneuprequest"><div class="icon"><i class="fa fa-phone"></i></div></a>
                         <h4 class="title"><a asp-area="account" asp-controller="cellulartuneuprequest">Recargas Cubacel</a></h4>
-                        <p class="description">Permite visualizar las recargas para moviles pendientes a realizarse</p>
+                        <p class="description">Listado de recargas pendientes a m&oacute;viles de la red Cubacel.</p>
                     </div>
 
                     <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
                         <a asp-area="account" asp-controller="nautatuneuprequest"><div class="icon"><i class="fa fa-at"></i></div></a>
                         <h4 class="title"><a asp-area="account" asp-controller="nautatuneuprequest">Recargas Nauta</a></h4>
-                        <p class="description">Permite visualizar las recargas para cuentas nautas pendientes a realizarse</p>
+                        <p class="description">Listado de recargas pendientes a cuentas del servicio Nauta.</p>
                     </div>
 
                     
@@ -75,13 +75,13 @@
                         <div class="icon-box wow fadeInUp">
                             <a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount"><div class="icon"><i class="fa fa-phone"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount">Recargas Cubacel</a></h4>
-                            <p class="description">Listado de recargas realizas a moviles</p>
+                            <p class="description">Listado de recargas realizadas a m&oacute;viles de la red Cubacel.</p>
                         </div>
 
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
                             <a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecordaccount"><div class="icon"><i class="fa fa-at"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecordaccount">Recargas Nauta</a></h4>
-                            <p class="description">Listado de recargas realizas a cuentas nauta</p>
+                            <p class="description">Listado de recargas realizadas a cuentas del servicio Nauta.</p>
                         </div>
 
                     }
@@ -91,13 +91,13 @@
                         <div class="icon-box wow fadeInUp">
                             <a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount"><div class="icon"><i class="fa fa-phone"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecord">Recargas Cubacel</a></h4>
-                            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                            <p class="description">Listado de recargas realizadas a m&oacute;viles de la red Cubacel.</p>
                         </div>
 
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
                             <a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord"><div class="icon"><i class="fa fa-at"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord">Recargas Nauta</a></h4>
-                            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                            <p class="description">Listado de recargas realizadas a cuentas del servicio Nauta.</p>
                         </div>
 
 
@@ -112,7 +112,7 @@
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
                             <a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount"><div class="icon"><i class="fa fa-search"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscar Recargas</a></h4>
-                            <p class="description">Permite realizar b&uacute;squeda para saber el estados de las recargas</p>
+                            <p class="description">Permite realizar b&uacute;squedas entre las recargas realizadas, y pendientes. Permite conocer el estado actual de cada recarga.</p>
 </div>
                     }
 
@@ -120,44 +120,13 @@
                 </div>
             </div>
         </div>
-    </section>
-
-
-    <!--
-    <section id="mainrender">
-        <div class="container">
-            <div class="row">
-                <ul>
-                    <li><a asp-area="account" asp-controller="recarga">Recargas</a></li>
-                    <li><a asp-area="account" asp-controller="cellulartuneuprequest">Listado de Recargas Cubacel Pendientes</a></li>
-                    <li><a asp-area="account" asp-controller="nautatuneuprequest">Listado de Recargas Nauta Pendientes</a></li>
-                    @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
-                    {
-                        <li><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></li>
-                        <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount">Listado de Recargas Cubacel</a></li>
-                        <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecordaccount">Listado de Recargas Nauta</a></li>
-                        <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscador de Recargas Realizadas</a></li>
-                    }
-
-                    @if (User.IsInRole(Roles.ACCOUNT_SELLER_ROLE))
-                    {
-                        <li><a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecord">Listado de Recargas Cubacel</a></li>
-                        <li><a asp-area="account" asp-controller="NautaTuneUpRecord" asp-action="getnautabalancetunerecord">Listado de Recargas Nauta</a></li>
-                        <li><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune">Buscardor de Recargas Realizadas</a></li>
-                    }
-
-                </ul>
-            </div>
-        </div>
-    </section>
-    -->
+    </section>   
 }
 else
 {
     <section id="intro" class="clearfix">
         <div class="container">
             <div class="intro-img">
-                <!--<img src="img/intro-img.svg" alt="" class="img-fluid">-->
                 <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
             </div>
 

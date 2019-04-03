@@ -1,50 +1,118 @@
 ﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRequest>
 
 @{
-    ViewData["Title"] = "Recargas Nauta - Pendientes";
+    ViewData["Title"] = "Recargas Nauta Pendientes";
 }
+
+
 <section id="mainrender">
     <div class="container">
-        <div class="row">
-            <h2>Recargas Nauta - Pendientes</h2>
+        <h3>Recargas Nauta Pendientes</h3>
 
+        <div class="tabla-container">
+            <div class="row tabla-row-header">
+                <div class="col-md-4 tabla-col">
+                    <div class="col-texto-header">
+                        Usuario Nauta
+                    </div>
+                </div>
+                <div class="col-md-2 tabla-col">
+                    <div class="col-texto-header">
+                        Perfil
+                    </div>
+                </div>
+                <div class="col-md-2 tabla-col">
+                    <div class="col-texto-header">
+                        Fecha
+                    </div>
+                </div>
+                <div class="col-md-4 tabla-col">
+                    <div class="col-texto-header">
+                        Realizada por
+                    </div>
+                </div>
+            </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
+            @if (Model.Count() == 0)
+            {
+                <div class="row tabla-row">
+                    <div class="col-md-4 tabla-col">
+                        <div class="col-titulo">
                             Usuario Nauta
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.TuneUpProfile.Label)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Requested)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmailAddressTarget)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TuneUpProfile.Label)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Requested)
-                            </td>
-                            <td>
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        </div>
+                        <div class="col-texto">
+                            Sin elementos que mostrar.
+                        </div>
+                    </div>
+                    <div class="col-md-2 tabla-col">
+                        <div class="col-titulo">
+                           Perfil
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                    <div class="col-md-2 tabla-col">
+                        <div class="col-titulo">
+                            Fecha
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                    <div class="col-md-4 tabla-col">
+                        <div class="col-titulo">
+                            Realizada por
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                </div>
 
+            }
+            else
+            {
+
+                @foreach (var item in Model)
+                {
+                    <div class="row tabla-row">
+                        <div class="col-md-4 tabla-col">
+                            <div class="col-titulo">
+                                Usuario Nauta
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.EmailAddressTarget)
+                            </div>
+                        </div>
+                        <div class="col-md-2 tabla-col">
+                            <div class="col-titulo">
+                                Perfil
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.TuneUpProfile.Label)
+                            </div>
+                        </div>
+                        <div class="col-md-2 tabla-col">
+                            <div class="col-titulo">
+                                Fecha
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.Requested)
+                            </div>
+                        </div>
+                        <div class="col-md-4 tabla-col">
+                            <div class="col-titulo">
+                                Realizada por
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.Agent.FullName)
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
+
     </div>
 </section>

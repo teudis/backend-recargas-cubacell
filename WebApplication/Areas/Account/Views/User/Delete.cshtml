@@ -1,19 +1,24 @@
 ﻿@model SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.User
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Usuario";
 }
-<section id="mainrender">
+<section id="eliminar-usuario">
     <div class="container">
+        <h3>Eliminar Usuario</h3>
+        <h5>
+            ¿Seguro que desea eliminar este usuario?
+        </h5>
         <div class="row">
-
-            <h2>Delete</h2>
-
-            <h3>Are you sure you want to delete this?</h3>
-            <div>
-                <h4>Usuario</h4>
+            <div class="col-md-8">
                 <hr />
                 <dl class="dl-horizontal">
+                    <dt>
+                        Nombre
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
                     <dt>
                         @Html.DisplayNameFor(model => model.Email)
                     </dt>
@@ -21,13 +26,7 @@
                         @Html.DisplayFor(model => model.Email)
                     </dd>
                     <dt>
-                        @Html.DisplayNameFor(model => model.FullName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.FullName)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                        Tel&eacute;fono
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.PhoneNumber)
@@ -36,8 +35,15 @@
 
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="Id" />
-                    <input type="submit" value="Delete" class="btn btn-default" /> |
-                    <a asp-action="Index">Back to List</a>
+                    <div class="form-group-btn">
+                        <div class="back-to-list-btn">
+                            <a asp-action="Index"><i class="fa fa-chevron-circle-left"></i> Volver al listado</a>
+                        </div>
+                        <div class="main-btn">
+                            <button type="submit" value="Delete" class="btn btn-danger">Eliminar</button>
+                            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

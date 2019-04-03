@@ -1,18 +1,23 @@
 ﻿@model SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.User
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles Usuario";
 }
 
-<section id="mainrender">
+<section id="detalles-usuario">
     <div class="container">
-        <div class="row">
-            <h2>Details</h2>
+        <h3>Detalles Usuario</h3>
 
-            <div>
-                <h4>Usuario</h4>
+        <div class="row">
+            <div class="col-md-8">
                 <hr />
                 <dl class="dl-horizontal">
+                    <dt>
+                        Nombre
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
                     <dt>
                         @Html.DisplayNameFor(model => model.Email)
                     </dt>
@@ -20,24 +25,24 @@
                         @Html.DisplayFor(model => model.Email)
                     </dd>
                     <dt>
-                        @Html.DisplayNameFor(model => model.FullName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.FullName)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                        Tel&eacute;fono
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.PhoneNumber)
                     </dd>
 
                 </dl>
-            </div>
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a asp-action="Index">Back to List</a>
-            </div>
+                <div class="form-group-btn">
+                    <div class="back-to-list-btn">
+                        <a asp-action="Index"><i class="fa fa-chevron-circle-left"></i> Volver al listado</a>
+                    </div>
+                    <div class="main-btn">
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Modificar</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Eliminar</a>
+                    </div>
+                </div>
+            </div>            
         </div>
+
     </div>
 </section>

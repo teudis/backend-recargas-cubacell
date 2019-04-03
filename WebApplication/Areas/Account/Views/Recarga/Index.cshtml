@@ -1,10 +1,16 @@
-﻿<section id="mainrender">
-    <div class="container">
-        <div class="row">
+﻿@{
+    ViewData["Title"] = "Nuevas Recargas";
+}
 
+
+<section id="mainrender">
+    <div class="container">
+        <h3>@ViewData["Title"]</h3>
+        <h5>Puede realizar m&uacute;ltiples tipos de recargas agregando varias en esta p&aacute;gina, enviando todas de una vez. </h5>
+        <hr />
+        <div class="row">
             <div class="well col-md-12">
                 <form class="form-horizontal" id="formulario_recargas">
-                    <h4 class="text-center">Crear nueva lista de Recargas</h4>
                     <div id="formulario_recargas">
                         <div class=" form-group" id="dynamic_inputs">
                             <div id="zone_cell" class="form-group">
@@ -14,14 +20,13 @@
                         </div>
                         <div id="formulario_recargas-footer">
                             <div class="btn-group col-md-4">
-                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Agregar nueva Recarga <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="id_cubalcel">Recarga Cubacel</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#" id="nauta">Recarga Nauta</a></li>
-                                </ul>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" id="id_cubalcel">Recarga Cubacel</a>
+                                    <a class="dropdown-item" href="#" id="nauta">Recarga Nauta</a>
+                                </div>
                             </div>
                             <div class="input-group-btn col-md-4" id="button_send">
                                 <button class="btn btn-success add-more col-md-12" type="button">Realizar todas las Recargas</button>
@@ -32,13 +37,13 @@
             </div>
 
             <div class="col-md-12">
-                
+
             </div>
 
         </div>
     </div>
 </section>
-            @section scripts
-                {
-                    <script src="~/js/dynamic_form.js"></script>
-                }
+@section scripts
+    {
+    <script src="~/js/dynamic_form.js"></script>
+}
