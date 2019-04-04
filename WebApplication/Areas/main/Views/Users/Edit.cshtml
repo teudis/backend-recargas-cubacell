@@ -37,42 +37,47 @@ Caption = "Modificar"
     @Html.ValidationSummary(true)
 
     @Html.HiddenFor(model => model.Id)
+    <section id="mainrender">
+        <div class="container">
+            <h3>@ViewData["Title"]</h3>
+            <hr />
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
+                <div class="panel-body">
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                    </div>
 
-        <div class="panel-body">
-            <div style="margin-bottom: 20px;">
-                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
-            </div>
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.FullName, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "text-danger" })
+                    </div>
 
-            <div style="margin-bottom: 20px;">
-                @Html.LabelFor(model => model.FullName, new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "text-danger" })
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, null, new { @class = "text-danger" })
-            </div>
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, null, new { @class = "text-danger" })
+                    </div>
 
 
-            <div class="row">
-                <div class="col-md-6" style="margin-bottom: 20px;">
-                    @Html.LabelFor(model => model.IdRole, new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.IdRole, Model.Roles, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdRole, null, new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 20px;">
+                            @Html.LabelFor(model => model.IdRole, new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.IdRole, Model.Roles, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IdRole, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Modificar</button>
+                        <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
+                    </div>
                 </div>
             </div>
-
-            <div>
-                <button type="submit" class="btn btn-primary">Modificar</button>
-                <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
-            </div>
         </div>
-    </div>
+    </section>
 }
