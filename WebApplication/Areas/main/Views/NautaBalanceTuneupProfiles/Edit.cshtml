@@ -38,48 +38,53 @@ Caption = "Modificar"
     @Html.ValidationSummary(true)
 
     @Html.HiddenFor(model => model.Id)
+    <section id="mainrender">
+        <div class="container">
+            <h3>@ViewData["Title"]</h3>
+            <hr />
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 20px;">
+                            @Html.LabelFor(model => model.Label, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Label, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Label, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-6" style="margin-bottom: 20px;">
-                    @Html.LabelFor(model => model.Label, new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.Label, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Label, null, new { @class = "text-danger" })
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "text-danger" })
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(model => model.Enabled) Habilitado
+                                @Html.ValidationMessageFor(model => model.Enabled)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(model => model.Primary) Primario
+                                @Html.ValidationMessageFor(model => model.Primary)
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Modificar</button>
+                        <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
+                    </div>
                 </div>
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "text-danger" })
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                <div class="checkbox">
-                    <label>
-                        @Html.EditorFor(model => model.Enabled) Habilitado
-                        @Html.ValidationMessageFor(model => model.Enabled)
-                    </label>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                <div class="checkbox">
-                    <label>
-                        @Html.EditorFor(model => model.Primary) Primario
-                        @Html.ValidationMessageFor(model => model.Primary)
-                    </label>
-                </div>
-            </div>
-
-
-            <div>
-                <button type="submit" class="btn btn-primary">Modificar</button>
-                <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
             </div>
         </div>
-    </div>
+    </section>
 }

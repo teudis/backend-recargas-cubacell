@@ -36,48 +36,54 @@ Caption = "Agregar"
 @using (Html.BeginForm("create", "accounts", new { Area = "main" }, FormMethod.Post, true, null))
 {
     @Html.ValidationSummary(true)
+    <section id="mainrender">
+        <div class="container">
+            <h3>@ViewData["Title"]</h3>
+            <hr />
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4>@ViewData["Title"]</h4></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 20px;">
+                            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-6" style="margin-bottom: 20px;">
-                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.Balance, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Balance, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Balance, null, new { @class = "text-danger" })
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(model => model.Enabled) Habilitado
+                                @Html.ValidationMessageFor(model => model.Enabled)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 20px;">
+                            @Html.LabelFor(model => model.RepresentativeId, new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.RepresentativeId, Model.Users, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.RepresentativeId, null, new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                        <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
+                    </div>
                 </div>
             </div>
 
-            <div style="margin-bottom: 20px;">
-                @Html.LabelFor(model => model.Balance, new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.Balance, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Balance, null, new { @class = "text-danger" })
-            </div>
-
-            <div style="margin-bottom: 20px;">
-
-                <div class="checkbox">
-                    <label>
-                        @Html.EditorFor(model => model.Enabled) Habilitado
-                        @Html.ValidationMessageFor(model => model.Enabled)
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6" style="margin-bottom: 20px;">
-                    @Html.LabelFor(model => model.RepresentativeId, new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.RepresentativeId, Model.Users, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.RepresentativeId, null, new { @class = "text-danger" })
-                </div>
-
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-primary">Crear</button>
-                <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
-            </div>
         </div>
-    </div>
+    </section>
 }

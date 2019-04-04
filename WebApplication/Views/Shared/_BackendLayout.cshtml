@@ -2,163 +2,164 @@
 @using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 
 @inject UserManager<User> UserManager
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CubansConexion | Dashboard</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="~/css/_all-skins.min.css">    
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>@ViewData["Title"] | Panel de Administraci&oacute;n | Conexi&oacute;n Cubanos</title>
+
+    <!-- Favicons -->
+    <link href="~/images/favicon.png" rel="icon">
+    <link href="~/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="~/css/font.css" rel="stylesheet">
+
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    </environment>
+
+    <!-- Libraries CSS Files -->
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
-        <header class="main-header">
-            <!-- Logo -->            
-            <a asp-controller="management" asp-action="index" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini">CUBA</span>
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>CubansConexion</b></span>
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- Notifications: style can be found in dropdown.less -->
-                        <!-- Tasks: style can be found in dropdown.less -->
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="hidden-xs">Hola @UserManager.GetUserName(User)</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header">
-                                    <img src="~/images/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                </li>
-                                <!-- Menu Body -->
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a asp-controller="management" asp-action="profile" class="btn btn-default btn-flat">Perfil</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm">
-                                            <button type="submit" class="btn btn-primary">Logout</button>
-                                        </form>
-                                    </div>
+<body>
 
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Control Sidebar Toggle Button -->
-
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li class="active treeview">
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a asp-area="main" asp-controller="users" asp-action="Index"><i class="fa fa-users"></i> Usuarios</a></li>
-                            <li><a asp-area="main" asp-controller="accounts" asp-action="Index"><i class="fa fa-shopping-cart"></i>Cuentas</a></li>
-                            <li><a asp-area="main" asp-controller="cellularbalancetuneupprofiles" asp-action="Index"><i class="fa fa-circle"></i> Perfil de Recarga Cubacel</a></li>
-                            <li><a asp-area="main" asp-controller="nautabalancetuneupprofiles" asp-action="Index"><i class="fa fa-circle"></i>Perfil de Recarga Nauta</a></li>
-                            <li><a asp-area="main" asp-controller="cellularbalancetuneuprecord" asp-action="Index"><i class="fa fa-circle"></i>Listado de Recagas Cubacel</a></li>
-                            <li><a asp-area="main" asp-controller="nautabalancetuneuprecord" asp-action="Index"><i class="fa fa-circle"></i>Listado de Recagas Nauta</a></li>                            
-                        </ul>                        
-                    </li>
-
+    <!--==========================
+    Header
+    ============================-->
+    <header id="header" class="fixed-top">
+        <div class="container">
+            <div class="logo float-left">
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
+                <a asp-controller="home" asp-action="index" class="scrollto"><img src="~/images/logo-01.png" alt="" class="img-fluid"></a>
+            </div>
+            <nav class="main-nav float-right d-none d-lg-block">
+                <ul>
+                    <li><a asp-controller="home" asp-action="index">Inicio</a></li>
+                    <li><a asp-controller="home" asp-action="about">Nosotros</a></li>
+                    <li><a asp-controller="home" asp-action="contact">Contacto</a></li>
+                    <partial name="_LoginPartial" />
                 </ul>
-            </section>
-            <!-- /.sidebar -->
-        </aside>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    Dashboard
-                </h1>
-                
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-
-
-                </div>
-                <!-- /.row -->
-                <!-- Main row -->
-                <div class="row">
-                    <!--  col -->
-                    <section class="col-lg-12 connectedSortable">
-                        @RenderBody()
-
-                    </section>
-                    <!-- /. col -->
-
-
-                </div>
-                <!-- /.row (main row) -->
-            </section>
-            <!-- /.content -->
+            </nav><!-- .main-nav -->
         </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy;@DateTime.Now.Year <a href="https://smartsolucionescuba.com/"> SmartSolucionesCuba </a>.</strong> All rights
-            reserved.
-        </footer>
-        <!-- Add the sidebar's background. This div must be placed
-             immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-    </div>
-    <!-- ./wrapper -->
-    <!-- jQuery 3 -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Slimscroll -->
-    <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="~/lib/fastclick/lib/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/js/adminlte.min.js"></script>
+    </header><!-- #header -->
 
+
+    <partial name="_CookieConsentPartial" />
+
+    <!--==========================
+      Intro Section
+    ============================-->
+
+
+    <section id="mainrender">
+
+        @RenderBody()
+
+    </section>
+    <!--==========================
+      Footer
+    ============================-->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h4>Conexión Cubanos</h4>
+                        <p>
+                            108 SW Street <br>
+                            Miami, FL 535022<br>
+                            United States <br>
+                            <strong>Teléfono:</strong> +1 2345 67890 55<br>
+                            <strong>Email:</strong> info@soporte.com<br>
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                            <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Sitio Web</h4>
+                        <ul>
+                            <li><a asp-controller="home" asp-action="index">Inicio</a></li>
+                            <li><a asp-controller="home" asp-action="about">Nosotros</a></li>
+                            <li><a asp-controller="home" asp-action="terms">Términos de Uso</a></li>
+                            <li><a asp-controller="home" asp-action="privacy">Política de Privacidad</a></li>
+                            <li><a asp-controller="home" asp-action="contact">Contacto</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                Copyrights &copy; <strong>Conexión Cubanos</strong> - 2019. </br>
+                Todos los derechos reservados.
+            </div>
+            <div class="credits">
+                <!--
+                  All the links in the footer should remain intact.
+                  You can delete the links only if you purchased the pro version.
+                  Licensing information: https://bootstrapmade.com/license/
+                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=NewBiz
+                -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer><!-- #footer -->
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/easing/easing.min.js"></script>
+        <script src="~/lib/mobile-nav/mobile-nav.js"></script>
+        <script src="~/lib/wow/wow.min.js"></script>
+        <script src="~/lib/waypoints/waypoints.min.js"></script>
+        <script src="~/lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="~/lib/lightbox/js/lightbox.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- Uncomment below i you want to use a preloader -->
+    <!-- <div id="preloader"></div> -->
+    <!-- Contact Form JavaScript File -->
+
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

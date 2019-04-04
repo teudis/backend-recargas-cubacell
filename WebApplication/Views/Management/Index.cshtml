@@ -1,3 +1,63 @@
 ﻿@{
     Layout = "_BackendLayout";
 }
+
+<section id="home">
+    <div class="container">
+        <!--
+        <header class="section-header">
+            <h3>Conexión Cubanos</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </header>
+        -->
+        <div class="row home-container">
+
+            <div class="col-lg-4 content order-lg-1 order-1">
+                <h3>Control de Acceso</h3>
+                <div class="icon-box wow fadeInUp">
+                    <a asp-area="main" asp-controller="users" asp-action="Index"><div class="icon"><i class="fa fa-user-plus"></i></div></a>
+                    <h4 class="title"><a asp-area="main" asp-controller="users" asp-action="Index">Usuarios</a></h4>
+                    <p class="description">Permite realizar recargas de saldo a m&oacute;viles de la red Cubacel.</p>
+                </div>
+
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                    <a asp-area="main" asp-controller="accounts" asp-action="Index"><div class="icon"><i class="fa fa-shopping-cart"></i></div></a>
+                    <h4 class="title"><a asp-area="main" asp-controller="accounts" asp-action="Index">Cuentas</a></h4>
+                    <p class="description">Permite realizar recargas de saldo a cuentas de navegaci&oacute;n nacional e internacional del servicio Nauta.</p>
+                </div>
+               
+            </div>
+
+            <div class="col-lg-4 content order-lg-1 order-1">
+                <h3>Perfiles de Recarga</h3>
+                <div class="icon-box wow fadeInUp">
+                    <a asp-area="main" asp-controller="cellularbalancetuneupprofiles" asp-action="Index"><div class="icon"><i class="fa fa-phone"></i></div></a>
+                    <h4 class="title"><a asp-area="main" asp-controller="cellularbalancetuneupprofiles" asp-action="Index">Recargas Cubacel</a></h4>
+                    <p class="description">Permite realizar recargas de saldo a m&oacute;viles de la red Cubacel.</p>
+                </div>
+
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                    <a asp-area="main" asp-controller="nautabalancetuneupprofiles" asp-action="Index"><div class="icon"><i class="fa fa-paper-plane"></i></div></a>
+                    <h4 class="title"><a asp-area="main" asp-controller="nautabalancetuneupprofiles" asp-action="Index">Recargas Nauta</a></h4>
+                    <p class="description">Permite realizar recargas de saldo a cuentas de navegaci&oacute;n nacional e internacional del servicio Nauta.</p>
+                </div>
+                
+            </div>
+
+            <div class="col-lg-4 content order-lg-1 order-1">
+                <h3>Listas de Recargas</h3>
+                <div class="icon-box wow fadeInUp">
+                    <a asp-area="main" asp-controller="cellularbalancetuneuprecord" asp-action="Index"><div class="icon"><i class="fa fa-phone"></i></div></a>
+                    <h4 class="title"><a asp-area="main" asp-controller="cellularbalancetuneuprecord" asp-action="Index">Recargas Cubacel</a></h4>
+                    <p class="description">Permite realizar recargas de saldo a m&oacute;viles de la red Cubacel.</p>
+                </div>
+
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                    <a asp-area="main" asp-controller="nautabalancetuneuprecord" asp-action="Index"><div class="icon"><i class="fa fa-paper-plane"></i></div></a>
+                    <h4 class="title"><a asp-area="main" asp-controller="nautabalancetuneuprecord" asp-action="Index">Recargas Nauta</a></h4>
+                    <p class="description">Permite realizar recargas de saldo a cuentas de navegaci&oacute;n nacional e internacional del servicio Nauta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
