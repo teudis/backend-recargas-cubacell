@@ -18,10 +18,10 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-       
+        [Display(Name = "Teléfono")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "Nombre Completo")]
+        [Display(Name = "Nombre")]
         public string FullName { get; set; }
 
         public string UserName { get; set; }
@@ -33,7 +33,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
 
         public string SecurityStamp { get; set; }
 
-        [Display(Name = "Roles")]
+        [Display(Name = "Rol")]
         public string IdRole { get; set; }
 
         public IEnumerable<SelectListItem> Roles { get; set; }

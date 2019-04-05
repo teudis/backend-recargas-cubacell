@@ -32,7 +32,7 @@ Caption = "Perfil de Recarga Cubacel"
     <div class="container">
         <h3>@ViewData["Title"]</h3>
         <hr />
-        <a class="btn btn-primary pull-right" href="@Url.Action("create")">Nuevo Perfil de Recarga Cubacel </a>
+        <a class="btn btn-primary pull-right" href="@Url.Action("create")">Nuevo Perfil Cubacel</a>
 
         <div class="clearfix" style="margin-bottom: 20px;"></div>
 
@@ -132,32 +132,71 @@ Caption = "Perfil de Recarga Cubacel"
                 </div>
             }
 
-            <div style="border: 1px solid #DDD; border-radius: 4px;">
-                <table class="table" style="margin: 0;">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Monto</th>
-                            <th style="width: 184px;">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.List)
-                        {
-                            <tr>
-                                <td style="vertical-align: middle;" title="Nombre">@item.Label</td>
-                                <td style="vertical-align: middle;" title="Descripción">@item.Amount</td>
-                                <td style="vertical-align: middle;">
-                                    <div class="btn-group btn-group-sm">
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-default" title="Editar"><span class="glyphicon glyphicon-edit"></span><span class="hidden-xs"> Modificar</span></a>
-                                        <a role="button" href="@Url.Action("delete", new {key = item.Id})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+
+            <div class="tabla-container">
+                <div class="row tabla-row-header">
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Perfil
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Monto
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Habilitado
+                        </div>
+                    </div>
+                </div>
+                @foreach (var item in Model.List)
+                {
+                    <div class="row tabla-row">
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Cuenta
+                            </div>
+                            <div class="col-texto">
+                                @item.Label
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Saldo
+                            </div>
+                            <div class="col-texto">
+                                @item.Amount
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Habilitada
+                            </div>
+                            @if (@item.Enabled)
+                            {
+                                <div class="col-texto">
+                                    Si
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-texto">
+                                    Si
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-3 tabla-col-btn">
+                            <div class="col-btn">
+                                <a class="btn btn-success tabla-btn" href="@Url.Action("edit", new { key = item.Id })">Modificar</a>
+                                <a class="btn btn-danger tabla-btn" href="@Url.Action("delete", new {key = item.Id})">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+
             if (Model.HasNext || Model.HasPrevious)
             {
                 var paginationStart = (Model.Page - 1) * Model.Limit + 1;

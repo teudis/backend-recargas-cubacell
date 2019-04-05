@@ -4,7 +4,7 @@
 @model PaginationViewModel<NautaBalanceTuneUpRecordDisplayViewModel>
 
 @{
-    ViewData["Title"] = "Administración de Lista de Recarga Nauta";
+    ViewData["Title"] = "Administración de Lista Recargas Nauta";
 
     ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
 {
@@ -130,33 +130,95 @@ Caption = "Lista de Recargas Nauta"
                 </div>
             }
 
-            <div style="border: 1px solid #DDD; border-radius: 4px;">
-                <table class="table" style="margin: 0;">
-                    <thead>
-                        <tr>
-                            <th>Nauta</th>
-                            <th>Monto</th>
-                            <th>Fecha Realizada</th>
-                            <th style="width: 184px;">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.List)
-                        {
-                            <tr>
-                                <td style="vertical-align: middle;" title="Nombre">@item.EmailAddressTarget</td>
-                                <td style="vertical-align: middle;" title="Descripción">@item.Amount</td>
-                                <td style="vertical-align: middle;" title="Descripción">@item.Created</td>
-                                <td style="vertical-align: middle;">
-                                    <div class="btn-group btn-group-sm">
-                                        <a role="button" href="@Url.Action("delete", new {key = item.Id})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+
+            <div class="tabla-container">
+                <div class="row tabla-row-header">
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Usuario Nauta
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Monto
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Fecha
+                        </div>
+                    </div>
+                </div>
+                @if (Model.List.Count == 0)
+                {
+                    <div class="row tabla-row">
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Usuario Nauta
+                            </div>
+                            <div class="col-texto">
+                                Sin elementos que mostrar.
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Monto
+                            </div>
+                            <div class="col-texto">
+                                ( ... )
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Fecha
+                            </div>
+                            <div class="col-texto">
+                                ( ... )
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in Model.List)
+                    {
+                        <div class="row tabla-row">
+                            <div class="col-md-3 tabla-col">
+                                <div class="col-titulo">
+                                    Usuario Nauta
+                                </div>
+                                <div class="col-texto">
+                                    @item.EmailAddressTarget
+                                </div>
+                            </div>
+                            <div class="col-md-3 tabla-col">
+                                <div class="col-titulo">
+                                    Monto
+                                </div>
+                                <div class="col-texto">
+                                    @item.Amount
+                                </div>
+                            </div>
+                            <div class="col-md-3 tabla-col">
+                                <div class="col-titulo">
+                                    Fecha
+                                </div>
+                                <div class="col-texto">
+                                    @item.Created
+                                </div>
+                            </div>
+                            <div class="col-md-3 tabla-col-btn">
+                                <div class="col-btn">
+                                    <a class="btn btn-danger tabla-btn" href="@Url.Action("delete", new {key = item.Id})">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
             </div>
+
+
             if (Model.HasNext || Model.HasPrevious)
             {
                 var paginationStart = (Model.Page - 1) * Model.Limit + 1;
@@ -253,21 +315,51 @@ Caption = "Lista de Recargas Nauta"
         }
         else
         {
-            <div style="border: 1px solid #DDD; border-radius: 4px;">
-                <table class="table" style="margin: 0;">
-                    <thead>
-                        <tr>
-                            <th>Nauta</th>
-                            <th>Monto</th>
-                            <th style="width: 184px;">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="3"><p style="margin: 0 5px;" class="text-muted">Sin elementos que mostrar</p></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="tabla-container">
+                <div class="row tabla-row-header">
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Usuario Nauta
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Monto
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Fecha
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row tabla-row">
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-titulo">
+                            Usuario Nauta
+                        </div>
+                        <div class="col-texto">
+                            Sin elementos que mostrar.
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-titulo">
+                            Monto
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-titulo">
+                            Fecha
+                        </div>
+                        <div class="col-texto">
+                            ( ... )
+                        </div>
+                    </div>
+                </div>
             </div>
         }
     </div>
