@@ -28,6 +28,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Id
             _emailSender = emailSender;
         }
 
+        [Display(Name = "Usuario")]
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -45,7 +46,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Id
             public string Email { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Teléfono")]
             public string PhoneNumber { get; set; }
         }
 

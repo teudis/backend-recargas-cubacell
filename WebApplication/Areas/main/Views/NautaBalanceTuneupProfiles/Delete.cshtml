@@ -3,7 +3,7 @@
 @model NautaBalanceTuneUpProfileDisplayViewModel
 
 @{
-    ViewData["Title"] = "Eliminar Perfil Nauta";
+    ViewData["Title"] = "Eliminar Perfil de Recargas Nauta";
 
     ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
 {
@@ -33,23 +33,31 @@ Caption = "Eliminar"
 <section id="mainrender">
     <div class="container">
         <h3>@ViewData["Title"]</h3>
-        <hr />
-        <h5>Esta seguro que desea eliminar el Perfil de Recarga Nauta detallada a continuación?</h5>
+        <h5>¿Seguro que desea eliminar este perfil?</h5>
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
 
-        <dl>
-            <dt>@Html.DisplayNameFor(model => model.Label)</dt>
-            <dd>@Html.DisplayFor(model => model.Label)</dd>
-            <dt>@Html.DisplayNameFor(model => model.Amount)</dt>
-            <dd>@Html.DisplayFor(model => model.Amount)</dd>
-        </dl>
-        @using (Html.BeginForm("delete", "nautabalancetuneupprofiles", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
-        {
-            @Html.HiddenFor(model => model.Id)
-            <div>
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-                <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
+                <dl>
+                    <dt>@Html.DisplayNameFor(model => model.Label)</dt>
+                    <dd>@Html.DisplayFor(model => model.Label)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.Amount)</dt>
+                    <dd>@Html.DisplayFor(model => model.Amount)</dd>
+                </dl>
+                @using (Html.BeginForm("delete", "nautabalancetuneupprofiles", new { Area = "main", key = string.Empty }, FormMethod.Post, true, null))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="pull-left">
+                        <a href="@Url.Action("index")"><i class="fa fa-chevron-circle-left"></i> Volver al listado</a>
+                    </div>
+
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <a class="btn btn-secondary" href="@Url.Action("index")">Cancelar</a>
+                    </div>
+                }
             </div>
-        }
         </div>
+    </div>
 </section>
 

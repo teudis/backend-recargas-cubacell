@@ -10,11 +10,11 @@
             @if (User.IsInRole(Roles.SYSTEM_ADMIN_ROLE))
             {
                 <li>
-                    <a asp-controller="management" asp-action="index" title="Manage">Panel de Administraci&oacute;n</a>
+                    <a asp-controller="management" asp-action="index" title="Panel de Administraci&oacute;n">Panel de Administraci&oacute;n</a>
                 </li>
             }
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Mi perfil: @UserManager.GetUserName(User)</a>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Mi perfil">Mi perfil: @UserManager.GetUserName(User)</a>
             </li>
             <li>
                 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm">

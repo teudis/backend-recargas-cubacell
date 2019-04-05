@@ -132,32 +132,70 @@ Caption = "Cuentas"
                 </div>
             }
 
-            <div class="box">
-                <table class="table table-bordered table-hover" style="margin: 0;">
-                    <thead>
-                        <tr>
-                            <th>Nombre de Cuenta</th>
-                            <th>Descripción</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.List)
-                        {
-                            <tr>
-                                <td style="vertical-align: middle;" title="Nombre">@item.Name</td>
-                                <td style="vertical-align: middle;" title="Descripción">@item.Balance</td>
-                                <td style="vertical-align: middle;">
-                                    <div class="btn-group btn-group-sm">
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-edit"></span><span class="hidden-xs"> Modificar</span></a>
-                                        <a role="button" href="@Url.Action("delete", new {key = item.Id})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+
+            <div class="tabla-container">
+                <div class="row tabla-row-header">
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Cuenta
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Saldo
+                        </div>
+                    </div>
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Habilitada
+                        </div>
+                    </div>
+                </div>
+                @foreach (var item in Model.List)
+                {
+                    <div class="row tabla-row">
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Cuenta
+                            </div>
+                            <div class="col-texto">
+                                @item.Name
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Saldo
+                            </div>
+                            <div class="col-texto">
+                                @item.Balance
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Habilitada
+                            </div>
+                                @if (@item.Enabled)
+                                {
+                                    <div class="col-texto">
+                                        Si
                                     </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                } else
+                                {
+                                    <div class="col-texto">
+                                        Si
+                                    </div>
+                                }
+                        </div>
+                        <div class="col-md-3 tabla-col-btn">
+                            <div class="col-btn">
+                                <a class="btn btn-success tabla-btn" href="@Url.Action("edit", new { key = item.Id })">Modificar</a>
+                                <a class="btn btn-danger tabla-btn" href="@Url.Action("delete", new {key = item.Id})">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+
             if (Model.HasNext || Model.HasPrevious)
             {
                 var paginationStart = (Model.Page - 1) * Model.Limit + 1;

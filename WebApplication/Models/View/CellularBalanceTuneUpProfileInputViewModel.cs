@@ -19,6 +19,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.V
         [Display(Name = "Monto")]
         public float Amount { get; set; }
 
+        [Display(Name = "Perfil")]
         public string Label { get; set; }
 
         [Display(Name = "Primario")]

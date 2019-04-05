@@ -31,7 +31,6 @@ Caption = "Usuarios"
     <div class="container">
         <h3>@ViewData["Title"]</h3>
         <hr />
-
         <a class="btn btn-primary pull-right" href="@Url.Action("create")">Nuevo Usuario</a>
 
         <div class="clearfix" style="margin-bottom: 20px;"></div>
@@ -132,35 +131,61 @@ Caption = "Usuarios"
                 </div>
             }
 
-            <div class="box">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Correo El&eacute;ctronico </th>
-                            <th>Nombre Completo</th>
-                            <th>Tel&eacute;fono</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.List)
-                        {
-                            <tr>
-                                <td style="vertical-align: middle;" title="Nombre">@item.Email </td>
-                                <td style="vertical-align: middle;" title="Descripción">@item.FullName</td>
-                                <td style="vertical-align: middle;" title="Descripción">@item.PhoneNumber</td>
-                                <td style="vertical-align: middle;">
-                                    <div class="btn-group btn-group-sm">
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-edit"></span><span class="hidden-xs"> Modificar</span></a>
-
-                                        <a role="button" href="@Url.Action("delete", new {key = item.Id})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+            <div class="tabla-container">
+                <div class="row tabla-row-header">
+                    <div class="col-md-3 tabla-col">
+                        <div class="col-texto-header">
+                            Nombre
+                        </div>
+                    </div>
+                    <div class="col-md-4 tabla-col">
+                        <div class="col-texto-header">
+                            Email
+                        </div>
+                    </div>
+                    <div class="col-md-2 tabla-col">
+                        <div class="col-texto-header">
+                            Tel&eacute;fono
+                        </div>
+                    </div>
+                </div>
+                @foreach (var item in Model.List)
+                {
+                    <div class="row tabla-row">
+                        <div class="col-md-3 tabla-col">
+                            <div class="col-titulo">
+                                Nombre
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </div>
+                        </div>
+                        <div class="col-md-4 tabla-col">
+                            <div class="col-titulo">
+                                Email
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </div>
+                        </div>
+                        <div class="col-md-2 tabla-col">
+                            <div class="col-titulo">
+                                Tel&eacute;fono
+                            </div>
+                            <div class="col-texto">
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </div>
+                        </div>
+                        <div class="col-md-3 tabla-col-btn">
+                            <div class="col-btn">
+                                <a class="btn btn-success tabla-btn" href="@Url.Action("edit", new { key = item.Id })">Modificar</a>
+                                <a class="btn btn-danger tabla-btn" href="@Url.Action("delete", new {key = item.Id})">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+            
             if (Model.HasNext || Model.HasPrevious)
             {
                 var paginationStart = (Model.Page - 1) * Model.Limit + 1;
