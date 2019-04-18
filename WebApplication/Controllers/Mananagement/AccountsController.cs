@@ -7,7 +7,9 @@ using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers.Mananagement
 {
@@ -16,9 +18,12 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
     public class AccountsController : AbstractEntityManagementController<Account, System.Guid, AccountInputViewModel,AccountDisplayViewModel>
     {
         private readonly IEntityRepository<User, string> usersRepository;
-        public AccountsController(IEntityRepository<User, string> usersRepository,IEntityRepository<Account, System.Guid> repository, IStringLocalizer<AccountsController> localizer, ILogger<AccountsController> logger) : base(repository, localizer, logger)
+        private readonly IUserManager profilemanager;
+
+        public AccountsController(IUserManager profilemanager,IEntityRepository<User, string> usersRepository,IEntityRepository<Account, System.Guid> repository, IStringLocalizer<AccountsController> localizer, ILogger<AccountsController> logger) : base(repository, localizer, logger)
         {
             this.usersRepository = usersRepository;
+            this.profilemanager = profilemanager;
         }
 
         public override IActionResult Index(int sheet = 1, int limit = 25)
@@ -95,8 +100,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
 
         private void PopulateModelInputForAvailableUser(AccountInputViewModel inputModel)
         {
-            var entities = usersRepository.GetAll();
-
+            var rol = profilemanager.GetRoles().Find(idrol => idrol.Name == Roles.ACCOUNT_ADMIN_ROLE);
+            var entities = usersRepository.FindBy(user => user.IdRole == rol.Id);
             var selectListItems = new List<SelectListItem>();
 
             foreach (var entity in entities)
