@@ -1,0 +1,46 @@
+﻿@model SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View.UserInputViewModel
+@{
+    ViewData["Title"] = "Perfil Usuario";
+}
+<section id="modificar-usuario">
+    <div class="container">
+        <h3>Perfil Usuario</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <hr />
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label class="control-label">Nombre</label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tel&eacute;fono</label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>                   
+                    <div class="form-group-btn">
+                        <div class="back-to-list-btn">
+                            <a asp-controller="home" asp-action="Index"><i class="fa fa-chevron-circle-left"></i> Volver al Inicio</a>
+                        </div>
+                        <div class="main-btn">
+                            <button type="submit" value="Save" class="btn btn-success">Guardar</button>                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
