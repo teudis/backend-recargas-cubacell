@@ -65,7 +65,7 @@
                         <p class="description">Listado de recargas pendientes a cuentas del servicio Nauta.</p>
                     </div>
 
-                    
+
                 </div>
 
                 <div class="realizadas col-lg-4 content order-lg-2 order-2">
@@ -113,73 +113,135 @@
                             <a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount"><div class="icon"><i class="fa fa-search"></i></div></a>
                             <h4 class="title"><a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount">Buscar Recargas</a></h4>
                             <p class="description">Permite realizar b&uacute;squedas entre las recargas realizadas, y pendientes. Permite conocer el estado actual de cada recarga.</p>
-</div>
+                        </div>
                     }
 
 
                 </div>
             </div>
         </div>
-    </section>   
+    </section>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole(Roles.SYSTEM_ADMIN_ROLE))
+{
+
+<section id="intro" class="clearfix">
+    <div class="container">
+        <div class="intro-img">
+            <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
+        </div>
+
+        <div class="intro-info">
+            <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
+            <div>
+                <a asp-controller="management" asp-action="index" class="btn-get-started">Panel de Administraci&oacute;n</a>               
+                <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
+            </div>
+        </div>
+
+    </div>
+</section><!-- #intro -->
+
+<section id="about">
+    <div class="container">
+        <header class="section-header">
+            <h3>Conexión Cubanos</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </header>
+
+        <div class="row about-container">
+
+            <div class="col-lg-6 content order-lg-1 order-2">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+
+                <div class="icon-box wow fadeInUp">
+                    <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+                    <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+                    <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                </div>
+
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="icon"><i class="fa fa-photo"></i></div>
+                    <h4 class="title"><a href="">Magni Dolores</a></h4>
+                    <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="icon"><i class="fa fa-bar-chart"></i></div>
+                    <h4 class="title"><a href="">Dolor Sitema</a></h4>
+                    <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+                <img src="~/images/about-img.svg" class="img-fluid" alt="">
+            </div>
+        </div>
+
+    </div>
+</section><!-- #about -->
 }
 else
 {
-    <section id="intro" class="clearfix">
-        <div class="container">
-            <div class="intro-img">
-                <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
-            </div>
-
-            <div class="intro-info">
-                <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
-                <div>
-                    <a asp-area="Identity" asp-page="/Account/Login" class="btn-get-started scrollto">Iniciar sesión</a>
-                    <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
-                </div>
-            </div>
-
+<section id="intro" class="clearfix">
+    <div class="container">
+        <div class="intro-img">
+            <img src="~/images/intro-img-02.png" alt="" class="img-fluid">
         </div>
-    </section><!-- #intro -->
 
-    <section id="about">
-        <div class="container">
-            <header class="section-header">
-                <h3>Conexión Cubanos</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </header>
+        <div class="intro-info">
+            <h2>Bienvenido a<br><span>Conexión Cubanos</span></h2>
+            <div>
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn-get-started scrollto">Iniciar sesión</a>
+                <a asp-controller="home" asp-action="about" class="btn-services scrollto">Nosotros</a>
+            </div>
+        </div>
 
-            <div class="row about-container">
+    </div>
+</section><!-- #intro -->
 
-                <div class="col-lg-6 content order-lg-1 order-2">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
+<section id="about">
+    <div class="container">
+        <header class="section-header">
+            <h3>Conexión Cubanos</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </header>
 
-                    <div class="icon-box wow fadeInUp">
-                        <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-                        <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-                        <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-                    </div>
+        <div class="row about-container">
 
-                    <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="icon"><i class="fa fa-photo"></i></div>
-                        <h4 class="title"><a href="">Magni Dolores</a></h4>
-                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
+            <div class="col-lg-6 content order-lg-1 order-2">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
 
-                    <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="icon"><i class="fa fa-bar-chart"></i></div>
-                        <h4 class="title"><a href="">Dolor Sitema</a></h4>
-                        <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-                    </div>
-
+                <div class="icon-box wow fadeInUp">
+                    <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+                    <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+                    <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
                 </div>
 
-                <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
-                    <img src="~/images/about-img.svg" class="img-fluid" alt="">
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="icon"><i class="fa fa-photo"></i></div>
+                    <h4 class="title"><a href="">Magni Dolores</a></h4>
+                    <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                 </div>
+
+                <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="icon"><i class="fa fa-bar-chart"></i></div>
+                    <h4 class="title"><a href="">Dolor Sitema</a></h4>
+                    <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                </div>
+
             </div>
 
+            <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+                <img src="~/images/about-img.svg" class="img-fluid" alt="">
+            </div>
         </div>
-    </section><!-- #about -->
+
+    </div>
+</section><!-- #about -->
 }
