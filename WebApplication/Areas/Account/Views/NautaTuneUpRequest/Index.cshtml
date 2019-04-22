@@ -1,5 +1,4 @@
-﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRequest>
-
+﻿@model SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Pagination.PaginatedList<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRequest>
 @{
     ViewData["Title"] = "Recargas Nauta Pendientes";
 }
@@ -46,7 +45,7 @@
                     </div>
                     <div class="col-md-2 tabla-col">
                         <div class="col-titulo">
-                           Perfil
+                            Perfil
                         </div>
                         <div class="col-texto">
                             ( ... )
@@ -113,6 +112,30 @@
                 }
             }
         </div>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        @if (Model.Count() > 20)
+        {
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData[" CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn btn-default @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData[" CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn btn-default @nextDisabled">
+                Next
+            </a>
+        }
 
     </div>
 </section>

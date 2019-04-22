@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Pagination;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
@@ -32,12 +33,14 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
         }
 
         // GET: Usuarios
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? pageNumber)
         {
            var user = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
            var accountid = HttpContext.User.FindFirst(Claims.ACCOUNT_CLAIM).Value;
            var data = _context.Usuarios.Where(account => account.Account.Id == Guid.Parse(accountid)).Where(usuario => usuario.Id != user.Id);
-           return View(await data.ToListAsync());
+            //return View(await data.ToListAsync());
+           int pageSize = 20;
+           return View(await PaginatedList<User>.CreateAsync(data.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Usuarios/Details/5
