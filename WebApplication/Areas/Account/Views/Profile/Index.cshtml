@@ -1,10 +1,10 @@
 ﻿@model SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View.UserInputViewModel
 @{
-    ViewData["Title"] = "Modificar Usuario";
+    ViewData["Title"] = "Perfil Usuario";
 }
 <section id="modificar-usuario">
     <div class="container">
-        <h3>Modificar Usuario</h3>
+        <h3>Perfil Usuario</h3>
         <div class="row">
             <div class="col-md-8">
                 <hr />
@@ -24,19 +24,14 @@
                     <div class="form-group">
                         <label class="control-label">Tel&eacute;fono</label>
                         <input asp-for="PhoneNumber" class="form-control" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>						
-                    </div>     
-                    <div class="form-group">
--                        <label class="control-label">ROL</label>
--                        <select class="form-control" asp-for="IdRole" asp-items="@Model.Roles"></select>
--                    </div>					
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>                   
                     <div class="form-group-btn">
                         <div class="back-to-list-btn">
-                            <a asp-action="Index"><i class="fa fa-chevron-circle-left"></i> Volver al listado</a>
+                            <a asp-controller="home" asp-action="Index"><i class="fa fa-chevron-circle-left"></i> Volver al Inicio</a>
                         </div>
                         <div class="main-btn">
-                            <button type="submit" value="Save" class="btn btn-success">Guardar</button>
-                            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                            <button type="submit" value="Save" class="btn btn-success">Guardar</button>                            
                         </div>
                     </div>
                 </form>
@@ -48,3 +43,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

@@ -9,6 +9,7 @@ using SmartSolucionesCuba.SAPRESSC.Core.Web.Management.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 using System.Collections.Generic;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers.Mananagement
@@ -179,7 +180,11 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
 
             foreach (var entity in entities)
             {
-                selectListItems.Add(new SelectListItem { Value = entity.Id.ToString(), Text = entity.Name });
+                if(entity.Name != Roles.ACCOUNT_SELLER_ROLE)
+                {
+                    selectListItems.Add(new SelectListItem { Value = entity.Id.ToString(), Text = entity.Name });
+                }
+                
             }
 
             inputModel.Roles = selectListItems;

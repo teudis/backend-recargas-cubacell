@@ -11,6 +11,7 @@ using SmartSolucionesCuba.SAPRESSC.Core.Web.Common.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Pagination;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Account.Controllers
 {
@@ -26,11 +27,13 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
             this._userManager = _userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
             var current_user = await _userManager.GetUserAsync(HttpContext.User);
             var data = _context.NautaBalanceTuneUpRequests.Include(tuneuprofile => tuneuprofile.TuneUpProfile).Where(user => user.Agent.Id == current_user.Id);
-            return View(await data.ToListAsync());
+            //return View(await data.ToListAsync());
+            int pageSize = 20;
+            return View(await PaginatedList<NautaBalanceTuneUpRequest>.CreateAsync(data.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         public async Task<ActionResult> Details(System.Guid id)

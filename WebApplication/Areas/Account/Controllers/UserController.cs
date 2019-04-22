@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
+using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Pagination;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
@@ -30,13 +33,14 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
         }
 
         // GET: Usuarios
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? pageNumber)
         {
            var user = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
-           var idUser = _context.Usuarios.Where(id => id.Id == user.Id).ToList()[0].Id;
-           var account_user = _context.Accounts.Where(idRepresentative => idRepresentative.RepresentativeId == idUser).ToList()[0].Id;
-           var data = _context.Usuarios.Where(users => users.Account.Id == account_user);
-           return View(await data.ToListAsync());
+           var accountid = HttpContext.User.FindFirst(Claims.ACCOUNT_CLAIM).Value;
+           var data = _context.Usuarios.Where(account => account.Account.Id == Guid.Parse(accountid)).Where(usuario => usuario.Id != user.Id);
+            //return View(await data.ToListAsync());
+           int pageSize = 20;
+           return View(await PaginatedList<User>.CreateAsync(data.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Usuarios/Details/5
@@ -59,7 +63,23 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            return View();
+            var entities = profilemanager.GetRoles();            
+
+            var selectListItems = new List<SelectListItem>();
+
+            foreach (var entity in entities)
+            {
+                if (entity.Name != Roles.SYSTEM_ADMIN_ROLE)
+                {
+                    selectListItems.Add(new SelectListItem { Value = entity.Id.ToString(), Text = entity.Name });
+                }
+
+            }
+
+            var modelinput = new UserWithPasswordInputViewModel();
+            modelinput.Roles = selectListItems;
+
+            return View(modelinput);
         }
 
         // POST: Usuarios/Create
@@ -72,6 +92,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
                 if (ModelState.IsValid)
                 {
 
+                
                 var user = new User {
 
                 FullName = modelinput.FullName,
@@ -81,7 +102,9 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
                 NormalizedUserName = modelinput.Email.ToUpper(),                
                 SecurityStamp = Guid.NewGuid().ToString(),
                 LockoutEnabled = true,
-                PhoneNumber = modelinput.PhoneNumber
+                PhoneNumber = modelinput.PhoneNumber,
+                IdRole = modelinput.IdRole
+
                 };
 
                  user.PasswordHash = profilemanager.HashPassword(user, modelinput.Password);                
@@ -115,19 +138,37 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
                 return NotFound();
             }
 
+            var entities = profilemanager.GetRoles();
+
+            var selectListItems = new List<SelectListItem>();
+
+            foreach (var entity in entities)
+            {
+                if (entity.Name != Roles.SYSTEM_ADMIN_ROLE)
+                {
+                    selectListItems.Add(new SelectListItem { Value = entity.Id.ToString(), Text = entity.Name });
+                }
+
+            }
+
+            var modelinput = new UserWithPasswordInputViewModel();
+            modelinput.Roles = selectListItems;
+
             return View(new UserInputViewModel {
 
                 Email = user.Email,
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
-                Id =  user.Id
+                Id =  user.Id,
+                Roles = modelinput.Roles,
+                IdRole = user.IdRole
             });
         }
 
         // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(string id, [Bind("Id,FullName,Email,PhoneNumber")] UserInputViewModel modelinput)
+        public async Task<ActionResult> Edit(string id, [Bind("Id,FullName,Email,PhoneNumber,IdRole")] UserInputViewModel modelinput)
         {
             if (id != modelinput.Id)
             {
@@ -142,6 +183,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Ac
                     user.FullName = modelinput.FullName;
                     user.Email = modelinput.Email;
                     user.PhoneNumber = modelinput.PhoneNumber;
+                    user.IdRole = modelinput.IdRole;
                     await _userManager.UpdateAsync(user);
 
                 }
