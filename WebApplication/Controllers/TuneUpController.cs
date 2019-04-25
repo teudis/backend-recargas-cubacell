@@ -1,31 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Common.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
-using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
-using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Account.Controllers
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
 {
     [Area("Account")]
     [Authorize]
-    public class RecargaController : BaseWebController
+    public class TuneUpController : BaseWebController
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;        
 
-        public RecargaController(ApplicationDbContext _context, UserManager<User> _userManager, IStringLocalizer<RecargaController> localizer, ILogger<BaseWebController> logger) : base(localizer, logger)
+        public TuneUpController(ApplicationDbContext _context, UserManager<User> _userManager, IStringLocalizer<TuneUpController> localizer, ILogger<BaseWebController> logger) : base(localizer, logger)
         {
             this._context = _context;
             this._userManager = _userManager;

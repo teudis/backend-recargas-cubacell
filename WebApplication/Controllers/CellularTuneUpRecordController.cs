@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +13,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persist
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Pagination;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 
-namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Account.Controllers
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
 {
     [Area("Account")]
     [Authorize]

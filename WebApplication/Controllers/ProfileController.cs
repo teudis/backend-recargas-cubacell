@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +11,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 
-namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Account.Controllers
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
 {
     [Area("Account")]
     [Authorize]

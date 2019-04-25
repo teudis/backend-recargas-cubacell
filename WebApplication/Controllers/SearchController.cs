@@ -16,16 +16,16 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 
-namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Account.Controllers
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
 {
     [Area("Account")]
     [Authorize]
-    public class BuscadorController : BaseWebController
+    public class SearchController : BaseWebController
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        public BuscadorController(ApplicationDbContext _context, UserManager<User> _userManager, IStringLocalizer<BuscadorController> localizer, ILogger<BaseWebController> logger) : base(localizer, logger)
+        public SearchController(ApplicationDbContext _context, UserManager<User> _userManager, IStringLocalizer<SearchController> localizer, ILogger<BaseWebController> logger) : base(localizer, logger)
         {
             this._context = _context;
             this._userManager = _userManager;
