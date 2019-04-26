@@ -11,44 +11,25 @@
     <section id="home">
         <div class="container">
             <!--
-            <header class="section-header">
-                <h3>Conexión Cubanos</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </header>
-            -->
+    <header class="section-header">
+        <h3>Conexión Cubanos</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </header>
+    -->
             <div class="row home-container">
-
                 <div class="col-lg-4 content order-lg-1 order-1">
                     <h3>Crear</h3>
                     <div class="icon-box wow fadeInUp">
-                        <a asp-area="account" asp-controller="recarga"><div class="icon"><i class="fa fa-phone"></i></div></a>
-                        <h4 class="title"><a asp-area="account" asp-controller="recarga">Recargas Cubacel</a></h4>
+                        <a asp-area="account" asp-controller="tuneup" asp-action="cubacel"><div class="icon"><i class="fa fa-phone"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="tuneup" asp-action="cellular">Recargas Cubacel</a></h4>
                         <p class="description">Permite realizar recargas de saldo a m&oacute;viles de la red Cubacel.</p>
                     </div>
 
                     <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
-                        <a asp-area="account" asp-controller="recarga"><div class="icon"><i class="fa fa-at"></i></div></a>
-                        <h4 class="title"><a asp-area="account" asp-controller="recarga">Recargas Nauta</a></h4>
+                        <a asp-area="account" asp-controller="tuneup" asp-action="nauta"><div class="icon"><i class="fa fa-at"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="tuneup" asp-action="nauta">Recargas Nauta</a></h4>
                         <p class="description">Permite realizar recargas de saldo a cuentas de navegaci&oacute;n nacional e internacional del servicio Nauta.</p>
                     </div>
-                    @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
-                    {
-                        <h3>Administrador</h3>
-                        <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
-                            <a asp-area="account" asp-controller="user"><div class="icon"><i class="fa fa-user"></i></div></a>
-                            <h4 class="title"><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></h4>
-                            <p class="description">Muestra los usuarios asociados a la cuenta actual. Permite crear, modificar, eliminar usuarios de la cuenta.</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <h3>Buscador</h3>
-                        <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
-                            <a asp-area="account" asp-controller="buscador" asp-action="searchbalancetune"><div class="icon"><i class="fa fa-search"></i></div></a>
-                            <h4 class="title"><a asp-area="account" asp-controller="search" asp-action="searchbalancetune">Buscar Recargas </a></h4>
-                            <p class="description">Permite realizar b&uacute;squedas entre las recargas realizadas, y pendientes. Permite conocer el estado actual de cada recarga.</p>
-                        </div>
-                    }
                 </div>
 
                 <div class="pendientes col-lg-4 content order-lg-3 order-3">
@@ -64,8 +45,6 @@
                         <h4 class="title"><a asp-area="account" asp-controller="nautatuneuprequest">Recargas Nauta</a></h4>
                         <p class="description">Listado de recargas pendientes a cuentas del servicio Nauta.</p>
                     </div>
-
-
                 </div>
 
                 <div class="realizadas col-lg-4 content order-lg-2 order-2">
@@ -86,7 +65,6 @@
 
                     }
                     else
-
                     {
                         <div class="icon-box wow fadeInUp">
                             <a asp-area="account" asp-controller="cellulartuneuprecord" asp-action="getcellularbalancetunerecordaccount"><div class="icon"><i class="fa fa-phone"></i></div></a>
@@ -102,24 +80,42 @@
 
 
                     }
+                </div>
+            </div>
 
-
-
-
+            <div class="row home-container">
+                <div class="col-lg-4 content order-lg-1 order-1">
                     @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
+                    {
+                        <h3>Administrador</h3>
+                        <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                            <a asp-area="account" asp-controller="user"><div class="icon"><i class="fa fa-user"></i></div></a>
+                            <h4 class="title"><a asp-area="account" asp-controller="user">Gestionar Usuarios</a></h4>
+                            <p class="description">Muestra los usuarios asociados a la cuenta actual. Permite crear, modificar, eliminar usuarios de la cuenta.</p>
+                        </div>
+                    }
+                    else
                     {
                         <h3>Buscador</h3>
                         <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
-                            <a asp-area="account" asp-controller="buscador" asp-action="searchbalancetuneaccount"><div class="icon"><i class="fa fa-search"></i></div></a>
-                            <h4 class="title"><a asp-area="account" asp-controller="search" asp-action="searchbalancetuneaccount">Buscar Recargas</a></h4>
+                            <a asp-area="account" asp-controller="search" asp-action="searchbalancetune"><div class="icon"><i class="fa fa-search"></i></div></a>
+                            <h4 class="title"><a asp-area="account" asp-controller="search" asp-action="searchbalancetune">Buscar Recargas </a></h4>
                             <p class="description">Permite realizar b&uacute;squedas entre las recargas realizadas, y pendientes. Permite conocer el estado actual de cada recarga.</p>
                         </div>
                     }
-
-
                 </div>
+                @if (User.IsInRole(Roles.ACCOUNT_ADMIN_ROLE))
+                {                    
+                <div class="realizadas col-lg-4 content order-lg-2 order-2">
+                    <h3>Buscador</h3>
+                    <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                        <a asp-area="account" asp-controller="search" asp-action="searchbalancetuneaccount"><div class="icon"><i class="fa fa-search"></i></div></a>
+                        <h4 class="title"><a asp-area="account" asp-controller="search" asp-action="searchbalancetuneaccount">Buscar Recargas</a></h4>
+                        <p class="description">Permite realizar b&uacute;squedas entre las recargas realizadas, y pendientes. Permite conocer el estado actual de cada recarga.</p>
+                    </div>
+                </div>
+                }
             </div>
-        </div>
     </section>
 }
 else if (SignInManager.IsSignedIn(User) && User.IsInRole(Roles.SYSTEM_ADMIN_ROLE))

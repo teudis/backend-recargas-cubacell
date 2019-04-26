@@ -1,0 +1,201 @@
+﻿@{
+    ViewData["Title"] = "Crear Recargas Cubacel";
+}
+
+
+<section id="mainrender">
+    <div class="container">
+        <h3>@ViewData["Title"]</h3>
+        <h5>Puede realizar m&uacute;ltiples recargas agregando varias en esta p&aacute;gina. </h5>
+        <hr />
+        <div class="row">
+            <div class="well col-md-12">
+                <form class="form-horizontal" id="formulario_recargas">
+                    <div id="formulario_recargas">
+                        <div class=" form-group" id="dynamic_inputs">
+                            <div id="zone_cell" class="form-group">
+                            </div>
+                        </div>
+                        <div id="formulario_recargas-footer">
+                            <div class="col-md-4">
+                                <button class="btn btn-primary col-md-12" disabled="disabled" id="add_cubacel_tuneup_form">Agregar</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success col-md-12 collapse" id="button_send_cubacel">Realizar todas las Recargas</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-12">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var rowcubacel = 0;
+
+            var select_perfil_cubacel = $("<select class='form-control' id='perfil_cubacel'></select>");
+            
+            // Cubacel TuneUps Submit
+            $(document).on('click', '#button_send_cubacel', function (e) {
+                e.preventDefault();
+
+                $('#button_send_cubacel').attr('disabled', 'disabled');
+                $('#add_cubacel_tuneup_form').attr('disabled', 'disabled');
+
+                var datos_validos = 0;
+
+                for (var i = 1; i <= rowcubacel; i++) {
+                    var number = $("#cubacel" + i).val().trim();
+
+                    if (!isValidPhoneNumber(number)) {
+                        $("#cubacel" + i).attr('style', "border-color: #dc3545;");
+                        $("#cubacel" + i + 'Label').attr('style', "color: #dc3545;");
+                        $("#cubacel" + i + 'ErrorExplain').removeClass('collapse');
+                    }
+                    else {
+                        $("#cubacel" + i).attr('style', "border-color: #00B33C;");
+                        $("#cubacel" + i + 'Label').attr('style', "color: #00B33C;");
+                        $("#cubacel" + i + 'ErrorExplain').addClass('collapse');
+
+                        datos_validos++;
+                    }
+                }
+
+                if (datos_validos == rowcubacel) {
+                    var arr_cubacel = [];
+
+                    $('select#perfil_cubacel').each(function (i) {
+                        var perfil_cell = $(this).val().trim();
+                        var number_cell = $("#cubacel" + (i + 1)).val().trim();
+
+                        arr_cubacel.push({ phonenumbertarget: number_cell, id: perfil_cell });
+                    });
+
+                    // procesar celular recargas
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "/account/tuneup/requestcubaceltuneup",
+                        data: JSON.stringify(arr_cubacel),
+                        dataType: "json",
+                        success: function () {
+                            window.location.href = "/account/tuneup/cubacel";
+                        },
+                        error: function (err) {
+                            console.log(err);
+
+                            $('#button_send_cubacel').removeAttr('disabled');
+                            $('#add_cubacel_tuneup_form').removeAttr('disabled');
+                        }
+                    });
+                }
+            });
+
+            function isValidPhoneNumber(number) {
+                var expReg = new RegExp(/^([52-58])+[0-9]{6}$/)
+
+                return expReg.test(number);
+            }
+
+            $(document).on('click', '.remove_cubacel_tuneup_form', function (e) {
+                e.preventDefault();
+
+                $(this).parent().parent().parent().remove();
+
+                rowcubacel--;
+
+                if (rowcubacel <= 0) {
+                    $('#button_send_cubacel').addClass('collapse');
+                }
+            });
+
+            //Generar campos Cubacel
+            $(document).on('click', '#add_cubacel_tuneup_form', function (e) {
+                e.preventDefault();
+
+                $('#button_send_cubacel').removeClass('collapse');
+
+                rowcubacel++;
+
+                var form_fragment =
+                    '<div id="rowNumCubacel' + rowcubacel + '">' +
+                    '   <div class="formulario_recargas-row">' +
+                    '       <div class="col-sm-4">' +
+                    '           <div class="form-group" style="margin-bottom: 0;">' +
+                    '               <label id="cubacel' + rowcubacel + 'Label" for="numero_cell" class="control-label">N&uacute;mero de Tel&eacute;fono</label>' +
+                    '               <input type="text" class="form-control" id="cubacel' + rowcubacel + '" />' +
+                    '           </div>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4" id="select_cubacel' + rowcubacel + '">' +
+                    '           <label class="control-label">Perfil Cubacel</label>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4">' +
+                    '           <button type="button" class="btn btn-danger remove_cubacel_tuneup_form">Cancelar esta Recarga</button>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '   <div class="formulario_recargas" style="margin-bottom: 20px;">' +
+                    '       <div class="col-sm-4">' +
+                    '           <span id="cubacel' + rowcubacel + 'ErrorExplain" class="collapse" style="color: #dc3545;">Es requerido un N&uacute;mero de Tel&eacute;fono v&aacute;lido</span>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '</div>';
+
+                $('#zone_cell').append(form_fragment);
+
+                $("#select_cubacel" + rowcubacel).append(select_perfil_cubacel.clone());
+            });
+
+            // get perfil cubacel
+            $(function () {
+                $.get('/account/tuneup/cubaceltuneupprofiles').done(function (cubaceltuneupprofiles) {
+                    var primaryGroup = $('<optgroup label="Principales"></optgroup>');
+                    var secoundaryGroup = $('<optgroup label="Secundarios"></optgroup>');
+
+                    $.each(cubaceltuneupprofiles, function (i, cubaceltuneupprofile) {
+
+                        var opt = $("<option></option");
+
+                        opt.val(cubaceltuneupprofile.id); opt.html(cubaceltuneupprofile.label + ' ($' + cubaceltuneupprofile.amount + ')');
+
+                        if (cubaceltuneupprofile.primary) {
+                            primaryGroup.append(opt);
+                        }
+                        else {
+                            secoundaryGroup.append(opt);
+                        }
+                    });
+
+                    if (primaryGroup.children().length > 0) {
+
+                        if (secoundaryGroup.children().length <= 0) {
+                            select_perfil_cubacel.append(primaryGroup.children());
+                        }
+                        else {
+                            select_perfil_cubacel.append(primaryGroup);
+                        }
+                    }
+
+                    if (secoundaryGroup.children().length > 0) {
+                        if (primaryGroup.children().length <= 0) {
+                            select_perfil_cubacel.append(secoundaryGroup.children());
+                        }
+                        else {
+                            select_perfil_cubacel.append(secoundaryGroup);
+                        }
+                    }
+
+                    $('#add_cubacel_tuneup_form').removeAttr('disabled');
+                });
+            });
+
+        });
+    </script>
+}

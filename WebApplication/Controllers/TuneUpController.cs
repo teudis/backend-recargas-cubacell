@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Common.Controllers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
@@ -18,7 +19,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
     public class TuneUpController : BaseWebController
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;        
+        private readonly UserManager<User> _userManager;   
 
         public TuneUpController(ApplicationDbContext _context, UserManager<User> _userManager, IStringLocalizer<TuneUpController> localizer, ILogger<BaseWebController> logger) : base(localizer, logger)
         {
@@ -26,26 +27,34 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
             this._userManager = _userManager;
 
         }
-        public IActionResult Index()
+
+        public IActionResult Nauta()
+        {
+            return View();
+        }
+
+        public IActionResult Cubacel()
         {
             return View();
         }
 
         [HttpGet]
-        public JsonResult GetPerfilNauta()
+        public JsonResult NautaTuneUpProfiles()
         {
             var result = _context.NautaBalanceTuneUpProfiles.ToList();
+
             return Json(result);
         }
 
-        public IActionResult GetPerfilCubacel()
+        public IActionResult CubacelTuneUpProfiles()
         {
             var result = _context.CellularBalanceTuneUpProfiles.ToList();
+
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertCelullarBalanceTuneUpRequest([FromBody]  RecargaCubacelModelView [] model)
+        public async Task<IActionResult> RequestCubacelTuneUp([FromBody]  RecargaCubacelModelView [] model)
         {
             var current_user =  await _userManager.GetUserAsync(HttpContext.User);            
             foreach (var cubacel in model)
@@ -60,12 +69,22 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
                 };
                 _context.Add(cell);
             }
+
             await _context.SaveChangesAsync();
-            return Json(new { someValue = "Ok" });
+
+            var notification = new NotificationViewModel
+            {
+                Type = NotificationType.Success,
+                Message = "Recargas solicitadas con éxito."
+            };
+
+            TempData[NotificationViewModel.NOTIFICATION_MAP_KEY] = Newtonsoft.Json.JsonConvert.SerializeObject(notification);
+
+            return Json(new { result = "OK" });
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertNautaBalanceTuneUpRequest([FromBody]  RecargaNautaModelView[] model)
+        public async Task<IActionResult> RequestNautaTuneUp([FromBody]  RecargaNautaModelView[] model)
         {
             var current_user = await _userManager.GetUserAsync(HttpContext.User);
             foreach (var nauta in model)
@@ -80,10 +99,18 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
                 };
                 _context.Add(hogar);
             }
+
             await _context.SaveChangesAsync();
-            return Json(new { someValue = "Recargas Procesadas"});
 
+            var notification = new NotificationViewModel
+            {
+                Type = NotificationType.Success,
+                Message = "Recargas solicitadas con éxito."
+            };
+
+            TempData[NotificationViewModel.NOTIFICATION_MAP_KEY] = Newtonsoft.Json.JsonConvert.SerializeObject(notification);
+
+            return Json(new { result = "OK" });
         }
-
     }
 }

@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "Solicitar Recargas Nauta";
+}
+
+
+<section id="mainrender">
+    <div class="container">
+        <h3>@ViewData["Title"]</h3>
+        <h5>Puede realizar m&uacute;ltiples recargas agregando varias en esta p&aacute;gina. </h5>
+        <hr />
+        <div class="row">
+            <div class="well col-md-12">
+                <form class="form-horizontal" id="formulario_recargas">
+                    <div id="formulario_recargas">
+                        <div class=" form-group" id="dynamic_inputs">
+                            <div id="zone_nauta" class="form-group">
+                            </div>
+                        </div>
+                        <div id="formulario_recargas-footer">
+                            <div class="btn-group col-md-4">
+                                <button class="btn btn-primary" disabled="disabled" id="add_nauta_tuneup_form">Agregar</button>
+                            </div>
+                            <div class="input-group-btn col-md-4">
+                                <button class="btn btn-success add-more col-md-12 collapse" id="button_send_nauta">Realizar todas las Recargas</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-12">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var rownauta = 0;
+
+            var select_perfil_nauta = $("<select class='form-control' id='perfil_nauta'></select>");
+
+            // Nauta TuneUps Submit
+            $(document).on('click', '#button_send_nauta', function (e) {
+                e.preventDefault();
+
+                $('#button_send_nauta').attr('disabled', 'disabled');
+                $('#add_nauta_tuneup_form').attr('disabled', 'disabled');
+
+                var datos_validos = 0;
+
+                for (var i = 1; i <= rownauta; i++) {
+                    var number = $("#nauta" + i).val().trim();
+
+                    if (!isValidNautaAccountId(number)) {
+                        $("#nauta" + i).attr('style', "border-color: #dc3545;");
+                        $("#nauta" + i + 'Label').attr('style', "color: #dc3545;");
+                        $("#nauta" + i + 'ErrorExplain').removeClass('collapse');
+                    }
+                    else {
+                        $("#nauta" + i).attr('style', "border-color: #00B33C;");
+                        $("#nauta" + i + 'Label').attr('style', "color: #00B33C;");
+                        $("#nauta" + i + 'ErrorExplain').addClass('collapse');
+
+                        datos_validos++;
+                    }
+                }
+
+                if (datos_validos == rownauta) {
+                    var arr_nauta = [];
+
+                    $('select#perfil_nauta').each(function (i) {
+                        var perfil_nauta = $(this).val().trim();
+                        var number_nauta = $("#nauta" + (i + 1)).val().trim();
+
+                        arr_nauta.push({ emailaddresstarget: number_nauta, id: perfil_nauta });
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "/account/tuneup/requestnautatuneup",
+                        data: JSON.stringify(arr_nauta),
+                        dataType: "json",
+                        success: function () {
+                            window.location.href = "/account/tuneup/nauta";
+                        },
+                        error: function (err) {
+                            console.log(err);
+
+                            $('#button_send_nauta').removeAttr('disabled');
+                            $('#add_nauta_tuneup_form').removeAttr('disabled');
+                        }
+                    });
+                }
+            });
+
+            function isValidNautaAccountId(correo) {
+                var expReg = new RegExp(/^([a-z0-9_\.-]+)@@nauta\.com.cu$/);
+
+                return expReg.test(correo);
+            }
+
+            $(document).on('click', '.remove_nauta_tuneup_form', function (e) {
+                e.preventDefault();
+
+                $(this).parent().parent().parent().remove();
+
+                rownauta--;
+
+                if (rownauta <= 0) {
+                    $('#button_send_nauta').addClass('collapse');
+                }
+            });
+
+            //Generar campos Nauta
+            $(document).on('click', '#add_nauta_tuneup_form', function (e) {
+                e.preventDefault();
+
+                $('#button_send_nauta').removeClass('collapse');
+
+                rownauta++;
+
+                var form_fragment =
+                    '<div id="rowNumNauta' + rownauta + '">' +
+                    '   <div class="formulario_recargas-row">' +
+                    '       <div class="col-sm-4">' +
+                    '           <div class="form-group" style="margin-bottom: 0;">' +
+                    '               <label id="nauta' + rownauta + 'Label" for="numero_cell" class="control-label">Usuario Nauta</label>' +
+                    '               <input type="text" class="form-control" id="nauta' + rownauta + '" />' +
+                    '           </div>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4" id="select_nauta' + rownauta + '">' +
+                    '           <label class="control-label">Perfil Nauta</label>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4">' +
+                    '           <button type="button" class="btn btn-danger remove_nauta_tuneup_form">Cancelar esta Recarga</button>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '   <div class="formulario_recargas" style="margin-bottom: 20px;">' +
+                    '       <div class="col-sm-4">' +
+                    '           <span id="nauta' + rownauta + 'ErrorExplain" class="collapse" style="color: #dc3545;">Es requerido un Usuario Nauta v&aacute;lido</span>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '</div>';
+
+                $('#zone_nauta').append(form_fragment);
+
+                $("#select_nauta" + rownauta).append(select_perfil_nauta.clone());
+            });
+
+            // get perfil nauta
+            $(function () {
+                $.get('/account/tuneup/nautatuneupprofiles').done(function (nautatuneupprofiles) {
+                    var primaryGroup = $('<optgroup label="Principales"></optgroup>');
+                    var secoundaryGroup = $('<optgroup label="Secundarios"></optgroup>');
+
+                    $.each(nautatuneupprofiles, function (i, nautatuneupprofile) {
+
+                        var opt = $("<option></option");
+
+                        opt.val(nautatuneupprofile.id); opt.html(nautatuneupprofile.label + ' ($' + nautatuneupprofile.amount + ')');
+
+                        if (nautatuneupprofile.primary) {
+                            primaryGroup.append(opt);
+                        }
+                        else {
+                            secoundaryGroup.append(opt);
+                        }
+                    });
+
+                    if (primaryGroup.children().length > 0) {
+
+                        if (secoundaryGroup.children().length <= 0) {
+                            select_perfil_nauta.append(primaryGroup.children());
+                        }
+                        else {
+                            select_perfil_nauta.append(primaryGroup);
+                        }
+                    }
+
+                    if (secoundaryGroup.children().length > 0) {
+                        if (primaryGroup.children().length <= 0) {
+                            select_perfil_nauta.append(secoundaryGroup.children());
+                        }
+                        else {
+                            select_perfil_nauta.append(secoundaryGroup);
+                        }
+                    }
+
+                    $('#add_nauta_tuneup_form').removeAttr('disabled');
+                });
+            });
+        });
+    </script>
+}

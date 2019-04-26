@@ -75,6 +75,7 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Helpers\Localization\" />
+    <Folder Include="ViewComponents\" />
   </ItemGroup>
 
   <ItemGroup>

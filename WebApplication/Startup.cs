@@ -78,8 +78,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             // Email Services
             services.AddSingleton<IEmailSender, MessageServices>();
 
-            services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
-
             services.AddScoped<IUserClaimsPrincipalFactory<User>, Security.Authentication.ExtendedUserClaimsPrincipalFactory>();
 
             services.ConfigureApplicationCookie(options =>
@@ -102,6 +100,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,7 +126,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseAuthentication();
 
@@ -144,6 +143,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseCookiePolicy();
 
             if (!env.IsDevelopment()) return;
 
