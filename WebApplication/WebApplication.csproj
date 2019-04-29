@@ -66,15 +66,16 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
     <PackageReference Include="SAPRESSC.Core.Common" Version="0.5.3-beta" />
-    <PackageReference Include="SAPRESSC.Core.Persistence" Version="0.8.5-beta" />
-    <PackageReference Include="SAPRESSC.Core.Web.Common" Version="0.8.6-beta" />
-    <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.8.6-beta" />
+    <PackageReference Include="SAPRESSC.Core.Persistence" Version="0.9.0-beta" />
+    <PackageReference Include="SAPRESSC.Core.Web.Common" Version="0.9.0-beta" />
+    <PackageReference Include="SAPRESSC.Core.Web.Management" Version="0.9.0-beta" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Helpers\Localization\" />
+    <Folder Include="ViewComponents\" />
   </ItemGroup>
 
   <ItemGroup>

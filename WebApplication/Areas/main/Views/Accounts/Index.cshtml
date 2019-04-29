@@ -7,22 +7,22 @@
     ViewData["Title"] = "Administración de Cuentas";
 
     ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
-{
-new BreadcrumbViewModel
-{
-Caption = "<span class=\"glyphicon glyphicon-home\"></span> Inicio",
-Url = "/"
-},
-new BreadcrumbViewModel
-{
-Caption = "Administración",
-Url = Url.Action("index", "management", new { Area = string.Empty })
-},
-new BreadcrumbViewModel
-{
-Caption = "Cuentas"
-}
-};
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"glyphicon glyphicon-home\"></span> Inicio",
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Administración",
+            Url = Url.Action("index", "management", new { Area = string.Empty })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Cuentas"
+        }
+    };
 
     Layout = "_BackendLayout";
 }
@@ -309,7 +309,5 @@ Caption = "Cuentas"
                 </table>
             </div>
         }
-
-
     </div>
 </section>

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Identity.Services;
@@ -53,7 +54,12 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             services.AddMvc(mvc =>
                 mvc.ModelBinderProviders.Insert(0, new SmartSolucionesCuba.SAPRESSC.Core.Web.Common.ModelBinding.AbstractsModelBinderProvider())
             )
-            .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+            .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization(options =>
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                {
+                    return factory.Create(typeof(SharedResources));
+                }
+            )
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Configure<RequestLocalizationOptions>(options =>
@@ -78,9 +84,12 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             // Email Services
             services.AddSingleton<IEmailSender, MessageServices>();
 
-            services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
-
             services.AddScoped<IUserClaimsPrincipalFactory<User>, Security.Authentication.ExtendedUserClaimsPrincipalFactory>();
+
+            services.AddSingleton<IStringLocalizer<Controllers.Mananagement.AccountsController>, Helpers.Localization.GlobalViewLocalizationHelper>();
+            services.AddSingleton<IStringLocalizer<Controllers.Mananagement.CellularBalanceTuneupProfilesController>, Helpers.Localization.GlobalViewLocalizationHelper>();
+            services.AddSingleton<IStringLocalizer<Controllers.Mananagement.NautaBalanceTuneUpProfilesController>, Helpers.Localization.GlobalViewLocalizationHelper>();
+            services.AddSingleton<IStringLocalizer<Controllers.Mananagement.UsersController>, Helpers.Localization.GlobalViewLocalizationHelper>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -102,6 +111,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,7 +137,6 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseAuthentication();
 
@@ -144,6 +154,8 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseCookiePolicy();
 
             if (!env.IsDevelopment()) return;
 

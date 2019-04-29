@@ -5,7 +5,11 @@ using Microsoft.Extensions.Localization;
 
 namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Localization
 {
-    public class GlobalViewLocalizationHelper
+    public class GlobalViewLocalizationHelper : 
+        IStringLocalizer<Controllers.Mananagement.UsersController>, 
+        IStringLocalizer<Controllers.Mananagement.AccountsController>, 
+        IStringLocalizer<Controllers.Mananagement.CellularBalanceTuneupProfilesController>, 
+        IStringLocalizer<Controllers.Mananagement.NautaBalanceTuneUpProfilesController>
     {
         private readonly IHtmlLocalizer htmlLocalizer;
         private readonly IStringLocalizer stringLocalizer;

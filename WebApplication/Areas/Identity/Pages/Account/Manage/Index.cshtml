@@ -4,7 +4,7 @@
     ViewData["Title"] = "Mi Perfil";
 }
 <section id="login" class="container">
-    @Html.Partial("_StatusMessage", Model.StatusMessage)
+    @await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
     <h3>@ViewData["Title"]</h3>
     <div class="row">
         <div class="col-md-8">

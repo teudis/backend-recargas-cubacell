@@ -1,7 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Newtonsoft.Json;
+@using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View
 @using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities;
 
 @inject UserManager<User> UserManager
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer ViewLocalizer
+@inject SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Helpers.Localization.GlobalViewLocalizationHelper GlobalViewLocalizationHelper
 
 <!DOCTYPE html>
 <html>
@@ -67,6 +71,35 @@
 
 
     <section id="mainrender">
+        @if (TempData[NotificationViewModel.NOTIFICATION_MAP_KEY] != null)
+        {
+            var notification = JsonConvert.DeserializeObject<NotificationViewModel>(TempData[NotificationViewModel.NOTIFICATION_MAP_KEY].ToString());
+
+            <div class="container">
+                <div class="alert alert-@Html.Raw(notification.Type.ToString().ToLower())" style="margin-top: 50px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @if (notification.Title != null)
+                    {
+                        <h4>@GlobalViewLocalizationHelper.Localize(notification.Title, ViewLocalizer)</h4>
+                    }
+
+                    @if (notification.Message != null)
+                    {
+                        @Html.Raw(GlobalViewLocalizationHelper.Localize(notification.Message, ViewLocalizer));
+                    }
+
+                    @if (notification.Messages != null)
+                    {
+                        <ul>
+                            @foreach (var item in notification.Messages)
+                            {
+                                <li>@GlobalViewLocalizationHelper.Localize(item, ViewLocalizer)</li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        }
 
         @RenderBody()
 
@@ -111,7 +144,7 @@
 
         <div class="container">
             <div class="copyright">
-                Copyrights &copy; <strong>Conexión Cubanos</strong> - 2019. </br>
+                Copyrights &copy; <strong>Conexión Cubanos</strong> - 2019. <br />
                 Todos los derechos reservados.
             </div>
             <div class="credits">

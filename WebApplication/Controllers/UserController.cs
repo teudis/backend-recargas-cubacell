@@ -15,7 +15,7 @@ using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Managers;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Models.View;
 using SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Security.Authorization;
 
-namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Areas.Account.Controllers
+namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controllers
 {
     [Area("Account")]
     [Authorize(Roles = Roles.ACCOUNT_ADMIN_ROLE, Policy =Policies.ACCOUNT_ASSOCIATED)]
