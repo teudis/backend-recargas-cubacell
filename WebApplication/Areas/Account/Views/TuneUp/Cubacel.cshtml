@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.CellularBalanceTuneUpRequest>
+@{
     ViewData["Title"] = "Crear Recargas Cubacel";
 }
 
@@ -9,7 +10,7 @@
         <h5>Puede realizar m&uacute;ltiples recargas agregando varias en esta p&aacute;gina. </h5>
         <hr />
         <div class="row">
-            <div class="well col-md-12">
+            <div class="well col-md-8">
                 <form class="form-horizontal" id="formulario_recargas">
                     <div id="formulario_recargas">
                         <div class=" form-group" id="dynamic_inputs">
@@ -24,12 +25,18 @@
                                 <button class="btn btn-success col-md-12 collapse" id="button_send_cubacel">Realizar todas las Recargas</button>
                             </div>
                         </div>
-                    </div>
+                    </div>                  
                 </form>
             </div>
 
-            <div class="col-md-12">
-
+            <div class="col-md-4">
+                <h4>&Uacute;ltimos N&uacute;meros Procesados</h4>
+                
+                    @foreach (var contact in Model)
+                    {
+                     <div class="form-group"> @Html.DisplayFor(modelItem => contact.PhoneNumberTarget) <input class="btn btn-info" type="button" value="Seleccionar" id="add_contact"/></div>
+                    }
+               
             </div>
 
         </div>
@@ -59,6 +66,8 @@
                         $("#cubacel" + i).attr('style', "border-color: #dc3545;");
                         $("#cubacel" + i + 'Label').attr('style', "color: #dc3545;");
                         $("#cubacel" + i + 'ErrorExplain').removeClass('collapse');
+                        $('#button_send_cubacel').removeAttr('disabled');
+                       //$('#add_cubacel_tuneup_form').removeAttr('disabled');
                     }
                     else {
                         $("#cubacel" + i).attr('style', "border-color: #00B33C;");
@@ -100,7 +109,7 @@
             });
 
             function isValidPhoneNumber(number) {
-                var expReg = new RegExp(/^([52-58])+[0-9]{6}$/)
+                var expReg = new RegExp(/^([52-59])+[0-9]{6}$/)
 
                 return expReg.test(number);
             }
@@ -116,6 +125,45 @@
                     $('#button_send_cubacel').addClass('collapse');
                 }
             });
+
+
+            // Generar campo de contacto frecuente
+            $(document).on('click', '#add_contact', function (e) {
+
+                e.preventDefault();
+                $('#button_send_cubacel').removeClass('collapse');
+                var datos_cell = $(this).parent().text();  
+                rowcubacel++;
+
+                var form_fragment =
+                    '<div id="rowNumCubacel' + rowcubacel + '">' +
+                    '   <div class="formulario_recargas-row">' +
+                    '       <div class="col-sm-4">' +
+                    '           <div class="form-group" style="margin-bottom: 0;">' +
+                    '               <label id="cubacel' + rowcubacel + 'Label" for="numero_cell" class="control-label">N&uacute;mero de Tel&eacute;fono</label>' +
+                    '               <input type="text" value="' + datos_cell + '" class="form-control" id="cubacel' + rowcubacel + '" />' +
+                    '           </div>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4" id="select_cubacel' + rowcubacel + '">' +
+                    '           <label class="control-label">Perfil Cubacel</label>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4">' +
+                    '           <button type="button" class="btn btn-danger remove_cubacel_tuneup_form">Cancelar esta Recarga</button>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '   <div class="formulario_recargas" style="margin-bottom: 20px;">' +
+                    '       <div class="col-sm-4">' +
+                    '           <span id="cubacel' + rowcubacel + 'ErrorExplain" class="collapse" style="color: #dc3545;">Es requerido un N&uacute;mero de Tel&eacute;fono v&aacute;lido</span>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '</div>';
+
+                $('#zone_cell').append(form_fragment);
+
+                $("#select_cubacel" + rowcubacel).append(select_perfil_cubacel.clone());
+
+            });
+
 
             //Generar campos Cubacel
             $(document).on('click', '#add_cubacel_tuneup_form', function (e) {

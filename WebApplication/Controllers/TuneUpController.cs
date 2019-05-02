@@ -28,14 +28,18 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
 
         }
 
-        public IActionResult Nauta()
+        public async Task<IActionResult> Nauta()
         {
-            return View();
+            var current_user = await _userManager.GetUserAsync(HttpContext.User);
+            var last_cubacel = _context.NautaBalanceTuneUpRequests.Where(u => u.Agent.Id == current_user.Id).Select(d => new NautaBalanceTuneUpRequest { EmailAddressTarget = d.EmailAddressTarget }).Distinct().Take(10).ToList();
+            return View(last_cubacel);
         }
 
-        public IActionResult Cubacel()
+        public async Task<IActionResult> Cubacel()
         {
-            return View();
+            var current_user = await _userManager.GetUserAsync(HttpContext.User);
+            var last_celular = _context.CellularBalanceTuneUpRequests.Where(u=>u.Agent.Id == current_user.Id).Select(d => new CellularBalanceTuneUpRequest {PhoneNumberTarget = d.PhoneNumberTarget }).Distinct().Take(10).ToList();           
+            return View(last_celular);
         }
 
         [HttpGet]

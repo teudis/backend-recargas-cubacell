@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Data.Persistence.Entities.NautaBalanceTuneUpRequest>
+@{
     ViewData["Title"] = "Solicitar Recargas Nauta";
 }
 
@@ -9,7 +10,7 @@
         <h5>Puede realizar m&uacute;ltiples recargas agregando varias en esta p&aacute;gina. </h5>
         <hr />
         <div class="row">
-            <div class="well col-md-12">
+            <div class="well col-md-8">
                 <form class="form-horizontal" id="formulario_recargas">
                     <div id="formulario_recargas">
                         <div class=" form-group" id="dynamic_inputs">
@@ -28,7 +29,13 @@
                 </form>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-4">
+                <h4>&Uacute;ltimos N&uacute;meros Procesados</h4>
+
+                @foreach (var contact in Model)
+                {
+                    <div class="form-group"> @Html.DisplayFor(modelItem => contact.EmailAddressTarget) <input class="btn btn-info" type="button" value="Seleccionar" id="add_contact" /></div>
+                }
 
             </div>
 
@@ -59,6 +66,8 @@
                         $("#nauta" + i).attr('style', "border-color: #dc3545;");
                         $("#nauta" + i + 'Label').attr('style', "color: #dc3545;");
                         $("#nauta" + i + 'ErrorExplain').removeClass('collapse');
+                        $('#button_send_nauta').removeAttr('disabled');
+
                     }
                     else {
                         $("#nauta" + i).attr('style', "border-color: #00B33C;");
@@ -114,6 +123,42 @@
                 if (rownauta <= 0) {
                     $('#button_send_nauta').addClass('collapse');
                 }
+            });
+
+            //Generar campos Nauta con datos de ultimos
+            $(document).on('click', '#add_contact', function (e) {
+                e.preventDefault();
+                $('#button_send_nauta').removeClass('collapse');
+                var datos_nauta = $(this).parent().text();               
+
+                rownauta++;
+
+                var form_fragment =
+                    '<div id="rowNumNauta' + rownauta + '">' +
+                    '   <div class="formulario_recargas-row">' +
+                    '       <div class="col-sm-4">' +
+                    '           <div class="form-group" style="margin-bottom: 0;">' +
+                    '               <label id="nauta' + rownauta + 'Label" for="numero_cell" class="control-label">Usuario Nauta</label>' +
+                    '              <input type="text" value="' + datos_nauta + '" class="form-control" id="nauta' + rownauta + '" />' +
+                    '           </div>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4" id="select_nauta' + rownauta + '">' +
+                    '           <label class="control-label">Perfil Nauta</label>' +
+                    '       </div>' +
+                    '       <div class="col-sm-4">' +
+                    '           <button type="button" class="btn btn-danger remove_nauta_tuneup_form">Cancelar esta Recarga</button>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '   <div class="formulario_recargas" style="margin-bottom: 20px;">' +
+                    '       <div class="col-sm-4">' +
+                    '           <span id="nauta' + rownauta + 'ErrorExplain" class="collapse" style="color: #dc3545;">Es requerido un Usuario Nauta v&aacute;lido</span>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '</div>';
+
+                $('#zone_nauta').append(form_fragment);
+
+                $("#select_nauta" + rownauta).append(select_perfil_nauta.clone());
             });
 
             //Generar campos Nauta
