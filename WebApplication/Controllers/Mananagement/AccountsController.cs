@@ -101,7 +101,7 @@ namespace SSC.CustomSolution.CubansConexion.TuneUpResell.WebApplication.Controll
         private void PopulateModelInputForAvailableUser(AccountInputViewModel inputModel)
         {
             var rol = profilemanager.GetRoles().Find(idrol => idrol.Name == Roles.ACCOUNT_ADMIN_ROLE);
-            var entities = usersRepository.FindBy(user => user.IdRole == rol.Id);
+            var entities = usersRepository.FindBy(user => user.IdRole == rol.Id && user.Account == null );
             var selectListItems = new List<SelectListItem>();
 
             foreach (var entity in entities)
