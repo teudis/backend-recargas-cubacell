@@ -180,4 +180,13 @@
   <data name="UserDisabledMessage" xml:space="preserve">
     <value>Usuario deshabilitado.</value>
   </data>
+  <data name="account-admin-role" xml:space="preserve">
+    <value>Administrador de Cuentas</value>
+  </data>
+  <data name="account-seller-role" xml:space="preserve">
+    <value>Usuario Recargador</value>
+  </data>
+  <data name="system-admin-role" xml:space="preserve">
+    <value>Administrador del Sistema</value>
+  </data>
 </root>
